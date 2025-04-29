@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="images/pc logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="Fonts/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <title>Prefix - Other Products</title>
+</head>
+<body>
+    <header class="navigation-header">
+        <nav id="md-nav-menu">
+            <div id="logo"></div>
+
+            <button>
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </nav>
+        <div class="md-nav-menulist">
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li class="nested-nav active">SHOP <span>&dtrif;</span>
+                    <ul>
+                        <li>
+                            <a href="pricing.html">PRICING PLAN</a>
+                        </li>
+                        <li>
+                            <a href="product.html">  OTHER PRODUCTS</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="services.html">SERVICES</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+            </ul>
+
+            <div class="bl-container">
+                <span><a href="">BUY NOW</a></span>
+                <span>LOGIN</span>
+                <span class="mode-toggle"><i class="fa-solid fa-moon"></i></span>
+            </div>
+        </div>
+        <nav id="navigator">
+            <div id="logo"></div>
+            
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li class="nested-nav active">SHOP &dtrif;
+                    <ul>
+                        <li>
+                            <a href="pricing.html">PRICING PLAN</a>
+                        </li>
+                        <li>
+                            <a href="product.html">OTHER PRODUCTS</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="services.html">SERVICES</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+            </ul>
+
+            <div>
+                <span><a href="">BUY NOW</a></span>
+                <span>LOGIN</span>
+                <span class="mode-toggle"><i class="fa-solid fa-moon"></i></span>
+            </div>
+        </nav>
+    </header> 
+    <!-- Modal begins here -->
+    <div id="login-modal">
+        <div class="login-modal-content">
+            <div class="modal-header">
+                <h1>Login</h1>
+                <span class="close">&times;</span>
+            </div>
+            <form id="form">
+                <div>
+                    <input type="email" placeholder="Email" onkeydown="handlekeydown(event)">
+                </div>
+                <div>
+                    <input type="password" placeholder="Password" onkeydown="handlekeydown(event)">
+                </div>
+                <div class="login-details">
+                    <div class="checkbox">
+                        <input type="checkbox"> 
+                        <label for="checkbox">Keep me logged in</label>
+                    </div>
+                    <p>Forgot password</p>
+                </div>
+                <div>
+                    <button id="button">Log in</button>
+                </div>
+            </form>
+            <p>Don't have an account?<a href="#" id="trigger">   Create account</a></p>
+
+            <div class="social-media">
+                <p>or continue with</p>
+                <div class="social-icons">
+                    <i class="fa-brands fa-google" style="background: linear-gradient(90deg, #004cc5, #cc1100, #eeae00, #00e476); background-clip: text; color: transparent;"></i>
+                    <i class="fa-brands fa-facebook" style="color: #3b5998;"></i>
+                    <i class="fa-brands fa-twitter" style="color: #1DA1F2;"></i>
+                    <i class="fa-brands fa-apple" style="color: #000000;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="create-account-modal">
+        <div class="create-account-modal-content">
+            <div class="modal-header">
+                <h1>Create Account</h1>
+                <span class="close">&times;</span>
+            </div>
+            <form id="form-1">
+                <div class="name">
+                    <div>
+                        <label for="firstname">First name</label>
+                        <input type="text" placeholder="Enter your first Name" onkeydown="handlekeydown(event)">
+                    </div>
+                    <div>
+                        <label for="lastname">Last name</label>
+                        <input type="text" placeholder="Enter your last Name" onkeydown="handlekeydown(event)">
+                    </div>
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" placeholder="Enter your Email" onkeydown="handlekeydown(event)">
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" placeholder="Create your Password" onkeydown="handlekeydown(event)">
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox"> 
+                    <label for="checkbox">I agree to the Terms and Privacy Policy</label>
+                </div>
+                <div>
+                    <button id="button-1"><b>Create Account</b></button>
+                </div>
+            </form>
+            <div class="social-media">
+                <p>OR</p>
+                <div class="social-icons">
+                    <i class="fa-brands fa-google" style="background: linear-gradient(45deg, #4285F4, #DB4437, #F4B400, #0F9D58); background-clip: text; color: transparent;"></i>
+                    Sign Up with Google
+                </div>
+            </div>
+            <p>Already have an account?<a href="#" id="trigger1"> Login</a></p>
+        </div>
+    </div>
+    <!-- Modal ends here -->
+    <!-- Loader starts here -->
+    <div id="loader-wrapper">
+        <div class="img"></div>
+        <div class="loader"></div>
+    </div>
+    <!-- Loader ends here -->
+    <!-- Progess bar starts here -->
+    <div id="progress-circle">
+        <svg width="80" height="80">
+            <circle cx="40" cy="40" r="35" stroke="#ddd" stroke-width="5" fill="none"></circle>
+            <circle id="progress" cx="40" cy="40" r="35" stroke="aqua" stroke-width="5" fill="none" stroke-dasharray="220" stroke-dashoffset="220"></circle>
+        </svg>
+    </div>
+    <div class="back-to-top">
+        <a href="#"><i class="fa-solid fa-arrow-up"></i></a>
+    </div>
+    <!-- Progress bar ends here -->
+    <!-- Onscroll Header starts here -->
+    <header class="navigation-onscroll">
+        <nav id="md-nav-menu">
+            <div id="logo"></div>
+
+            <button>
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </nav>
+        <div class="md-nav-menulist">
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li class="nested-nav active">SHOP <span>&dtrif;</span>
+                    <ul>
+                        <li>
+                            <a href="pricing.html">PRICING PLAN</a>
+                        </li>
+                        <li>
+                            <a href="product.html">  OTHER PRODUCTS</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="services.html">SERVICES</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+            </ul>
+
+            <div class="bl-container">
+                <span><a href="">BUY NOW</a></span>
+                <span>LOGIN</span>
+                <span class="mode-toggle"><i class="fa-solid fa-moon"></i></span>
+            </div>
+        </div>
+        <nav id="navigator">
+            <div id="logo">
+                <img src="images/Prefix logo.png">
+            </div>
+            
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li class="nested-nav active">SHOP &dtrif;
+                    <ul>
+                        <li>
+                            <a href="pricing.html">PRICING PLAN</a>
+                        </li>
+                        <li>
+                            <a href="product.html">OTHER PRODUCTS</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="services.html">SERVICES</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+            </ul>
+
+            <div>
+                <span><a href="">BUY NOW</a></span>
+                <span class="trigger-2">LOGIN</span>
+                <span class="mode-toggle"><i class="fa-solid fa-moon"></i></span>
+            </div>
+        </nav>
+    </header> 
+    <!-- Onscroll Header ends here -->
+    <section class="main-wrapper">
+        <div class="video-container">
+            <video autoplay muted loop playsinline class="bg-video">
+              <source src="images/istockphoto-980371916-640_adpp_is.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+        
+            <div class="content">
+                <p>
+                    <a href="index.html">Home</a>
+                    <span>/ Shop</span> / Other Products
+                </p>
+            </div>
+        </div>
+        <!-- Other Products starts here -->
+        <!-- Premium Ads starts here -->
+        <section class="section-3 products-section-3" data-aos="fade-up">
+            <div class="premium-title">
+                <h1>PREMIUM ADVERTISEMENT</h1>
+            </div>
+            <div class="slider-container-1">
+                <div class="slider-track-1">
+                    <div class="slide-1">
+                        <div>
+                            <img src="images/blog-img.png" alt="Slide1">
+                            <div>
+                               <a href="#">Chat Now</a>
+                               <a href="#">Call Now</a> 
+                            </div>
+                            <span>01</span>
+                        </div>
+                        <div>
+                            <img src="images/blog-img1.png" alt="Slide2">
+                            <div>
+                                <a href="#">Chat Now</a>
+                                <a href="#">Call Now</a>
+                            </div>
+                            <span>02</span>
+                        </div>
+                        <div>
+                            <img src="images/blog-img2.png" alt="Slide3">
+                            <div>
+                                <a href="#">Chat Now</a>
+                                <a href="#">Call Now</a>
+                            </div>
+                            <span>03</span>
+                        </div>
+                    </div>
+                    <div class="slide-1">
+                        <div>
+                            <img src="images/blog-img.png" alt="Slide1">
+                            <div>
+                               <a href="#">Chat Now</a>
+                               <a href="#">Call Now</a> 
+                            </div>
+                            <span>01</span>
+                        </div>
+                        <div>
+                            <img src="images/blog-img1.png" alt="Slide2">
+                            <div>
+                                <a href="#">Chat Now</a>
+                                <a href="#">Call Now</a>
+                            </div>
+                            <span>02</span>
+                        </div>
+                        <div>
+                            <img src="images/blog-img2.png" alt="Slide3">
+                            <div>
+                                <a href="#">Chat Now</a>
+                                <a href="#">Call Now</a>
+                            </div>
+                            <span>03</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-nav-2">
+                    <i class="fa-solid fa-angle-left prev-btn-1"></i>
+                    <i class="fa-solid fa-angle-right next-btn-1"></i>
+                </div>
+            </div>
+        </section>
+        <!-- Premium Ads ends here -->
+        <!-- Other Products ends here -->
+        <!-- Footer starts here -->
+        <footer data-aos="fade-up">
+            <div class="footer-section">
+                <div class="footer-img">
+                    <img src="images/Prefix-footer-logo.png" alt="">
+                </div>
+                <div class="footer-info">
+                    <div>
+                        <h1>Useful link</h1>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="services.html">Services</a></li>
+                            <li><a href="pricing.html">Pricing</a></li>
+                            <li><a href="product.html">Products</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h1>Portfolio</h1>
+                        <ul>
+                            <li><a href="#">LIodeno</a></li>
+                            <li><a href="#">Jokri</a></li>
+                            <li><a href="#">Begana</a></li>
+                            <li><a href="#">Snipt</a></li>
+                            <li><a href="#">Precok</a></li>
+                            <li><a href="#">Cabinm</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h1>Contact Us</h1>
+                        <p><img src="images/call-icon.png" alt=""> <span>+234 816 042 1290</span></p>
+                        <p><img src="images/mail-icon.png" alt="">  <span>stevofame15@gmail.com</span> </p>
+                    </div>
+                    <div>
+                        <h1>Social Link</h1>
+                        <p>It is a long established fact that a reader will be leader</p>
+                        <div class="social-link">
+                            <div><i class="fa-brands fa-facebook-f"></i><div class="overlay"></div></div>
+                            <div><i class="fa-brands fa-twitter"></i><div class="overlay a"></div></div>
+                            <div><i class="fa-brands fa-linkedin-in"></i><div class="overlay"></div></div>
+                            <div><i class="fa-brands fa-instagram"></i><div class="overlay b"></div></div>
+                        </div>
+
+                    </div>
+                </div>
+                <form class="subscribe-form">
+                    <input type="text" placeholder="ENTER YOUR EMAIL">
+                    <button type="submit"><a href="#">SUBSCRIBE</a></button>
+                </form>
+            </div>
+            <div class="copyright-section">
+                <p>2025 All Rights Reserved. Designed by <a href="#">Free Html Templates Distribution</a> by <a href="#">PhamozChrist</a></p>
+            </div>
+        </footer>
+    </section>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
