@@ -615,9 +615,6 @@
 .navigation-header .md-nav-menulist ul .nested-nav .md-nestednav-open{
     height:90px;
 }
-.navigation-header .md-nav-menulist ul .nested-nav:hover{
-    /* border-bottom:0; */
-}
 .navigation-header .md-nav-menulist ul .nested-nav:hover > span{
     transform: rotate(225deg);
     /* color: red; */
@@ -750,10 +747,6 @@
 }
 .navigation-onscroll .md-nav-menulist ul .nested-nav .md-nestednav-open{
     height:90px;
-
-}
-.navigation-onscroll .md-nav-menulist ul .nested-nav:hover{
-    /* border-bottom:0; */
 }
 .navigation-onscroll .md-nav-menulist ul .nested-nav:hover > span{
     transform: rotate(225deg);
@@ -1729,16 +1722,16 @@ footer .copyright-section{
     
 }
 #login-modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
+    /* display: none; */
+    /* position: fixed; */
+    /* z-index: 1000; */
+    /* left: 0; */
+    /* top: 0; */
     width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
+    height: 100vh;
+    /* overflow: hidden; */
+    /* background-color: rgb(0,0,0); */
+    /* background-color: rgba(0,0,0,0.4); */
     color: black;
 }
 
@@ -1748,14 +1741,23 @@ footer .copyright-section{
     margin: 5% auto 15%;
     padding: 20px;
     width: 80%;
-    max-width: 500px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.151);
 }
-.login-modal-content .modal-header {
+.login-modal-content .login-logo{
+    background-image: url('images/Prefix\ logo.png');
+    background-size: 200px;
+    background-repeat:no-repeat;
+    width:200px;
+    height: 120px;
+    justify-self:center;
+    /* border: 1px solid red; */
+}
+/* .login-modal-content .modal-header {
     display: flex;
     justify-content: space-between;
     line-height: none;
-}
+} */
 
 .modal-header .close {
     color: #aaa;
@@ -1792,6 +1794,18 @@ footer .copyright-section{
     border-radius: 5px;
     outline: none;
 }
+.login-modal-content form label{
+    position: relative;
+    top: 43px;
+    left: 10px;
+    color:#5a5a5a;
+}
+.login-modal-content form input:focus  label{
+    top: -10px;
+    left: 10px;
+    font-size: 12px;
+    color: #00c8ac;
+}
 .login-modal-content form .login-details{
     margin-bottom: 20px;
     display: flex;
@@ -1815,8 +1829,8 @@ footer .copyright-section{
     }
 }
 .login-modal-content form button {
-    background-color: #28454e;
-    color: white;
+    background-color: #e0fdf9;
+    color: rgb(0, 0, 0);
     padding: 10px 20px;
     margin: 10px 0;
     border: 1px solid transparent;
@@ -1827,6 +1841,7 @@ footer .copyright-section{
 
 .login-modal-content form button:hover {
     background-color: #00c8ac;
+    color:white;
 }
 .login-modal-content p{
     font-size: 13px;
