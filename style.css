@@ -1734,95 +1734,110 @@ footer .copyright-section{
     /* background-color: rgba(0,0,0,0.4); */
     color: black;
 }
-
+#login-modal .login-logo{
+    background-image: url('images/pc\ logo.png');
+    background-size: 80px;
+    background-repeat:no-repeat;
+    width:81px;
+    height: 100px;
+    justify-self:center;
+    margin-top: 3%;
+}
+#login-modal .login-header {
+    display: flex;
+    justify-content: center;
+    /* line-height: none; */
+    
+    h1{
+        font-weight:100;
+        text-align: center;
+        font-size: 25px;
+    }
+}
 .login-modal-content {
     background-color: #fefefe;
     border-radius: 10px;
-    margin: 5% auto 15%;
+    margin: 0 auto 5%;
     padding: 20px;
     width: 80%;
-    max-width: 400px;
+    max-width: 300px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.151);
 }
-.login-modal-content .login-logo{
-    background-image: url('images/Prefix\ logo.png');
-    background-size: 200px;
-    background-repeat:no-repeat;
-    width:200px;
-    height: 120px;
-    justify-self:center;
-    /* border: 1px solid red; */
-}
-/* .login-modal-content .modal-header {
-    display: flex;
-    justify-content: space-between;
-    line-height: none;
-} */
-
-.modal-header .close {
-    color: #aaa;
-    font-size: 30px;
-    font-weight: bold;
-    height: 30px;
-    cursor: pointer;
-}
-
-.modal-header.close:hover,
-.modal-header.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.login-modal-content .modal-header h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 25px;
-}
-
 
 .login-modal-content form > div:first-of-type {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
-
-.login-modal-content form input {
+.login-modal-content form .form-box{
+    position:relative;
+}
+.login-modal-content form .form-box input {
     width: 100%;
     padding: 10px;
-    margin: 5px 0 10px 0;
+    margin: 10px 0 10px 0;
     display:block;
     border: 1px solid #ccc;
     border-radius: 5px;
     outline: none;
 }
-.login-modal-content form label{
-    position: relative;
-    top: 43px;
+.login-modal-content form .form-box label{
+    position: absolute;
+    top: 40px;
     left: 10px;
     color:#5a5a5a;
+    pointer-events: none;
+    transform:translateY(-100%);
+    cursor:text;
 }
-.login-modal-content form input:focus  label{
-    top: -10px;
-    left: 10px;
+.login-modal-content form .form-box input:is(:focus, :valid){
+    outline: 1px solid #00c8ac;
+}
+.login-modal-content form .form-box input:is(:focus, :valid) ~ label{
+    transform:translateY(-250%);
     font-size: 12px;
     color: #00c8ac;
+    background-color: #fefefe;
+    padding: 0 5px;
 }
 .login-modal-content form .login-details{
     margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
 
-    .checkbox{
+    .custom-checkbox {
         display: flex;
-        gap: 10px;
-
-        input{
-            width: auto;
-            accent-color: black;
-        }
-        label{
-            font-size: 13px;
-        }
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
     }
+    
+    .custom-checkbox input[type="checkbox"] {
+        display: none;
+    }
+    
+    .custom-checkbox .checkmark {
+        width: 15px;
+        height: 15px;
+        background-color: rgb(255, 255, 255);
+        border: 1px solid #555;
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+    }
+    .custom-checkbox input[type="checkbox"]:checked + .checkmark{
+        background-color: black;
+    }
+    .custom-checkbox input[type="checkbox"]:checked + .checkmark::after {
+        content: "";
+        position: absolute;
+        left: 4px;
+        top: 1px;
+        width: 3px;
+        height: 7px;
+        border: solid #ffffff;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+    }
+
     p{
         color: red;
         cursor: pointer;
@@ -1831,7 +1846,7 @@ footer .copyright-section{
 .login-modal-content form button {
     background-color: #e0fdf9;
     color: rgb(0, 0, 0);
-    padding: 10px 20px;
+    padding: 8px 20px;
     margin: 10px 0;
     border: 1px solid transparent;
     cursor: pointer;
@@ -1849,7 +1864,7 @@ footer .copyright-section{
 }
 .login-modal-content p a{
     text-decoration: none;
-    color: #2D2B2B;
+    color: #00c8ac;
 }
 .login-modal-content p a:hover{
     text-decoration: underline;

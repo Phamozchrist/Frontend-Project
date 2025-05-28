@@ -6,51 +6,54 @@
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="images/pc logo.png" type="image/x-icon">
     <link rel="stylesheet" href="fonts/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"> -->
     <title>Prefix - Login</title>
 </head>
 <body>
     <div id="login-modal">
         <div class="login-logo"></div>
-        <div class="login-modal-content">
-            
-            <div class="modal-header">
-                <h1>Login</h1>
-            </div>
+        <div class="login-header">
+            <h1>Log in to prefix</h1>
+        </div>
+        <div class="login-modal-content">            
+           
             <form id="form">
-                <div>
-                    <label for="email">Email</label>
-                    <input type="email" onkeydown="handlekeydown(event)">
+                <div class="form-box">
+                    <input type="text" required>
+                    <label for="email">Email or Username</label>
                 </div>
-                <div>
+                <div class="form-box">
+                    <input type="password" required>
                     <label for="password">Password</label>
-                    <input type="password" onkeydown="handlekeydown(event)">
                 </div>
                 <div class="login-details">
-                    <div class="checkbox">
-                        <input type="checkbox"> 
-                        <label for="checkbox">Keep me logged in</label>
+                    <div class="checkbox"> 
+                        <label class="custom-checkbox">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                            Keep me logged in
+                        </label>
                     </div>
-                    <p>Forgot password</p>
+                    <p>forgot password?</p>
                 </div>
                 <div>
                     <button id="button">Log in</button>
                 </div>
             </form>
             <p>Don't have an account?<a href="#" id="trigger">   Create account</a></p>
-
+            <p>log in as an <a href="#">Administrator</a></p>
             <div class="social-media">
                 <p>or continue with</p>
                 <div class="social-icons">
                     <i class="fa-brands fa-google" style="background: linear-gradient(90deg, #004cc5, #cc1100, #eeae00, #00e476); background-clip: text; color: transparent;"></i>
                     <i class="fa-brands fa-facebook" style="color: #3b5998;"></i>
                     <i class="fa-brands fa-twitter" style="color: #1DA1F2;"></i>
-                    <i class="fa-brands fa-apple" style="color: #000000;"></i>
+                    <i class="fa-brands fa-github" style="color: #000000;"></i>
                 </div>
             </div>
         </div>
         <div class="terms">
-            <p>login as an <a href="#">Administrator</a></p>
+            
             <p>By logging in, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
         </div>
         <div class="modal-footer">
@@ -67,11 +70,11 @@
                 <div class="name">
                     <div>
                         <label for="firstname">First name</label>
-                        <input type="text" placeholder="Enter your first Name" onkeydown="handlekeydown(event)">
+                        <!-- <input type="text" placeholder="Enter your first Name" onkeydown="handlekeydown(event)"> -->
                     </div>
                     <div>
                         <label for="lastname">Last name</label>
-                        <input type="text" placeholder="Enter your last Name" onkeydown="handlekeydown(event)">
+                        <!-- <input type="text" placeholder="Enter your last Name" onkeydown="handlekeydown(event)"> -->
                     </div>
                 </div>
                 <div>
@@ -100,5 +103,8 @@
             <p>Already have an account?<a href="#" id="trigger1"> Login</a></p>
         </div>
     </div>
+
+
+    <!-- <script src="script.js"></script> -->
 </body>
 </html>
