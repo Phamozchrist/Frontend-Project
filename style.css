@@ -1721,93 +1721,119 @@ footer .copyright-section{
     }
     
 }
+.login-modal-content::before{
+    content: " ";
+    position: absolute;
+    width: 160px;
+    height: 240px;
+    background-color: rgb(224, 253, 249);
+    left: 0px;
+    top: 0px;
+    z-index: -24;
+    border-bottom-right-radius: 100%;
+}
 #login-modal {
-    /* display: none; */
-    /* position: fixed; */
-    /* z-index: 1000; */
-    /* left: 0; */
-    /* top: 0; */
     width: 100%;
     height: 100vh;
-    /* overflow: hidden; */
-    /* background-color: rgb(0,0,0); */
-    /* background-color: rgba(0,0,0,0.4); */
     color: black;
 }
-#login-modal .login-logo{
-    background-image: url('images/pc\ logo.png');
-    background-size: 80px;
+
+.login-logo{
+    background-image: url('images/pc logo.png');
+    background-size: contain;
+    background-position: center;
     background-repeat:no-repeat;
-    width:81px;
+    width:61px;
     height: 100px;
     justify-self:center;
-    margin-top: 3%;
+    place-content:center;
+    /* border: 1px solid red; */
 }
-#login-modal .login-header {
+.login-header {
     display: flex;
     justify-content: center;
-    /* line-height: none; */
+    
     
     h1{
-        font-weight:100;
+        font-weight: 300;
         text-align: center;
         font-size: 25px;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        color: #3f3f3f;
+        line-height: 2.5;
     }
 }
 .login-modal-content {
+    position:relative;
     background-color: #fefefe;
     border-radius: 10px;
-    margin: 0 auto 5%;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin: 0 auto 1%;
     padding: 20px;
     width: 80%;
     max-width: 300px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.151);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.151);
+    z-index: 120;
 }
-
+.admin-modal-content{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin: 1% auto 3%;
+}
 .login-modal-content form > div:first-of-type {
     margin-bottom: 20px;
 }
-.login-modal-content form .form-box{
+form .form-box{
     position:relative;
+    z-index: 10;
 }
-.login-modal-content form .form-box input {
+form .form-box input {
     width: 100%;
-    padding: 10px;
+    padding: 7px;
     margin: 10px 0 10px 0;
     display:block;
     border: 1px solid #ccc;
+    background-color: transparent;
     border-radius: 5px;
     outline: none;
+    position:relative;
+    z-index: 10;
 }
-.login-modal-content form .form-box label{
+form .form-box label{
     position: absolute;
-    top: 40px;
+    top: 35px;
     left: 10px;
-    color:#5a5a5a;
+    color:#7c7c7c;
     pointer-events: none;
     transform:translateY(-100%);
     cursor:text;
+    z-index:10;
+    
+
 }
-.login-modal-content form .form-box input:is(:focus, :valid){
+form .form-box input:is(:focus, :valid){
     outline: 1px solid #00c8ac;
 }
-.login-modal-content form .form-box input:is(:focus, :valid) ~ label{
-    transform:translateY(-250%);
+form .form-box input:is(:focus, :valid) ~ label{
+    transform:translateY(-210%);
     font-size: 12px;
     color: #00c8ac;
-    background-color: #fefefe;
+    background-color: #e0fdf9;
     padding: 0 5px;
 }
-.login-modal-content form .login-details{
-    margin-bottom: 20px;
+form .login-details{
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
+    position:relative;
+    z-index: 10;
 
     .custom-checkbox {
         display: flex;
         align-items: center;
         gap: 8px;
-        font-size: 13px;
+        font-size: 12px;
     }
     
     .custom-checkbox input[type="checkbox"] {
@@ -1815,9 +1841,9 @@ footer .copyright-section{
     }
     
     .custom-checkbox .checkmark {
-        width: 15px;
-        height: 15px;
-        background-color: rgb(255, 255, 255);
+        width: 14px;
+        height: 14px;
+        background-color: transparent;
         border: 1px solid #555;
         display: inline-block;
         position: relative;
@@ -1831,7 +1857,7 @@ footer .copyright-section{
         position: absolute;
         left: 4px;
         top: 1px;
-        width: 3px;
+        width: 2px;
         height: 7px;
         border: solid #ffffff;
         border-width: 0 2px 2px 0;
@@ -1839,15 +1865,16 @@ footer .copyright-section{
     }
 
     p{
-        color: red;
+        color: #00c8ac;
         cursor: pointer;
+        font-size: 12px;
     }
 }
 .login-modal-content form button {
-    background-color: #e0fdf9;
-    color: rgb(0, 0, 0);
-    padding: 8px 20px;
-    margin: 10px 0;
+    background-color: #28454e;
+    color:white;
+    padding: 7px;
+    margin: 2px 0;
     border: 1px solid transparent;
     cursor: pointer;
     width: 100%;
@@ -1856,22 +1883,20 @@ footer .copyright-section{
 
 .login-modal-content form button:hover {
     background-color: #00c8ac;
-    color:white;
+    color: rgb(0,0,0);
+
 }
+/* .login-modal-content form button:disabled {
+    background-color: #e70000;
+    cursor: not-allowed;
+} */
 .login-modal-content p{
     font-size: 13px;
     text-align: center;
 }
-.login-modal-content p a{
-    text-decoration: none;
-    color: #00c8ac;
-}
-.login-modal-content p a:hover{
-    text-decoration: underline;
-}
 .login-modal-content .social-media{
     border-top: 1px solid #363535;
-    margin-top: 40px;
+    margin-top: 25px;
 
     p{
         position: relative;
@@ -1887,7 +1912,6 @@ footer .copyright-section{
     display:  flex;
     justify-content: center;
     text-align: center;
-    padding: 20px 0;
     gap: 30px;
 
     i{
@@ -1895,143 +1919,166 @@ footer .copyright-section{
         cursor: pointer;
     }
 }
-#create-account-modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
+#login-modal .login-footer {
+    /* border: 1px solid red; */
     width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-    color: black;
-}
-
-.create-account-modal-content {
-    background-color: #fefefe;
-    margin: 1% auto 15%;
-    padding: 20px;
-    width: 80%;
-    max-width: 500px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    max-width: 300px;
+    justify-self: center;
+    padding: 10px 20px;
     border-radius: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.151);
+    margin-bottom: 3%;
+    background-color: white;
 }
-.create-account-modal-content .modal-header {
-    display: flex;
-    justify-content: space-between;
-    line-height: none;
-}
-
-.create-account-modal-content .modal-header .close {
-    color: #aaa;
-    font-size: 30px;
-    font-weight: bold;
-    height: 30px;
-    cursor: pointer;
-}
-
-.create-account-modal-content .modal-header .close:hover,
-.create-account-modal-content .modal-header .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.create-account-modal-content .modal-header h1 {
+#login-modal .login-footer p {
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 20px;
+    font-size: 13px;
+    color: #3f3f3f;
+
 }
+#login-modal .login-footer p:first-child a {
+    font-weight: 500;
+}
+#login-modal .login-footer p a {
+    text-decoration: none;
+    color: #00c8ac;
+}
+#login-modal .login-footer p a:hover {
+    text-decoration: underline;
+}
+#login-modal .terms{
+    justify-self: center;
+    font-size: 12px;
+}
+#login-modal .terms p a{
+    text-decoration: none;
+    color: #00c8ac;
+}
+#create-account-modal {
+    display:flex
+}
+#create-account-modal .create-account-container{
+    background-image:linear-gradient(to top, #02bfa3cc,#28454e);
+    color: white;
+    width:50%;
 
-
-
-
-.create-account-modal-content form .name{
-    display: flex;
-    gap: 10px;
-    
     div{
         width:100%;
+        /* border:1px solid red; */
+        height: 158px;
+        place-content:end;
+        padding-left:19%;
     }
-    
+    .create-account-img{
+        width:80%;
+        height:500px;
+        /* border: 1px solid red; */
+        padding-top:100px;
+    }
+    .create-account-img img{
+        width: 100%;
+    }
+}
+.create-account-modal-content {
+    position:relative;
+    background-color: #fefefe;
+    /* border-radius: 10px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0; */
+    margin: 0 auto 1%;
+    padding: 20px 80px 40px;
+    width: 50%;
+    z-index: 120;
+}
 
+.create-account-modal-content form{
+    margin-top: 30px;
+}
+.create-account-modal-content form h2{
+    margin-bottom: 20px;
+}
+.create-account-modal-content form .msg-error {
+    border: 2px solid red;
+    width:100%;
+    border-radius:10px;
+    padding: 10px;
+    background-color: rgb(233, 177, 177);
+}
+.login-modal-content form .msg-success {
+    border: 2px solid #00c8ac;
+    width:100%;
+    border-radius:10px;
+    padding: 30px 10px;
+    font: 16px;
+    color: rgb(0, 0, 0);
+    background-color: #e0fdf9;
+}
+.create-account-modal-content form div .is-invalid {
+    border: 1px solid red;
+}
+.create-account-modal-content form div .is-valid{
+    border: 1px solid green;
+}
+.create-account-modal-content form div .error, .create-account-modal-content form div .firstname-err,.create-account-modal-content form div .lastname-err,.create-account-modal-content form div .username-err,.create-account-modal-content form div .email-err,.create-account-modal-content form div .password-err,.create-account-modal-content form div .confirm_password-err{
+    font-size:14px;
+    color: red;
+    margin-bottom: 0;
 }
 .create-account-modal-content form input {
     width: 100%;
     padding: 10px;
-    margin: 5px 0 10px 0;
+    margin: 1px 0;
     display:block;
-    border: 1px solid #302f2f;
+    border: 1px solid #ccc;
+    background-color: transparent;
     border-radius: 5px;
     outline: none;
-}
-
-.create-account-modal-content form .checkbox{
-    margin-bottom: 20px;
-    display: flex;
-    gap: 10px;
-
-        input{
-            width: auto;
-            accent-color: black;
-        }
-        label{
-            font-size: 13px;
-        }
+    font-size: 15px;
 }
 .create-account-modal-content form button {
     background-color: #28454e;
     color: white;
+    margin: 5px 0;
     padding: 10px 20px;
-    margin: 10px 0;
     border: 1px solid transparent;
     cursor: pointer;
     width: 100%;
     border-radius: 5px;
+    font-size: 16px;
 }
+/* .create-account-modal-content form button:disabled {
+    background-color: #e70000;
+    cursor: not-allowed;
+} */
+.create-account-footer{
+    margin: 15px 0;
 
+    p{
+        color: #3f3f3fc5;
+    }
+}
 .create-account-modal-content form button:hover {
     background-color: #02bfa4;
 }
-.create-account-modal-content p{    
+
+
+.create-account-modal-content p{
     font-size: 13px;
-    text-align: center;
+    margin-bottom:20px;
+}
+.create-account-modal-content >p{
+    text-align: end;
+    margin-bottom:0;
 }
 .create-account-modal-content p a{
     text-decoration: none;
-    color: #2D2B2B;
+    color: #00c8ac;
+
 }
 .create-account-modal-content p a:hover{
     text-decoration: underline;
-}
-.create-account-modal-content .social-media{
-    border-top: 1px solid #363535;
-    margin: 10px 0;
-
-    p{
-        position: relative;
-        display: inline-block;
-        background-color: #fff;
-        left:50%;
-        transform: translateX(-50%);
-        bottom: 13px;
-        padding: 0 10px;
-    }
-}
-.create-account-modal-content .social-media .social-icons{
-    display:  flex;
-    justify-content: center;
-    text-align: center;
-    padding: 10px 0;
-    gap: 40px;
-    border: 2px outset rgb(199, 196, 196);
-    cursor: pointer;
-
-    i{
-        font-size: 25px;
-    }
 }
 
 /* Loader */

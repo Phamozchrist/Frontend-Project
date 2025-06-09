@@ -16,10 +16,7 @@
         <!-- Navbar ends here -->
 
         <!-- Loader starts here -->
-        <div id="loader-wrapper">
-            <div class="img"></div>
-            <div class="loader"></div>
-        </div>
+        <?php include 'includes/loader.php';?>
         <!-- Loader ends here -->
         <!-- Progess bar starts here -->
         <div id="progress-circle">

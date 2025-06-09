@@ -38,14 +38,6 @@ function enableScroll() {
     document.body.style.overflow = 'auto';
 }
 
-function handlekeydown(event) {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        document.querySelectorAll('.login-modal-content form input').forEach(input => input.value = '');
-        alert("Form submitted successfully");
-    }
-}
-
 window.onload = function() {
     setTimeout(function() {
         document.getElementById("loader-wrapper").style.display = "none"; 
@@ -70,79 +62,6 @@ function updateCircularProgress() {
 
 
 window.addEventListener("scroll", updateCircularProgress);
-
-const loginModal = document.getElementById('login-modal');
-const loginModalClose = document.querySelectorAll('.close');
-const loginModalOpens = document.querySelectorAll('span:nth-child(2)');
-const close = document.getElementById('button');
-const createModal = document.getElementById('create-account-modal');
-const createModalOpen = document.getElementById('trigger');
-const createClose2 = document.getElementById('trigger1');
-const createClose = document.getElementById('button-1');
-const loginModalOpen2 = document.querySelector('.trigger-2');
-
-document.addEventListener('DOMContentLoaded', function(e) {
-    e.preventDefault()
-
-    loginModalOpens.forEach(loginModalOpen => {
-        loginModalOpen.addEventListener('click', function() {
-            loginModal.style.display = 'block';
-            disableScroll();
-        });
-    });
-
-    loginModalOpen2.addEventListener('click', function() {
-        loginModal.style.display = 'block';
-        disableScroll();
-    });
-    
-    loginModalClose.forEach((loginModalClose)=>{
-        loginModalClose.addEventListener('click', function() {
-            loginModal.style.display = 'none';
-            createModal.style.display = 'none'
-            enableScroll();
-        });
-    });
-   
-    close.addEventListener('click', function(){
-        loginModal.style.display = "none";
-        enableScroll();
-    })
-    window.addEventListener('click', function(event) {
-        if (event.target == loginModal) {
-            loginModal.style.display = 'none';
-        }
-    });
-});
-
-document.addEventListener('DOMContentLoaded', function(e) {
-    e.preventDefault()
-    createModalOpen.addEventListener('click', function() {
-        createModal.style.display = 'block';
-        loginModal.style.display = 'none';
-        disableScroll();
-    });
-    
-    
-
-    createClose.addEventListener('click', function(){
-        createModal.style.display = "none";
-        loginModal.style.display = 'block'
-        disableScroll()
-    })
-    createClose2.addEventListener('click', function(){
-        loginModal.style.display = 'block'
-        createModal.style.display = 'none'
-        disableScroll();
-    })
-    window.addEventListener('click', function(event) {
-        if (event.target == createModal) {
-            createModal.style.display = 'none';
-            enableScroll();
-        }
-    });
-});
-
 
 const sliderTrack = document.querySelector('.slider-track');
 const slides = document.querySelectorAll('.slide');
