@@ -42,7 +42,7 @@ window.onload = function() {
     setTimeout(function() {
         document.getElementById("loader-wrapper").style.display = "none"; 
         enableScroll()
-    }, 3000);
+    }, 2000);
     disableScroll()
 };
 

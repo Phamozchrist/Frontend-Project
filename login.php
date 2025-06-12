@@ -1,32 +1,17 @@
-<?php require 'includes/login_script.php';?>
+<?php include 'includes/login_script.php';?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style/style.css">
     <link rel="shortcut icon" href="images/pc logo.png" type="image/x-icon">
     <link rel="stylesheet" href="fonts/css/all.min.css">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"> -->
     <title>Prefix - Login</title>
-    <style>
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background-color:rgb(255, 255, 255);
-        }
-
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-    <script>
-         particlesJS.load('particles-js', 'particles.json');
-    </script>
-    
 </head>
 <body class="login-container">
-    <?php include 'includes/loader.php';?>
+    <!-- <?php include 'includes/loader.php';?> -->
     <div id="particles-js"></div>
     <div id="login-modal">
         <div class="login-logo"></div>
@@ -35,19 +20,21 @@
         </div>
         <div class="login-modal-content">            
             <form id="form" method="post">
-                <?php if(!empty($successMsg)) { ?>
-                    <?=($successMsg);?>
+                <?php if(!empty($msg)) { ?>
+                    <?=($msg);?>
                 <?php } ?>
-                <?=$msg?>
                 <div class="form-box">
-                    <input type="text" name="emailOrUsername" id="emailOrUsername" class="<?=empty($emailOrUsernameErr) ? '' : 'is-invalid';?>" required>
+                    <i class="fa-solid fa-user eU-icon"></i>
+                    <input type="text" name="emailOrUsername" id="emailOrUsername" class="<?=empty($emailOrUsernameErr) ? '' : 'is-invalid';?>" value="<?= htmlspecialchars($emailOrUsername); ?>" required>
                     <label for="emailOrUsername">Email or Username</label>
                     <p class="emailOrUsername-err"><?=$emailOrUsernameErr;?></p>
                 </div>
                 <div class="form-box">
-                    <input type="password" name="login_password" id="login_password" class="<?=empty($passwordErr) ? '' : 'is-invalid';?>" required>
+                    <i class="fa-solid fa-lock lp-icon"></i>
+                    <input type="password" name="login_password" id="login_password" class="<?=empty($login_passwordErr) ? '' : 'is-invalid';?>" value="<?= htmlspecialchars($login_password); ?>" required>
+                    <i class="fa-regular fa-eye show-password toggle-eye" data-target="login_password"></i>
                     <label for="login_password">Password</label>
-                    <p class="login_password-err"><?=$passwordErr;?></p>
+                    <p class="login_password-err"><?=$login_passwordErr;?></p>
                 </div>
                 <div class="login-details">
                     <div class="checkbox"> 
@@ -55,13 +42,12 @@
                             <input type="checkbox" name="remember_me" id="remember_me">
                             <span class="checkmark"></span>
                             Keep me logged in
-                            <p class="error"><?=$termsErr;?></p>
                         </label>
                     </div>
                     <p>forgot password?</p>
                 </div>
                 <div>
-                    <button type="submit" id="button">Log in</button>
+                    <button type="submit" id="button" disabled>Log in</button>
                 </div>
             </form>
             
@@ -85,7 +71,7 @@
     </div>
     
 
-
-    <script src="auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+    <script src="javascript/login_auth.js" defer></script>
 </body>
 </html>

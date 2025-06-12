@@ -1,16 +1,16 @@
+function enableScroll() {
+  document.body.style.overflow = "auto";
+}
 function disableScroll() {
   document.body.style.overflow = "hidden";
 }
 
-function enableScroll() {
-  document.body.style.overflow = "auto";
-}
 
 window.onload = function () {
   setTimeout(function () {
     document.getElementById("loader-wrapper").style.display = "none";
     enableScroll();
-  }, 3000);
+  }, 2000);
   disableScroll();
 };
 const fields = [
@@ -20,10 +20,8 @@ const fields = [
   "email",
   "password",
   "confirm_password",
-  "emailOrUsername",
-  "login_password",
+  "terms"
 ];
-
 fields.forEach((field) => {
   document
     .getElementById(field)
@@ -34,13 +32,10 @@ function validateField(field) {
   const input = document.getElementById(field);
   const error = document.querySelector(`.${field}-err`);
   const value = input.value.trim();
-  const label = document.querySelector(
-    "label[for='emailOrUsername'], label[for='password']"
-  );
   const button = document.getElementById("button");
 
-  isValid = true;
-  button.disabled = !isValid;
+  let isValid = true;
+
 
   switch (field) {
     case "firstname":
@@ -80,17 +75,8 @@ function validateField(field) {
         setSuccess(input, error);
       }
       break;
-
-    case "emailOrUsername":
-      if (value === "") {
-        isValid = false;
-        setError(input, error, label, "Email or Username is required");
-      } else {
-        setSuccess(input, error, label);
-      }
-      break;
-
-    case "email":
+      
+      case "email":
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (value === "") {
         isValid = false;
@@ -108,7 +94,7 @@ function validateField(field) {
         /^(?=.*[A-Za-z])(?=.*[\d])(?=.*[!@#$%?])[A-Za-z\d!@#$%?]+$/;
       if (value === "") {
         isValid = false;
-        setError(input, label, error, "Password is required");
+        setError(input, error, "Password is required");
       } else if (!passwordRegex.test(value)) {
         isValid = false;
         setError(
@@ -136,27 +122,31 @@ function validateField(field) {
         setSuccess(input, error);
       }
       break;
-    case "login_password":
-      if (value === "") {
-        isValid = false;
-        setError(input, error, label, "Password is required");
-      } else {
-        setSuccess(input, error, label);
-      }
-      break;
-  }
+
+      case "terms" :
+        if(!input.checked){
+          isValid = false;
+          setError( input, error, "You must agree to the terms and conditions");
+        }else{
+          setSuccess(input, error);
+        }
+        break
+    }
+    if (isValid) {
+      button.removeAttribute("disabled"); 
+    }else{
+      button.disabled = !isValid;
+    }
 }
 
-function setError(input, errorEl, message, label) {
+function setError(input, errorEl, message) {
   input.style.border = "1px solid red";
   errorEl.textContent = message;
-  label.style.color = "red";
 }
 
 function setSuccess(input, errorEl) {
   input.style.border = "1px solid green";
   errorEl.textContent = "";
-  label.style.color = "green";
 }
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -170,6 +160,26 @@ inputs.forEach((input, index) => {
       e.preventDefault();
       const next = inputs[index + 1];
       if (next) next.focus();
+    }
+  });
+});
+
+
+const toggleEyes = document.querySelectorAll(".toggle-eye");
+
+toggleEyes.forEach((eye) => {
+  eye.addEventListener("click", () => {
+    const inputId = eye.getAttribute("data-target");
+    const input = document.getElementById(inputId);
+
+    if (input.type === "password") {
+      input.type = "text";
+      eye.classList.add("fa-eye-slash");
+      eye.classList.remove("fa-eye");
+    } else {
+      input.type = "password";
+      eye.classList.remove("fa-eye-slash");
+      eye.classList.add("fa-eye");
     }
   });
 });

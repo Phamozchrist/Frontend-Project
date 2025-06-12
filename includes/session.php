@@ -1,11 +1,11 @@
 <?php
 // User Session Management
-session_start();
 include 'config.php';
+session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['user'])) {
-    header("Location: login.php");
+    header("Location: ../login.php");
 }
 else{
     // If logged in, you can access the session variables here
@@ -16,19 +16,13 @@ else{
     $stmt->execute();
     // Fetch the result
     $result = $stmt->get_result();
-    if ($result->num_rows === 1) {
+    if ($result) {
         $user = $result->fetch_assoc();
     } else {
         // Handle error if needed
         echo "Error fetching user data: " . mysqli_error($connect);
-        header("Location: login.php");
+        header("Location: ../login.php");
     }
-    // $result = mysqli_query($connect, $stmt);
-    // if ($result) {
-    //     $admin = mysqli_fetch_assoc($result);
-    // } else {
-    //     // Handle error if needed
-    //     echo "Error fetching admin data: " . mysqli_error($connect);
-    //     header("Location: login.php");
-    // }
 }
+
+?>
