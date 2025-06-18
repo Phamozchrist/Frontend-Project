@@ -1,5 +1,4 @@
-<?php require ' ../includes/session.php';
-session_start();
+<?php include ' includes/session.php';
 if (isset($_SESSION['user_id'])) {
     if (isset($_COOKIE['user_id'])) {
         $_SESSION['user_id'] = $_COOKIE['user_id'];
