@@ -56,7 +56,7 @@
     <!-- Onscroll Header ends here -->
     <section class="main-wrapper">
       <div class="video-container">
-        <video autoplay muted loop playsinline class="bg-video">
+        <video autoplay muted loop playsinline class="bg-video" loading="lazy">
           <source
             src="images/istockphoto-980371916-640_adpp_is.mp4"
             type="video/mp4"

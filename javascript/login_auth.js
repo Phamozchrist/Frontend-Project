@@ -17,24 +17,21 @@ particlesJS.load("particles-js", "particles.json");
 const login_fields = ["emailOrUsername", "login_password"];
 
 login_fields.forEach((field) => {
-  document
-    .getElementById(field)
-    .addEventListener("input", () => {
-      validateField(field);
-      checkAllFieldsValid()
-    });
+  document.getElementById(field).addEventListener("input", () => validateField(field));
 });
 function validateField(field) {
   const input = document.getElementById(field);
   const error = document.querySelector(`.${field}-err`);
   const value = input.value.trim();
   const label = document.querySelector(`label[for='${field}']`);
+  // const button = document.getElementById("button");
 
-  isValid = true;
+  // isValid = true;
 
   switch (field) {
     case "emailOrUsername":
       if (value === "") {
+        // isValid = false;
         setError(input, error, label, "Email or Username is required");
       } else {
         setSuccess(input, error, label);
@@ -43,17 +40,19 @@ function validateField(field) {
 
     case "login_password":
       if (value === "") {
+        // isValid = false;
         setError(input, error, label, "Password is required");
       } else {
         setSuccess(input, error, label);
       }
       break;
   }
-  if (isValid) {
-    button.removeAttribute("disabled");
-  } else {
-    button.disabled = !isValid;
-  }
+  // if (isValid) {
+  //   button.removeAttribute("disabled");
+  // } else {
+  //   button.disabled = !isValid;
+  // }
+  checkAllFieldsValid();
 }
 function setError(input, error, label, message) {
   input.style.border = "1px solid red";
@@ -66,6 +65,25 @@ function setSuccess(input, error, label) {
   label.style.color = "green";
   error.textContent = "";
 }
+
+const btnText = document.getElementById("btnText");
+const form = document.getElementById("form");
+const spinner = document.getElementById("spinner");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault()
+
+  const button = document.getElementById("button");
+
+  btnText.textContent = "Logging in....";
+  spinner.classList.remove('hidden');
+  button.setAttribute("disabled", "true");
+
+  setTimeout(() => {
+    form.submit();
+  }, 2000);
+});
+
 const inputs = document.querySelectorAll("input");
 
 inputs.forEach((input, index) => {

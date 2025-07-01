@@ -32,7 +32,7 @@
     </div>
     <nav id="navigator">
         <div id="logo">
-            <img src="images/Prefix logo.png">
+            <img src="../images/Prefix logo.png">
         </div>
         
         <ul>

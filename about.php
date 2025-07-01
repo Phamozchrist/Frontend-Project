@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" loading="lazy">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -57,14 +57,13 @@
     <!-- Onscroll header ends here -->
     <section class="main-wrapper">
       <div class="video-container">
-        <video autoplay muted loop playsinline class="bg-video">
+        <video autoplay muted loop playsinline class="bg-video" loading="lazy" >
           <source
             src="images/istockphoto-980371916-640_adpp_is.mp4"
             type="video/mp4"
           />
           Your browser does not support the video tag.
         </video>
-
         <div class="content">
           <p><a href="index.php">Home</a> / About</p>
         </div>

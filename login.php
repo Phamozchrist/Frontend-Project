@@ -1,11 +1,12 @@
 <?php include 'includes/login_script.php';?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" loading="lazy">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/style.css">
-    <link rel="shortcut icon" href="images/pc logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="style/login.rv.css">
+    <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <link rel="stylesheet" href="fonts/css/all.min.css">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"> -->
     <title>Prefix - Login</title>
@@ -14,12 +15,17 @@
     <!-- <?php include 'includes/loader.php';?> -->
     <div id="particles-js"></div>
     <div id="login-modal">
-        <div class="login-logo"></div>
+        <div class="login-logo-container">
+            <div class="login-logo"></div>
+            <p>PreFix</p>
+        </div>
         <div class="login-header">
-            <h1>Log in to PreFix</h1>
+            <h1 class="dv-title">Log in to PreFix</h1>
+            <h1 class="mv-title">Log in</h1>
         </div>
         <div class="login-modal-content">            
             <form id="form" method="post">
+            <p class="rv-ca-container">Don't have an account?<a href="register.php" id="trigger">   Create account</a></p>
                 <?php if(!empty($msg)) { ?>
                     <?=($msg);?>
                 <?php } ?>
@@ -47,19 +53,12 @@
                     <p>forgot password?</p>
                 </div>
                 <div>
-                    <button type="submit" id="button" disabled>Log in</button>
+                    <button type="submit" id="button" disabled>
+                        <span id="btnText">Log in</span>
+                        <span id="spinner" class="spinner hidden"></span>
+                    </button>
                 </div>
             </form>
-            
-            <div class="social-media">
-                <p>or continue with</p>
-                <div class="social-icons">
-                    <i class="fa-brands fa-instagram" style="background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); background-clip: text; color: transparent;"></i>
-                    <i class="fa-brands fa-facebook" style="color: #3b5998;"></i>
-                    <i class="fa-brands fa-twitter" style="color: #1DA1F2;"></i>
-                    <i class="fa-brands fa-github" style="color: #000000;"></i>
-                </div>
-            </div>
         </div>
         <div class="login-footer">
             <p><a href="admin/login.php">Log in as an Administrator</a></p>

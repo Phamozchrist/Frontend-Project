@@ -3,12 +3,12 @@ include 'config.php';
 session_start();
 $emailOrUsername = $login_password = $msg = $rememberMe = '';
 $emailOrUsernameErr = $login_passwordErr = '';
-// if(isset($_SESSION['success'])){
-//     $msg = $_SESSION['success'];
-//     unset($_SESSION['success']);
-// }
+if(isset($_SESSION['success'])){
+    $msg = $_SESSION['success'];
+    unset($_SESSION['success']);
+}
 // Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD]=="POST") {
+if ($_SERVER['REQUEST_METHOD']=='POST') {
 
     // Sanitize user input to prevent sql injection
     $emailOrUsername= mysqli_real_escape_string($connect, $_POST['emailOrUsername']);

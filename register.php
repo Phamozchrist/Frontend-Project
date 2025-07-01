@@ -1,11 +1,12 @@
 <?php require "includes/register_script.php";?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" loading="lazy">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/style.css">
-    <link rel="shortcut icon" href="images/pc logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="style/register.rv.css">
+    <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <link rel="stylesheet" href="fonts/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <title>Prefix -Create an account</title>
@@ -15,6 +16,7 @@
     <div id="create-account-modal">
         <div class="create-account-container">
             <div>
+                <p>Already have an account?  <a href="login.php" id="trigger1">Login</a></p>
                 <h1>Create a PreFix account</h1>
                 <p>Join us and start your journey with PreFix.</p>
             </div>
@@ -24,8 +26,9 @@
         </div>
         
         <div class="create-account-modal-content">
+            <div class="logo"></div>
             <p>Already have an account?  <a href="login.php" id="trigger1">Login</a></p>
-            <form method="post">
+            <form method="post" id="form">
                 <h2>Sign up to PreFix</h2>
                 <?php if(!empty($msg)) { ?>
                     <p class="msg-error"><?=htmlspecialchars($msg);?></p>
@@ -75,7 +78,10 @@
                     </div>
                 </div>
                 <div>
-                    <button type="submit" id="button" disabled><b>Continue ></b></button>
+                    <button type="submit" id="button" disabled>
+                        <span id="btnText">Continue ></span>
+                        <span id="spinner" class="spinner hidden"></span>
+                    </button>
                 </div>
                 <div class="create-account-footer">
                     <p>By creating an account, you agree to the <a href="">Terms of Service</a>. For more information about Prefix's privacy practices, see the <a href="">Prefix Privacy Statement</a>. We'll occasionally send you account-related emails.</p>

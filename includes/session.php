@@ -1,6 +1,6 @@
 <?php
 // User Session Management
-include 'config.php';
+require 'config.php';
 session_start();
 
 // Check if the user is logged in
@@ -18,7 +18,7 @@ if (!isset($_SESSION['user'])) {
 
     // Fetch user data or redirect on error
     if ($result && mysqli_num_rows($result) > 0) {
-        $user = $result->fetch_assoc();
+        $user = mysqli_fetch_assoc($result);
     } else {
         $msg = "<p>Error fetching user data: " . mysqli_error($connect) . "</p>";
         header("Location: ../login.php");

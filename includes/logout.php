@@ -1,8 +1,6 @@
 <?php
 session_start();
 session_destroy();
-// Expire the cookie
-
 // Expire cookie
 setcookie("remember_token", "", time() - 3600, "/", "", false, true);
 
@@ -12,4 +10,4 @@ if (isset($_SESSION['user_id'])) {
     $stmt->bind_param("i", $_SESSION['user_id']);
     $stmt->execute();
 }
-header("Location: ./index.php");
+header("Location: ../login.php");

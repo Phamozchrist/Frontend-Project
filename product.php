@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" loading="lazy">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style/style.css" />
-    <link rel="shortcut icon" href="images/pc logo.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon" />
     <link rel="stylesheet" href="Fonts/css/all.min.css" />
     <link
       rel="stylesheet"
@@ -58,7 +58,7 @@
       <div class="video-container">
         <video autoplay muted loop playsinline class="bg-video">
           <source
-            src="images/istockphoto-980371916-640_adpp_is.mp4"
+            src="../images/istockphoto-980371916-640_adpp_is.mp4"
             type="video/mp4"
           />
           Your browser does not support the video tag.
@@ -81,7 +81,7 @@
           <div class="slider-track-1">
             <div class="slide-1">
               <div>
-                <img src="images/blog-img.png" alt="Slide1" />
+                <img src="../images/blog-img.png" alt="Slide1" />
                 <div>
                   <a href="#">Chat Now</a>
                   <a href="#">Call Now</a>
@@ -89,7 +89,7 @@
                 <span>01</span>
               </div>
               <div>
-                <img src="images/blog-img1.png" alt="Slide2" />
+                <img src="../images/blog-img1.png" alt="Slide2" />
                 <div>
                   <a href="#">Chat Now</a>
                   <a href="#">Call Now</a>
@@ -97,7 +97,7 @@
                 <span>02</span>
               </div>
               <div>
-                <img src="images/blog-img2.png" alt="Slide3" />
+                <img src="../images/blog-img2.png" alt="Slide3" />
                 <div>
                   <a href="#">Chat Now</a>
                   <a href="#">Call Now</a>
@@ -107,7 +107,7 @@
             </div>
             <div class="slide-1">
               <div>
-                <img src="images/blog-img.png" alt="Slide1" />
+                <img src="../images/blog-img.png" alt="Slide1" />
                 <div>
                   <a href="#">Chat Now</a>
                   <a href="#">Call Now</a>
@@ -115,7 +115,7 @@
                 <span>01</span>
               </div>
               <div>
-                <img src="images/blog-img1.png" alt="Slide2" />
+                <img src="../images/blog-img1.png" alt="Slide2" />
                 <div>
                   <a href="#">Chat Now</a>
                   <a href="#">Call Now</a>
@@ -123,7 +123,7 @@
                 <span>02</span>
               </div>
               <div>
-                <img src="images/blog-img2.png" alt="Slide3" />
+                <img src="../images/blog-img2.png" alt="Slide3" />
                 <div>
                   <a href="#">Chat Now</a>
                   <a href="#">Call Now</a>
@@ -147,6 +147,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="javascriptscript.js"></script>
+    <script src="javascript/script.js"></script>
   </body>
 </html>

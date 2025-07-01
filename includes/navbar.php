@@ -1,6 +1,6 @@
 <header class="navigation-header">
     <nav id="md-nav-menu">
-        <div id="logo"></div>
+        <a href="index.php"><div id="logo"></div></a>
 
         <button>
             <i class="fa-solid fa-bars"></i>

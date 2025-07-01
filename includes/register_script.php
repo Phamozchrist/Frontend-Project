@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $insertStmt->bind_param('sssss',$firstname, $lastname, $username, $email, $passwordHash);
             
             if ($insertStmt->execute()) {
-                $_SESSION['success'] = '<p class="msg-success"><i class="fa-regular fa-circle-xmark"></i> Registration successful! You can now log in.</p>';
+                $_SESSION['success'] = '<p class="msg-success"><i class="fa-regular fa-checked"></i> Registration successful! You can now log in.</p>';
                 header("Location: login.php");
 
             }else {

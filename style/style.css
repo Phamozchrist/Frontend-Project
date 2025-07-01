@@ -54,7 +54,7 @@
     }
 }
 .dark-mode .navigation-header #navigator #logo{
-    background-image: url('images/Prefix-footer-logo.png');
+    background-image: url('../images/Prefix-footer-logo.png');
 }
 .dark-mode .navigation-header #navigator ul li a{
     color: #ffffff;
@@ -135,7 +135,7 @@
     background-color: rgb(0, 3, 19);
 }
 .dark-mode #loader-wrapper .img{
-    background-image: url('images/dark-mode-pc\ logo.png');
+    background-image: url('../images/dark-mode-pc\ logo.png');
 }
 .dark-mode #progress-text {
     color: white;
@@ -265,7 +265,7 @@
     padding-top: 2px;
     width: 140px;
     height: 80px;
-    background-image: url('images/Prefix\ logo.png');
+    background-image: url('../images/Prefix\ logo.png');
     background-size: 140px;
     background-repeat: no-repeat;
 }
@@ -534,7 +534,7 @@
     padding-top: 2px;
     width: 140px;
     height: 80px;
-    background-image: url('images/Prefix\ logo.png');
+    background-image: url('../images/Prefix\ logo.png');
     background-size: 140px;
     background-repeat: no-repeat;
 }
@@ -669,7 +669,7 @@
     padding-top: 2px;
     width: 140px;
     height: 80px;
-    background-image: url('images/Prefix\ logo.png');
+    background-image: url('../images/Prefix\ logo.png');
     background-size: 140px;
     background-repeat: no-repeat;
 }
@@ -794,7 +794,7 @@
 }
 .section-1{
     width: 100%;
-    background-image: url(images/banner-bg.png);
+    background-image: url("../images/banner-bg.png");
     /* min-height: 100vh; */
     background-size: cover;
     background-position:center;
@@ -1549,6 +1549,9 @@ footer .footer-section .footer-img{
     justify-self: center;
     margin-bottom: 20px;
 
+    a{
+        cursor: default;
+    }
     img{
         width: 100%;
     }
@@ -1724,7 +1727,7 @@ footer .copyright-section{
 .login-modal-content::before{
     content: " ";
     position: absolute;
-    width: 180px;
+    width: 195px;
     height: 240px;
     background-color: rgb(224, 253, 249);
     left: 0px;
@@ -1735,19 +1738,25 @@ footer .copyright-section{
 #login-modal {
     width: 100%;
     height: 100vh;
+    place-content: center;
     color: black;
 }
 
-.login-logo{
+.login-logo-container{
+    justify-self:center;
+    place-content:center;
+}
+.login-logo-container .login-logo{
     background-image: url('../images/pc\ logo.png');
     background-size: contain;
     background-position: center;
     background-repeat:no-repeat;
-    width:61px;
+    width:71px;
     height: 100px;
-    justify-self:center;
-    place-content:center;
     /* border: 1px solid red; */
+}
+.login-logo-container p{
+    display: none;
 }
 .login-header {
     display: flex;
@@ -1762,6 +1771,12 @@ footer .copyright-section{
         color: #3f3f3f;
         line-height: 2.5;
     }
+    .mv-title{
+        display:none;
+    }
+}
+.rv-ca-container{
+    display: none;
 }
 .login-modal-content {
     position:relative;
@@ -1774,7 +1789,7 @@ footer .copyright-section{
     width: 80%;
     max-width: 320px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.151);
-    z-index: 120;
+    contain: content;
 }
 .admin-modal-content{
     border-bottom-left-radius: 10px;
@@ -1902,31 +1917,6 @@ form .login-details{
     z-index: 20;
     color: #3a3a3a;
 }
-.login-modal-content .social-media{
-    border-top: 1px solid #363535;
-    margin-top: 25px;
-
-    p{
-        position: relative;
-        display: inline-block;
-        background-color: #fff;
-        left:50%;
-        transform: translateX(-50%);
-        bottom: 13px;
-        padding: 0 10px;
-    }
-}
-.login-modal-content .social-media .social-icons{
-    display:  flex;
-    justify-content: center;
-    text-align: center;
-    gap: 30px;
-
-    i{
-        font-size: 20px;
-        cursor: pointer;
-    }
-}
 #login-modal .login-footer {
     padding: 10px 20px;
     border-radius: 10px;
@@ -2015,7 +2005,12 @@ form .login-details{
     width: 50%;
     z-index: 120;
 }
-
+.create-account-modal-content .logo{
+    display: none;
+}
+.create-account-container div p:first-of-type{
+    display:none;
+}
 .create-account-modal-content form{
     margin-top: 30px;
 }
@@ -2041,13 +2036,14 @@ form .login-details{
     color:white;
 }
 .login-modal-content form .msg-success {
-    border: 2px solid #00c8ac;
+    border: 2px solid blue;
     width:100%;
     border-radius:10px;
-    padding: 30px 10px;
+    padding:10px;
     font: 16px;
-    color: rgb(139, 8, 8);
-    background-color: #e0fdf9;
+    color: rgb(255, 255, 255);
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+    background-color: rgba(0, 0, 255, 0.459);
 }
 .login-modal-content form button:disabled{
     cursor: not-allowed;
@@ -2138,9 +2134,11 @@ form .login-details{
     font-size: 13px;
     margin-bottom:20px;
 }
-.create-account-modal-content >p{
-    text-align: end;
-    margin-bottom:0;
+.create-account-modal-content > p{
+    padding: 0 0 10px;
+    position: relative;
+    right: -50px;
+    text-align:end;
 }
 .create-account-modal-content p a{
     text-decoration: none;
@@ -2150,7 +2148,28 @@ form .login-details{
 .create-account-modal-content p a:hover{
     text-decoration: underline;
 }
+/* Spinner */
+.spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid white;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    display: inline-block;
+    margin-left: 8px;
+    vertical-align: middle;
+}
 
+.hidden {
+    display: none;
+}
+
+@keyframes spin {
+to {
+    transform: rotate(360deg);
+}
+}
 /* Loader */
 
 #loader-wrapper {
@@ -2168,24 +2187,23 @@ form .login-details{
     
 }
 #loader-wrapper .img{
-    background-image: url('images/pc\ logo.png');
+    background-image: url('../images/pc\ logo.png');
     background-size: cover;
     height:82px;
     width:72px;
     position: relative;
-    left: 40px;
+    left: 45px;
     animation: zoom 2s linear infinite;
 }
 .loader {
     width: 110px;
     height: 110px;
-    /* border: 2px solid #000000; */
     border-top: 2px solid #02bfa4;
     border-bottom: 2px solid #02bfa4;
     border-radius: 50%;
-    animation: spin 2s linear infinite;
+    animation: spin 2.5s linear infinite;
     position:relative;
-    left:-50px;
+    left:-45px;
 }
 
 @keyframes spin {
@@ -2506,7 +2524,7 @@ form .login-details{
 }
 @media screen and (max-width:984px){
     .dark-mode .navigation-header #md-nav-menu #logo{
-        background-image: url('images/Prefix-footer-logo.png');
+        background-image: url('../mages/Prefix-footer-logo.png');
     }
     .dark-mode .navigation-header .md-nav-menulist ul li a{
         color: #ffffff;
@@ -2565,7 +2583,6 @@ form .login-details{
         top: -100px;
     }
     #navigator{
-        border: 1px solid red;
         display: none !important;
     }
     .navigation-header #navigator #logo{
@@ -2810,6 +2827,9 @@ form .login-details{
     }
     .f-body::before{
         background-color: #fff;
+    }
+    .navigation-onscroll{
+        top: -5px;
     }
     .wrapper {
         display:block !important;

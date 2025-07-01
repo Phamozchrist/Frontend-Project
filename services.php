@@ -59,7 +59,7 @@
       <div class="video-container">
         <video autoplay muted loop playsinline class="bg-video">
           <source
-            src="images/istockphoto-980371916-640_adpp_is.mp4"
+            src="../images/istockphoto-980371916-640_adpp_is.mp4"
             type="video/mp4"
           />
           Your browser does not support the video tag.
@@ -84,21 +84,21 @@
           <div class="ads-con">
             <div class="ads-1">
               <h1>AUTOMATIVE</h1>
-              <img src="images/icon-1.png" alt="" />
+              <img src="../images/icon-1.png" alt="" />
             </div>
             <div class="ads-1">
               <h1>FASHION</h1>
-              <img src="images/icon-2.png" alt="" />
+              <img src="../images/icon-2.png" alt="" />
             </div>
           </div>
           <div class="ads-con">
             <div class="ads-1">
               <h1>AUTOMATIVE</h1>
-              <img src="images/icon-3.png" alt="" />
+              <img src="../images/icon-3.png" alt="" />
             </div>
             <div class="ads-1">
               <h1>FASHION</h1>
-              <img src="images/icon-4.png" alt="" />
+              <img src="../images/icon-4.png" alt="" />
             </div>
           </div>
         </div>
@@ -111,6 +111,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="javascriptscript.js"></script>
+    <script src="javascript/script.js"></script>
   </body>
 </html>

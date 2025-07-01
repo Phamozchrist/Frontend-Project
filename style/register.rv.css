@@ -1,0 +1,193 @@
+@media (max-width:900px) {
+    #create-account-modal {
+        display:block;
+    }
+    #create-account-modal .create-account-container{
+        background-image:linear-gradient(to top, #007c6a,#28454e);
+        color: white;
+        width:100%;
+    
+        div{
+            width:100%;
+            height: 158px;
+            padding-top: 30px;
+            padding-left:7%;
+             
+            h1{
+                font-size: 13px;
+                line-height: 1.4;
+            }
+        }
+        .create-account-img{
+            width:100%;
+            height:180px;
+
+            img{
+                display: none;
+            }
+        }
+    }
+    .create-account-modal-content {
+        position:relative;
+        background-color: #fefefe;
+        margin: 0 auto 1%;
+        padding: 20px 50px 40px;
+        
+        width: 100%;
+        z-index: 120;
+    }
+    .create-account-modal-content .logo{
+        display: block;
+        background-size: cover;
+        height:100px;
+        width:90px;
+        background-image: url('../images/pc\ logo.png');
+        background-repeat: no-repeat;
+        position: relative;
+        justify-self: center;
+        top:-80px;
+        transform: rotate(10deg);
+    }
+    .create-account-container div p:first-of-type{
+        display:inline-block;
+        line-height: 1;
+        
+        a{
+            color:white;
+        }
+    }
+    .create-account-modal-content form{
+        margin-top: 30px;
+    }
+    .create-account-modal-content form h2{
+        margin-bottom: 20px;
+    }
+    .create-account-modal-content form .msg-error {
+        border: 2px solid red;
+        width:100%;
+        border-radius:10px;
+        padding: 10px;
+        background-color: rgb(233, 177, 177);
+        color:white;
+    }
+    .login-modal-content form .msg-error {
+        border: 2px solid red;
+        width:100%;
+        border-radius:10px;
+        padding: 10px;
+        font-size:14px;
+        background-color: rgb(233, 177, 177);
+        margin-bottom: 20px;
+        color:white;
+    }
+    .login-modal-content form .msg-success {
+        border: 2px solid blue;
+        width:100%;
+        border-radius:10px;
+        padding:10px;
+        font: 16px;
+        color: rgb(255, 255, 255);
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+        background-color: rgba(0, 0, 255, 0.459);
+    }
+    .login-modal-content form button:disabled{
+        cursor: not-allowed;
+        opacity: 0.9;
+        background-color: #28454e;
+        color: white;
+    
+    }
+    .create-account-modal-content form button:disabled{
+        background-color: #28454e;
+        cursor: not-allowed;
+        opacity: 0.9;
+        color: white;
+    
+    }
+    .create-account-modal-content form div .is-invalid {
+        border: 1px solid red;
+    }
+    .create-account-modal-content form div .is-valid{
+        border: 1px solid green;
+    }
+    .create-account-modal-content form div .firstname-err,.create-account-modal-content form div .lastname-err,.create-account-modal-content form div .username-err,.create-account-modal-content form div .email-err,.create-account-modal-content form div .password-err,.create-account-modal-content form div .confirm_password-err,.create-account-modal-content form div .terms-err{
+        font-size:14px;
+        color: red;
+        margin-bottom: 0;
+        
+        i{
+            color: red;
+        }
+    }
+    .create-account-modal-content form div {
+        position: relative;
+    }
+    .create-account-modal-content form div .show-password {
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+        top: 46px;
+        z-index: 20;
+    }
+    .create-account-modal-content form div input {
+        width: 100%;
+        padding: 10px 35px 10px 10px;
+        margin: 1px 0;
+        display:block;
+        border: 1px solid #ccc;
+        background-color: transparent;
+        border-radius: 5px;
+        outline: none;
+        font-size: 15px;
+    }
+    .create-account-modal-content form button {
+        background-color: #28454e;
+        color: white;
+        margin: 5px 0;
+        padding: 10px 20px;
+        border: 1px solid transparent;
+        cursor: pointer;
+        width: 100%;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    .create-account-modal-content form button:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+        background-color: #28454e;
+    
+    }
+    .create-account-modal-content form button:disabled:hover{
+        background-color: #28454e;
+        cursor: not-allowed;
+        opacity: 0.7;
+    
+    }
+    .create-account-footer{
+        margin: 15px 0;
+    
+        p{
+            color: #3f3f3fc5;
+        }
+    }
+    .create-account-modal-content form button:hover {
+        background-color: #02bfa4;
+    }
+    
+    
+    .create-account-modal-content p{
+        font-size: 13px;
+        margin-bottom:20px;
+    }
+    .create-account-modal-content > p{
+       display: none;
+    }
+    .create-account-modal-content p a{
+        text-decoration: none;
+        color: #00c8ac;
+    
+    }
+    .create-account-modal-content p a:hover{
+        text-decoration: underline;
+    }
+}

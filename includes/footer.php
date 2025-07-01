@@ -1,7 +1,7 @@
 <footer data-aos="fade-up">
     <div class="footer-section">
         <div class="footer-img">
-            <img src="images/Prefix-footer-logo.png" alt="">
+            <a href="index.php"><img src="../images/Prefix-footer-logo.png" alt=""></a>
         </div>
         <div class="footer-info">
             <div>
@@ -28,8 +28,8 @@
             </div>
             <div>
                 <h1>Contact Us</h1>
-                <p><img src="images/call-icon.png" alt=""> <span>+234 816 042 1290</span></p>
-                <p><img src="images/mail-icon.png" alt="">  <span>stevofame15@gmail.com</span> </p>
+                <p><img src="../images/call-icon.png" alt=""> <span>+234 816 042 1290</span></p>
+                <p><img src="../images/mail-icon.png" alt="">  <span>stevofame15@gmail.com</span> </p>
             </div>
             <div>
                 <h1>Social Link</h1>

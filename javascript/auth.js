@@ -13,6 +13,7 @@ window.onload = function () {
   }, 2000);
   disableScroll();
 };
+
 const fields = [
   "firstname",
   "lastname",
@@ -31,7 +32,7 @@ fields.forEach((field) => {
 function validateField(field) {
   const input = document.getElementById(field);
   const error = document.querySelector(`.${field}-err`);
-  const value = input.value.trim();
+  const value = input.type === "checkbox" ? input.checked :input.value.trim();
   const button = document.getElementById("button");
 
   let isValid = true;
@@ -91,7 +92,7 @@ function validateField(field) {
 
     case "password":
       const passwordRegex =
-        /^(?=.*[A-Za-z])(?=.*[\d])(?=.*[!@#$%?])[A-Za-z\d!@#$%?]+$/;
+        /^(?=.*[A-Za-z])(?=.*[\d])(?=.*[!@#$%?*^])[A-Za-z\d!@#$%?*^]+$/;    
       if (value === "") {
         isValid = false;
         setError(input, error, "Password is required");
@@ -130,13 +131,10 @@ function validateField(field) {
         }else{
           setSuccess(input, error);
         }
-        break
+        break;
     }
-    if (isValid) {
-      button.removeAttribute("disabled"); 
-    }else{
-      button.disabled = !isValid;
-    }
+ 
+    checkFormValidity();
 }
 
 function setError(input, errorEl, message) {
@@ -151,6 +149,41 @@ function setSuccess(input, errorEl) {
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+function checkFormValidity() {
+  const button = document.getElementById("button");
+  let allValid = true;
+
+  for (let field of fields) {
+    const input = document.getElementById(field);
+    const value = input.type === "checkbox" ? input.checked : input.value.trim();
+    if (
+      (input.type === "checkbox" && !value) ||
+      (input.type !== "checkbox" && value === "") ||
+      input.style.border === "1px solid red"
+    ) {
+      allValid = false;
+    }
+  }
+
+  button.disabled = !allValid;
+}
+
+const form = document.getElementById("form");
+const btnText = document.getElementById("btnText");
+const spinner = document.getElementById("spinner");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const button = document.getElementById("button");
+
+  btnText.textContent = " Redirecting...";
+  button.setAttribute("disabled", "true");
+  spinner.classList.remove("hidden");
+
+  setTimeout(() => {
+    form.submit();
+  }, 2000);
+});
 
 const inputs = document.querySelectorAll("input");
 
