@@ -65,7 +65,6 @@ window.addEventListener("scroll", updateCircularProgress);
 
 const sliderTrack = document.querySelector('.slider-track');
 const slides = document.querySelectorAll('.slide');
-const dotsContainer = document.querySelector('.dots-container');
 
 if (slides.length > 0) {
     let currentIndex = 0;

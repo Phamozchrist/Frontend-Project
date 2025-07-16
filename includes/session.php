@@ -2,7 +2,7 @@
 // User Session Management
 require 'config.php';
 session_start();
-
+$msg = "";
 // Check if the user is logged in
 if (!isset($_SESSION['user'])) {
     header("Location: ../login.php");

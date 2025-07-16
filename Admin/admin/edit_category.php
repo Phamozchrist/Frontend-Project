@@ -1,0 +1,76 @@
+<?php 
+    include 'includes/script.php';
+    
+    if (isset($_GET['edit']) && !empty($_GET['edit'])) {
+        $cat_id = (int)$_GET['edit'];
+        $query = $connect->prepare("SELECT * FROM categories WHERE id = ?");
+        $query->bind_param('i', $cat_id);
+        $query->execute();
+        $result = $query->get_result();
+        $num_rows = mysqli_num_rows($result);
+        if ($num_rows > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $category = $row['category_name'];
+        }else{
+            header("Location: manage_category.php");
+        }
+    }
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Fonts/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Dashboard - Edit Category</title>
+</head>
+<body class="sb-nav-fixed">
+    <div class="container-fluid">
+        <?php include 'includes/navbar.php'; ?>
+        <!-- Top navigation bar -->
+
+        <?php include 'includes/sidebar.php'; ?>
+        <!-- Sidebar navigation bar -->
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Edit Category</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Edit Category</li>
+                        </ol>
+                        
+                        <?=$msg;?>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Edit Category
+                            </div>
+                            
+                            <div class="card-body">
+                               <form method="post">
+                                    <div class="form-floating mb-3 w-50 m-auto">
+                                        <input class="form-control" id="category" type="text" name="category" value="<?=$category;?>" placeholder="Post Category" />
+                                        <input type="hidden" name="cat_name" value="<?=$category;?>">
+                                        <label for="inputEmail">Category Name</label>
+                                        <span class="text-danger"><?=$errpost_category; ?></span>
+                                        <button type="submit" name="editcategory" class="btn btn-success m-2">Edit</button>
+                                    </div>
+                               </form>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <?php include 'includes/footer.php'; ?>
+                <!-- Footer -->
+            </div>
+        </div>
+       
+    </div>
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -50,7 +50,7 @@
                             Keep me logged in
                         </label>
                     </div>
-                    <p>forgot password?</p>
+                    <p>Forgot password?</p>
                 </div>
                 <div>
                     <button type="submit" id="button" disabled>

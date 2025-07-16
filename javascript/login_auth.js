@@ -1,4 +1,4 @@
-particlesJS.load("particles-js", "particles.json");
+// particlesJS.load("particles-js", "particles.json");
 // function disableScroll() {
 //   document.body.style.overflow = "hidden";
 // }
