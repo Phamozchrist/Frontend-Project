@@ -12,7 +12,6 @@ if (!isset($_SESSION['admin'])) {
 else{
     // If logged in, you can access the session variables here
     $admin_id = $_SESSION['admin'];
-    // You can also fetch other user details from the database if needed
     $stmt = "SELECT * FROM admin WHERE id = $admin_id";
     $result = mysqli_query($connect, $stmt);
     if ($result) {

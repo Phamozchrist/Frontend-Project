@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="Fonts/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
-    <title>Dashboard - Managecategory</title>
+    <title>Dashboard - Manage Admins</title>
 </head>
 <body class="sb-nav-fixed">
     <div class="container-fluid">
@@ -21,10 +21,10 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Manage Category</h1>
+                        <h1 class="mt-4">Manage Admin</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Manage Category</li>
+                            <li class="breadcrumb-item active">Manage Admin</li>
                         </ol>
                     </div>
                     <?php
@@ -36,36 +36,43 @@
                         echo $msg
                     ?>
                     <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-table me-1"></i>
-                            Manage Category
-                        </div>
+                         <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <i class="fa-solid fa-table me-1"></i>
+                                        All Admins
+                                    </div>
+                                    <a href="add_admin.php" class="btn btn-info">Add more &plus;</a>
+                                </div>
+                            </div>
                         <div class="card-body">
+                           
                             <table id="datatablesSimple" class="datatable-table">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Product</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Email</th>
+                                        <th>Created_on</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                         // Fetch categories from the database
-                                        $query = "SELECT *, (SELECT COUNT(*) FROM products p WHERE p.product_category = c.id) AS total_products FROM categories c";
+                                        $query = "SELECT * FROM admin";
                                         $result = mysqli_query($connect, $query);
                                         while ($row = mysqli_fetch_assoc($result)) {
                                     ?>
                                     <tr>
-                                        <td><?=$row['category_name'];?></td>
-                                        <td><?=$row['total_products'];?></td>
+                                        <td><?=$row['firstname'];?></td>
+                                        <td><?=$row['lastname'];?></td>
+                                        <td><?=$row['email'];?></td>
+                                        <td><?=date('Y/m/d', strtotime($row['created_on']));?></td>
                                         <td>
-                                            <a href="edit_category.php?edit=<?=$row['id'];?>" class="btn btn-info">Edit</a>
-                                            <?php if ($row['total_products'] == 0) { ?>
-                                                <a href="action.php?delete_cat=<?=$row['id'];?>" class="btn btn-danger">Delete</a>
-                                            <?php } else { ?>
-                                                <button class="btn btn-danger" disabled>Delete</button>
-                                            <?php } ?>
+                                            <a href="edit_admin.php?edit=<?=$row['id'];?>" class="btn btn-info">Edit</a>
+                                            <a href="action.php?delete_admin=<?=$row['id'];?>" class="btn btn-danger">Delete</a>
+                    
                                         </td>
                                         <?php if(mysqli_num_rows($result) == 0): ?>
                                         <td>No Category</td>

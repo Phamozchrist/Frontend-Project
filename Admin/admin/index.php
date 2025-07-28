@@ -9,7 +9,6 @@ if (isset($_SESSION['admin_id'])) {
     }
 };
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +16,7 @@ if (isset($_SESSION['admin_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="Fonts/css/all.min.css">
+    <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <title>Dashboard with various responsiveness</title>
 </head>
@@ -81,7 +81,7 @@ if (isset($_SESSION['admin_id'])) {
                                         <i class="fa-solid fa-table me-1"></i>
                                         Latest products
                                     </div>
-                                    <a href="managepost.php" class="btn btn-info">Manage products</a>
+                                    <a href="manage_product.php" class="btn btn-info">Manage products</a>
                                 </div>
                             </div>
                             <div class="card-body">

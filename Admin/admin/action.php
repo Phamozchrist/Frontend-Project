@@ -15,15 +15,28 @@ if (isset($_GET['delete_cat'])) {
     }
 }
 
-// Delete Post Action
-if (isset($_GET['delete_post'])) {
-    $product_id = (int)$_GET['delete_post'];
-    $stmt = "DELETE FROM posts WHERE id = $product_id";
+// Delete Product Action
+if (isset($_GET['delete_product'])) {
+    $product_id = (int)$_GET['delete_product'];
+    $stmt = "DELETE FROM products WHERE id = $product_id";
     if (mysqli_query($connect, $stmt)) {
-        $_SESSION['msg'] = "<div class='alert alert-success'>Post deleted successfully</div>";
-        header("Location: managepost.php");
+        $_SESSION['msg'] = "<div class='alert alert-success'>Product deleted successfully</div>";
+        header("Location: manage_product.php");
     } else {
-        $_SESSION['msg'] = "<div class='alert alert-danger'>Error deleting post: " . mysqli_error($connect) . "</div>";
-        header("Location: managepost.php");
+        $_SESSION['msg'] = "<div class='alert alert-danger'>Error deleting product: " . mysqli_error($connect) . "</div>";
+        header("Location: manage_product.php");
+    }
+}
+
+// Delete Admin Action
+if (isset($_GET['delete_admin'])) {
+    $admin_id = (int)$_GET['delete_admin'];
+    $stmt = "DELETE FROM admin WHERE id = $admin_id";
+    if (mysqli_query($connect, $stmt)) {
+        $_SESSION['msg'] = "<div class='alert alert-success'>Admin deleted successfully</div>";
+        header("Location: manage_admins.php");
+    } else {
+        $_SESSION['msg'] = "<div class='alert alert-danger'>Error deleting Admin: " . mysqli_error($connect) . "</div>";
+        header("Location: manage_admins.php");
     }
 }

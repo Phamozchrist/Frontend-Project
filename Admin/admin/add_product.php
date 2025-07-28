@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="Fonts/css/all.min.css">
+    <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <link href='https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
-    <title>Dashboard - Addpost</title>
+    <title>Dashboard - Addproduct</title>
 </head>
 <body class="sb-nav-fixed">
     <div class="container-fluid">
@@ -34,7 +35,7 @@
                                         <div class="row">
                                             <div class="col-6 mt-2">
                                                 <div class="form-floating">
-                                                    <input class="form-control" id="productName" type="text" name="product_name" placeholder="Product Name" />
+                                                    <input class="form-control" id="productName" type="text" name="product_name" placeholder="Product Name" value="<?=htmlspecialchars($product_name)?>" />
                                                     <label for="productName">Product name</label>
                                                 </div>
                                             </div>

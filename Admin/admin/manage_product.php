@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="Fonts/css/all.min.css">
+    <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
-    <title>Dashboard - Manage post</title>
+    <title>Dashboard - Manage product</title>
 </head>
 <body class="sb-nav-fixed">
     <div class="container-fluid">
@@ -20,10 +21,10 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Manage Posts</h1>
+                        <h1 class="mt-4">Manage Products</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Manage Posts</li>
+                            <li class="breadcrumb-item active">Manage Products</li>
                         </ol>
                         <?php
                             $msg = '';
@@ -31,7 +32,7 @@
                                 $msg = $_SESSION['msg'];
                                 unset($_SESSION['msg']);
                             }
-                            echo $msg
+                            echo $msg;
                         ?>
                         <div class="card mb-4">
                             <div class="card-header">
@@ -42,9 +43,10 @@
                                 <table id="datatablesSimple" class="datatable-table">
                                     <thead>
                                         <tr>
-                                            <th>Product Name</th>
-                                            <th>Product Details</th>
+                                            <th>Name</th>
+                                            <th>Details</th>
                                             <th>Image</th>
+                                            <th>Price</th>
                                             <th>Category</th>
                                             <th>Date</th>
                                             <th>Action</th>
@@ -62,12 +64,16 @@
                                             <td><?=ucfirst($product['product_name']);?></td>
                                             <td><?=ucfirst($product['product_details']);?></td>
                                             <td><img src="uploads/<?=$product['product_image'];?>" alt="" width="150px"></td>
+                                            <td><?=ucfirst($product['product_price']);?></td>
                                             <td><?=ucfirst($product['category_name']);?></td>
                                             <td><?=date('Y/m/d', strtotime($product['created_on']));?></td>
                                             <td>
                                                 <a href="edit_product.php?edit=<?=$product['id'];?>" class="btn btn-warning">Edit</a>
-                                                <a href="action.php?delete=<?=$product['id'];?>" class="btn btn-danger">Delete</a>
+                                                <a href="action.php?delete_product=<?=$product['id'];?>" class="btn btn-danger">Delete</a>
                                             </td>
+                                            <?php if(mysqli_num_rows($result) == 0): ?>
+                                                <td>No Product Found</td>
+                                            <?php endif; ?>
                                         </tr>
                                         <?php } ?>
                                     </tbody>

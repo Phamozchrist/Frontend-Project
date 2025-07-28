@@ -28,6 +28,20 @@ setTimeout(function(){
     document.querySelector(".alert").style.display = "none";
 }, 5000)
 
+document.getElementById("productImage").addEventListener("change", function() {
+const fileName = this.files[0]?.name || "No file chosen";
+let label = document.getElementById("fileLabel");
+
+if (!label) {
+    label = document.createElement("small");
+    label.id = "fileLabel";
+    label.className = "text-primary d-block mt-1";
+    this.parentNode.appendChild(label);
+}
+
+label.textContent = "Selected: " + fileName;
+});
+
 tinymce.init({
     selector: 'textarea',
     plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',

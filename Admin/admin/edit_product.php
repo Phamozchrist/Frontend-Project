@@ -8,7 +8,7 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit']) && !empty($_GET['edit'])) 
     if (mysqli_num_rows($result) > 0) {
         $product = mysqli_fetch_assoc($result);
     } else {
-        header("Location: manageproduct.php");
+        header("Location: manage_product.php");
     }
 }
 ?>
@@ -19,9 +19,10 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit']) && !empty($_GET['edit'])) 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="Fonts/css/all.min.css">
+    <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <link href='https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
-    <title>Dashboard - Addproduct</title>
+    <title>Dashboard - Editproduct</title>
 </head>
 <body class="sb-nav-fixed">
     <div class="container-fluid">
@@ -34,10 +35,10 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit']) && !empty($_GET['edit'])) 
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Add Product</h1>
+                        <h1 class="mt-4">Edit Product</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Add Products</li>
+                            <li class="breadcrumb-item active">Edit Products</li>
                         </ol>
                         <?= isset($msg) ? $msg : ''; ?>
                         <div class="card mb-4">
@@ -51,24 +52,32 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit']) && !empty($_GET['edit'])) 
                                                     <label for="productName">Product Name</label>
                                                 </div>
                                             </div>
-                                            <div class="col-6 mt-2">
+                                            <div class="col-6 mt-2 d-flex justify-content-between">
                                                 <div class="form-floating">
-                                                    <input class="form-control" id="productdiscount" type="text" value="<?=$product['product_discount']; ?>" name="product_discount" placeholder="Product discount" />
-                                                    <label for="discount">Product discount</label>
+                                                    <input class="form-control" id="productPrice" type="text" name="product_price" placeholder="Post Price" value="<?=$product['product_price']; ?>" />
+                                                    <label for="price">Product price</label>
+                                                </div>
+                                                <div class="form-floating">
+                                                    <input class="form-control" id="productDiscount" type="text" name="product_discount" placeholder="Post Discount" value="<?=$product['product_discount']; ?>" />
+                                                    <label for="Discount">Product discount</label>
                                                 </div>
                                             </div>
-                                            <div class="col-6 mt-2">
+                                           <div class="col-6 mt-2">
                                                 <div class="form-input">
+                                                    <input class="form-control p-3" id="productImage" type="file" name="product_image" />
+
+                                                    <!-- Show file name if editing -->
                                                     <?php if (!empty($product['product_image'])): ?>
-                                                        <img src="uploads/<?=($product['product_image']);?>" alt="Current Image">
+                                                    <small class="text-muted d-block mt-1">
+                                                        Current file: <?= htmlspecialchars(basename($product['product_image'])) ?>
+                                                    </small>
                                                     <?php endif; ?>
-                                                    <input class="form-control p-3" id="postImage" type="file" name="product_image" />
                                                 </div>
                                             </div>
                                             <div class="col-6 mt-2">
                                                 <div class="form-floating">
                                                     <select name="category" id="category" class="form-control">
-                                                        <option value="Category">Category</option>
+                                                        <option value="category" disabled>Category</option>
                                                         <?php
                                                             $stmt = "SELECT * FROM categories";
                                                             $result = mysqli_query($connect, $stmt);
@@ -93,7 +102,7 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit']) && !empty($_GET['edit'])) 
                                                 </div>
                                             </div>
     
-                                            <button type="submit" name="edit_product" class="btn btn-success col-3 mt-4 mx-auto">Add Post</button>
+                                            <button type="submit" name="edit_product" class="btn btn-success col-3 mt-4 mx-auto">Edit Post</button>
                                         </div>
                                     </form>
                                 </div>
@@ -113,5 +122,8 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit']) && !empty($_GET['edit'])) 
     var editor = new FroalaEditor('#productDetails');
 </script>
     <script src="script.js"></script>
+    <script>
+
+</script>
 </body>
 </html>

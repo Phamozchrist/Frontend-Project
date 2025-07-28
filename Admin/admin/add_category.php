@@ -16,6 +16,7 @@ if (isset($_SESSION['admin_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="Fonts/css/all.min.css">
+    <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <title>Dashboard - Addcategory</title>
 </head>
@@ -46,10 +47,9 @@ if (isset($_SESSION['admin_id'])) {
                             <div class="card-body">
                                <form method="post">
                                     <div class="form-floating mb-3 w-50 m-auto">
-                                        <input class="form-control" id="category" type="text" name="category" placeholder="Post Category" required />
+                                        <input class="form-control" id="category" type="text" name="category" value="<?=$category ?>" placeholder="Product Category" required />
                                         <label for="inputEmail">Category Name</label>
-                                        <span class="text-danger"><?=$errproduct_category; ?></span>
-                                        <button type="submit" name="addcategory" class="btn btn-success m-2">Create</button>
+                                        <button type="submit" name="add_category" class="btn btn-success m-2">Create</button>
                                     </div>
                                </form>
                             </div>
