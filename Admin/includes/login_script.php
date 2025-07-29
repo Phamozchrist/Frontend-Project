@@ -1,10 +1,11 @@
 <?php
-include '../includes/config.php';
+include 'config.php';
 session_start();
 $email = $login_password = $msg = '';
 $emailErr = $login_passwordErr = '';
+
 // Check if the form is submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD']=='POST') {
 
     // Sanitize user input to prevent sql injection
     $email= mysqli_real_escape_string($connect, $_POST['email']);
@@ -28,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }else{
                 // Password is correct, set session variables
                 $_SESSION['admin'] = $row['id'];
-                header("Location: admin/index.php");
+                header("Location: index.php");
             }
         }else {
             $msg = '<p class="msg-error"><i class="fa-regular fa-circle-xmark"></i> Admin not found</p>';

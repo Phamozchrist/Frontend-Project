@@ -40,3 +40,16 @@ if (isset($_GET['delete_admin'])) {
         header("Location: manage_admins.php");
     }
 }
+
+// Delete User
+if(isset($_GET['delete_user'])){
+    $user_id = (int)$_GET['delete_user'];
+    $stmt = "DELETE from user WHERE id = $user_id";
+    if (mysqli_query($connect, $stmt)) {
+        $_SESSION['msg'] = "<div class='alert alert-success'>Admin deleted successfully</div>";
+        header("Location: manage_users.php");
+    } else{
+        $_SESSION['msg'] = "<div class='alert alert-danger'>Error deleting Admin: " . mysqli_error($connect) . "</div>";
+        header("Location: manage_users.php");
+    }
+}

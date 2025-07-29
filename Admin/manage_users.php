@@ -55,7 +55,9 @@
                                 <tbody>
                                     <?php
                                         // Fetch categories from the database
-                                        $query = "SELECT *(SELECT COUNT(*) FROM user u WHERE u.orders = o.id) AS total_orders FROM orders";
+                                        $query = "SELECT u.*, 
+                                            (SELECT COUNT(*) FROM orders o WHERE o.user_id = u.id) AS total_orders 
+                                            FROM user u";
                                         $result = mysqli_query($connect, $query);
                                         while ($row = mysqli_fetch_assoc($result)) {
                                     ?>
@@ -66,12 +68,8 @@
                                         <td><?=$row['email'];?></td>
                                         <td><?=$row['total_orders'];?></td>
                                         <td>
-                                            <a href="edit_category.php?edit=<?=$row['id'];?>" class="btn btn-info">Edit</a>
-                                            <?php if ($row['total_products'] == 0) { ?>
-                                                <a href="action.php?delete_cat=<?=$row['id'];?>" class="btn btn-danger">Delete</a>
-                                            <?php } else { ?>
-                                                <button class="btn btn-danger" disabled>Delete</button>
-                                            <?php } ?>
+                                            <a href="action.php?delete_user=<?=$row['id'];?>" class="btn btn-danger">Delete</a>
+                                           
                                         </td>
                                         <?php if(mysqli_num_rows($result) == 0): ?>
                                         <td>No Category</td>
