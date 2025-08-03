@@ -47,6 +47,7 @@
                                             <th>Details</th>
                                             <th>Image</th>
                                             <th>Price</th>
+                                            <th>Discount</th>
                                             <th>Category</th>
                                             <th>Date</th>
                                             <th>Action</th>
@@ -64,7 +65,8 @@
                                             <td><?=ucfirst($product['product_name']);?></td>
                                             <td><?=ucfirst($product['product_details']);?></td>
                                             <td><img src="uploads/<?=$product['product_image'];?>" alt="" width="150px"></td>
-                                            <td><?=ucfirst($product['product_price']);?></td>
+                                            <td>$<?=ucfirst($product['product_price']);?></td>
+                                            <td>-<?=ucfirst($product['product_discount']);?>%</td>
                                             <td><?=ucfirst($product['category_name']);?></td>
                                             <td><?=date('Y/m/d', strtotime($product['created_on']));?></td>
                                             <td>

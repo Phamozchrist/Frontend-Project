@@ -83,7 +83,7 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit']) && !empty($_GET['edit'])) 
                                                             $result = mysqli_query($connect, $stmt);
                                                             while ($row = mysqli_fetch_assoc($result)) {
                                                                 // Check if the category is selected
-                                                                $selected = ($row['id'] == $product['post_category']) ? 'selected' : '';
+                                                                $selected = ($row['id'] == $product['product_category']) ? 'selected' : '';
                                                         ?>
                                                         <option value="<?=$row['id'];?>" <?=$selected;?> ><?=$row['category_name'];?></option>
                                                         <?php } ?>
@@ -93,16 +93,14 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit']) && !empty($_GET['edit'])) 
                                             </div>
                                             <div class="col-12 mt-2">
                                                 <div class="form-input">
-                                                    <label for="productDetails">Post Details</label>
-                                                    <!-- <div id="toolbar-container"></div>
-                                                    <div id="editor-container"></div> -->
-                                                    <textarea name="product_details" id="productDetails" name="product_details" class="form-control" cols="50">
+                                                    <label for="productDetails">Product Details</label>
+                                                    <textarea id="productDetails" name="product_details" class="form-control" cols="50">
                                                     <?=$product['product_details']; ?>
                                                     </textarea>
                                                 </div>
                                             </div>
     
-                                            <button type="submit" name="edit_product" class="btn btn-success col-3 mt-4 mx-auto">Edit Post</button>
+                                            <button type="submit" name="edit_product" class="btn btn-success col-3 mt-4 mx-auto">Edit Product</button>
                                         </div>
                                     </form>
                                 </div>
@@ -114,16 +112,11 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit']) && !empty($_GET['edit'])) 
                 <!-- Footer -->
             </div>
         </div>
+        
        
     </div>
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>
-<script>
-    var editor = new FroalaEditor('#productDetails');
-</script>
     <script src="script.js"></script>
-    <script>
-
-</script>
 </body>
 </html>

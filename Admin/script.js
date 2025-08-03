@@ -6,7 +6,7 @@
     // 
 // Scripts
 // 
-
+var editor = new FroalaEditor('#productDetails');
 window.addEventListener('DOMContentLoaded', event => {
 
     // Toggle the side navigation

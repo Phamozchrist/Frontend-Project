@@ -8,6 +8,26 @@ if (isset($_SESSION['user_id'])) {
         exit();
     }
 };
+
+// Fetch product details from database
+if (isset($_GET['product']) && !empty($_GET['product'])) {
+    $product_id = intval($_GET['product']);
+    $sql = "SELECT p.*, c.category_name, c.id AS category_id 
+            FROM products p 
+            INNER JOIN categories c ON c.id = p.product_category 
+            WHERE p.id = $product_id";
+    $query = mysqli_query($connect, $sql);
+    if (mysqli_num_rows($query) > 0) {
+        $product = mysqli_fetch_assoc($query);
+    } else {
+        header("Location: categories.php");
+        exit();
+    }
+
+} else {
+    header("Location: categories.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +36,7 @@ if (isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style/user.style.css">
     <link rel="stylesheet" href="../fonts/css/all.min.css">
-    <title>Prefix - </title>
+    <title>Prefix - <?=ucfirst($product['category_name']);?> - <?= htmlspecialchars($product['product_name']); ?></title>
 </head>
 <body>
     <section class="categories-section">
@@ -28,105 +48,79 @@ if (isset($_SESSION['user_id'])) {
 
         <main>
             <p class="r-nav">
-                <a href="index.php">Home <i class="fa-solid fa-angle-right"></i></a> 
-                <a href="Categories.php">Categories <i class="fa-solid fa-angle-right"></i></a> 
-                <a href="<?= $product['category']?>.php"><?= $product['category']?> <i class="fa-solid fa-angle-right"></i></a>
-                <span><?= $product['name']?></span>
+                <a href="index.php">Home <i class="fa-solid fa-angle-right"></i></a>
+                <?php if($product['category_name'] == 'Flash Sales'): ?>
+                    <a href="flash-sales.php?category=<?=$product['category_id'];?>?<?=$product['category_name'];?>"><?=ucfirst($product['category_name']);?> <i class="fa-solid fa-angle-right"></i></a>
+                <?php elseif ($product['category_name'] == 'Top Deals'): ?>
+                    <a href="top-deals.php?category=<?=$product['category_id'];?>?<?=$product['category_name'];?>"><?=ucfirst($product['category_name']);?> <i class="fa-solid fa-angle-right"></i></a>
+                <?php else: ?>
+                    <a href="categories.php">Categories <i class="fa-solid fa-angle-right"></i></a>
+                    <a href="category.php?category=<?=$product['category_id'];?>?<?=$product['category_name'];?>"><?=ucfirst($product['category_name']);?> <i class="fa-solid fa-angle-right"></i></a>
+                <?php endif ?>
+                <span><?= htmlspecialchars($product['product_name']); ?></span>
             </p>
-            
-            <div class= "flash-sale-section">
-                <div class="fss-container">
-                    <div class="fss-heading">
-                        <h2><i class="fa-solid fa-tag"></i>Flash Sales</h2>
-                        <p>Time: <span class="fss-countdown">12:00 PM - 1:00 PM</span></p>
+            <div class="product-details-container">
+                <div class="product-image">
+                    <img src="../admin/uploads/<?= htmlspecialchars($product['product_image']); ?>" alt="<?= htmlspecialchars($product['product_name']); ?>">
+                </div>
+                <div class="product-info">
+                    <div class="product-title"><?= htmlspecialchars($product['product_name']); ?></div>
+                   
+                    <?php if($product['category_name'] == "Flash Sales"):?>
+                    <div class="fss-container">
+                        <div class="fss-heading">
+                            <h2><i class="fa-solid fa-tag"></i><?=ucfirst($product['category_name']);?></h2>
+                            <p>Time: <span class="fss-countdown">12:00 PM - 1:00 PM</span></p>
+                        </div>
+                        <div class="fss-price">
+                            <span class="discount-price"></span>
+                            <span class="actual-price"><?= htmlspecialchars($product['product_price']); ?></span>
+                            <?php
+                                if(isset($product['product_discount'])){
+                            ?>
+                            <small class="product-discount">-<small class='discount'><?=$product['product_discount'];?></small>%</small>
+                            <?php } ;?>
+                        </div>
                     </div>
-                    <div class="fss-item-container">
-                        <div class="fss-item">
-                            <div class="fss-item-sale">
-                                <small class="fss-discount">-20%</small>
-                                <img src="uploads/flash-sale-1.png" alt="">
-                            </div>
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste, in eius ducimus sed</h3>
-                            <p>12,000 <span>₦12,000</span></p>
-
-                            <div>
-                                <label for="">11 items left</label>
-                                <input type="range">
-                            </div>
-
-                        </div>
-                        <div class="fss-item">
-                            <div class="fss-item-sale">
-                                <small class="fss-discount">-20%</small>
-                                <img src="uploads/flash-sale-1.png" alt="">
-                            </div>
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste, in eius ducimus sed</h3>
-                            <p>12,000  <span>₦12,000</span></p>
-
-                            <div>
-                                <label for="">11 items left</label>
-                                <input type="range">
-                            </div>
-
-                        </div>
-                        <div class="fss-item">
-                            <div class="fss-item-sale">
-                                <small class="fss-discount">-20%</small>
-                                <img src="uploads/flash-sale-1.png" alt="">
-                            </div>
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste, in eius ducimus sed</h3>
-                            <p>12,000 <span>₦12,000</span></p>
-
-                            <div>
-                                <label for="">11 items left</label>
-                                <input type="range">
-                            </div>
-
-                        </div>
-                        <div class="fss-item">
-                            <div class="fss-item-sale">
-                                <small class="fss-discount">-20%</small>
-                                <img src="uploads/flash-sale-1.png" alt="">
-                            </div>
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste, in eius ducimus sed</h3>
-                            <p>12,000 <span>₦12,000</span></p>
-
-                            <div>
-                                <label for="">11 items left</label>
-                                <input type="range">
-                            </div>
-
-                        </div>
-                        <div class="fss-item">
-                            <div class="fss-item-sale">
-                                <small class="fss-discount">-20%</small>
-                                <img src="uploads/flash-sale-1.png" alt="">
-                            </div>
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste, in eius ducimus sed</h3>
-                            <p>₦120,000 <span>₦12,000</span></p>
-
-                            <div>
-                                <label for="">11 items left</label>
-                                <input type="range">
-                            </div>
-
-                        </div>
-                        
+                    <?php else:?>
+                    <div>
+                        <span class="discount-price"></span>
+                        <span class="actual-price"><?= htmlspecialchars($product['product_price']); ?></span>
+                        <?php
+                            if(isset($product['product_discount'])){
+                        ?>
+                        <small class="product-discount">-<small class='discount'><?=$product['product_discount'];?></small>%</small>
+                        <?php } ;?>
                     </div>
+                    <?php endif ?>
+                    
+                    <div class="addToCart-container">
+                        <small style="font-size: 12px; color: #888;">In stock</small>
+                        <button id="addToCart">Add to cart</button>
+                        <div class="inc-cart-count">
+                            <button><i class="fa-solid fa-minus"></i></button>
+                            <span>1</span>
+                            <button><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </div>
+                    <div class="pd-promotions-wrapper">
+                        <h3>PROMOTIONS</h3>
+                        <ul>
+                            <li><div class="pd-bullet"></div><a href="">Call 08160421290 To Place Your Order</a></li>
+                            <li><div class="pd-bullet"></div><a href="">Need extra money? Get a loan of up to N500,000 on Okash</a></li>
+                            <li><div class="pd-bullet"></div><a href="">Enjoy cheaper shipping fees when you select a PickUp Station at checkout.</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="product-desc-wrapper">
+                <h3 class="product-desc-header">Product details</h3>
+                <div class="product-desc">
+                    <?=$product['product_details']; ?>
                 </div>
             </div>
         </main>
-        <!-- <div class="container-2">
-            <div class="slider-container">
-                <div class="slider-track">
-                    <div class="slide"><img src="../images/banner-img.png" alt=""></div>
-                    <div class="slide"><img src="../images/banner-img.png" alt=""></div>
-                    <div class="slide"><img src="../images/banner-img.png" alt=""></div>
-                </div>
-            </div>
-        </div> -->
-
-       <!-- <a href="../includes/logout.php">Logout</a> -->
+        
        <!-- Footer Section starts here -->
        <?php include "includes/footer.php"; ?>
        <!-- Footer Section ends here -->

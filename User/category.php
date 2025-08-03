@@ -32,7 +32,7 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style/user.style.css">
     <link rel="stylesheet" href="../fonts/css/all.min.css">
-    <title>Prefix - <?=ucfirst($category['category_name']);?></title>
+    <title>Prefix - Categories - <?=ucfirst($category['category_name']);?></title>
 </head>
 <body>
     <section class="categories-section">
@@ -40,7 +40,8 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
         <?php include "includes/sidebar.php"; ?>
         <main>   
             <p class="r-nav">
-                <a href="index.php">Home <i class="fa-solid fa-angle-right"></i></a>
+                <a href="index.php">Home <i class="fa-solid fa-angle-right"></i></a> 
+                <a href="categories.php">Categories <i class="fa-solid fa-angle-right"></i></a> 
                 <span><?=ucfirst($category['category_name']);?></span>
             </p>
             <div class="category-heading">

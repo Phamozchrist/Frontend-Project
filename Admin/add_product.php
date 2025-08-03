@@ -22,7 +22,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Add Post</h1>
+                        <h1 class="mt-4">Add Product</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
                             <li class="breadcrumb-item active">Add Product</li>
@@ -35,7 +35,7 @@
                                         <div class="row">
                                             <div class="col-6 mt-2">
                                                 <div class="form-floating">
-                                                    <input class="form-control" id="productName" type="text" name="product_name" placeholder="Product Name" value="<?=htmlspecialchars($product_name)?>" />
+                                                    <input class="form-control" id="productName" type="text" name="product_name" placeholder="Product Name" />
                                                     <label for="productName">Product name</label>
                                                 </div>
                                             </div>
@@ -57,7 +57,7 @@
                                             <div class="col-6 mt-2">
                                                 <div class="form-floating">
                                                     <select name="category" id="category" class="form-control">
-                                                        <option value="Category">Category</option>
+                                                        <option value="Category" disabled selected >Category</option>
                                                         <?php
                                                             $stmt = "SELECT * FROM categories";
                                                             $result = mysqli_query($connect, $stmt);
@@ -72,9 +72,7 @@
                                             <div class="col-12 mt-2">
                                                 <div class="form-input">
                                                     <label for="productDetails">Product Details</label>
-                                                    <!-- <div id="toolbar-container"></div>
-                                                    <div id="editor-container"></div> -->
-                                                    <textarea name="product_details" id="productDetails" name="product_details" class="form-control" cols="50"></textarea>
+                                                    <textarea id="productDetails" name="product_details" class="form-control" cols="50"></textarea>
                                                 </div>
                                             </div>
     
@@ -94,9 +92,6 @@
     </div>
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>
-<script>
-    var editor = new FroalaEditor('#productDetails');
-</script>
     <script src="script.js"></script>
 </body>
 </html>

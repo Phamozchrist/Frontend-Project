@@ -7,7 +7,8 @@ if (isset($_SESSION['user_id'])) {
         header("Location: ../login.php");
         exit();
     }
-};
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,62 +31,37 @@ if (isset($_SESSION['user_id'])) {
             <div class="category-heading">
                 <h1>Categories</h1>
             </div>
+            <?php
+                $sql = "SELECT * FROM categories WHERE category_name != 'Flash Sales' AND category_name != 'Top Deals' ORDER BY id DESC";
+                $query = mysqli_query($connect, $sql);
+                while($category = mysqli_fetch_assoc($query)):
+                    $cat_id = $category['id'];
+                    $product_sql = "SELECT * FROM products WHERE product_category = $cat_id ORDER BY id DESC LIMIT 4";
+                    $product_query = mysqli_query($connect, $product_sql);
 
-            <div class= "all-categories-section">
+                    // Only show category if it has products
+                    if(mysqli_num_rows($product_query) > 0):
+            ?>
+            <div class="all-categories-section">
                 <div class="container">
                     <div class="heading">
-                        <h2>Phone & Tablet</h2>
+                        <h2><?= $category['category_name'] ?></h2>
                         <p><a href="">See all  <i class="fa-solid fa-angle-right"></i></a></p>
                     </div>
                     <div class="item-container">
-                        
-                        <a href="product-details.php">
-                            <div class="item">
+                        <?php while($product = mysqli_fetch_assoc($product_query)): ?>
+                        <div class="item">
+                            <a href="product-details.php?product=<?= $product['id']; ?>?<?=$product['product_name']; ?>">
                                 <div class="item-sale">
-                                    <small class="discount">-20%</small>
-                                    <img src="uploads/flash-sale-1.png" alt="">
+                                    <?php if(isset($product['product_discount'])): ?>
+                                    <small class="cat-discounts">-<small class='discount'><?= $product['product_discount']; ?></small>%</small>
+                                    <?php endif; ?>
+                                    <img src="../admin/uploads/<?= $product['product_image']; ?>" alt="">
                                 </div>
-                                <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste, in eius ducimus sed</h3>
-                                <p>12,000 <span>₦12,000</span></p>
-                                
-                                <div class="addToCart-container">
-                                    <button id="addToCart">Add to cart</button>
-                                    <div class="inc-cart-count">
-                                        <button><i class="fa-solid fa-minus"></i></button>
-                                        <span>1</span>
-                                        <button><i class="fa-solid fa-plus"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="">
-                            <div class="item">
-                                <div class="item-sale">
-                                    <small class="discount">-20%</small>
-                                    <img src="uploads/flash-sale-1.png" alt="">
-                                </div>
-                                <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste, in eius ducimus sed</h3>
-                                <p>12,000 <span>₦12,000</span></p>
-                                
-                                <div class="addToCart-container">
-                                    <button id="addToCart">Add to cart</button>
-                                    <div class="inc-cart-count">
-                                        <button><i class="fa-solid fa-minus"></i></button>
-                                        <span>1</span>
-                                        <button><i class="fa-solid fa-plus"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        
-                        <div class="item">
-                            <div class="item-sale">
-                                <small class="discount">-20%</small>
-                                <img src="uploads/flash-sale-1.png" alt="">
-                            </div>
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste, in eius ducimus sed</h3>
-                            <p>12,000 <span>₦12,000</span></p>
-                            
+                                <h3><?= ucfirst($product['product_name']); ?></h3>
+                                <p class="actual-price"><?= $product['product_price']; ?></p>
+                                <span class="discount-price"></span>
+                            </a>
                             <div class="addToCart-container">
                                 <button id="addToCart">Add to cart</button>
                                 <div class="inc-cart-count">
@@ -95,43 +71,15 @@ if (isset($_SESSION['user_id'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="item-sale">
-                                <small class="discount">-20%</small>
-                                <img src="uploads/flash-sale-1.png" alt="">
-                            </div>
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste, in eius ducimus sed</h3>
-                            <p>12,000 <span>₦12,000</span></p>
-                            
-                            <div class="addToCart-container">
-                                <button id="addToCart">Add to cart</button>
-                                <div class="inc-cart-count">
-                                    <button><i class="fa-solid fa-minus"></i></button>
-                                    <span>1</span>
-                                    <button><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item-sale">
-                                <small class="discount">-20%</small>
-                                <img src="uploads/flash-sale-1.png" alt="">
-                            </div>
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste, in eius ducimus sed</h3>
-                            <p>12,000 <span>₦12,000</span></p>
-                            
-                            <div class="addToCart-container">
-                                <button id="addToCart">Add to cart</button>
-                                <div class="inc-cart-count">
-                                    <button><i class="fa-solid fa-minus"></i></button>
-                                    <span>1</span>
-                                    <button><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                            </div>
-                        </div>
+
+                        <?php endwhile; ?>
                     </div>
                 </div>
             </div>
+            <?php
+                    endif;
+                endwhile;
+            ?>
         </main>
         <!-- <div class="container-2">
             <div class="slider-container">

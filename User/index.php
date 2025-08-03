@@ -7,7 +7,8 @@ if (isset($_SESSION['user_id'])) {
         header("Location: ../login.php");
         exit();
     }
-};
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,194 +51,121 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                 </div>
             </div>
+            
             <div class= "flash-sale-section">
+                
                 <div class="fss-container">
                     <div class="fss-heading">
-                        <h2><i class="fa-solid fa-tag"></i>Flash Sales</h2>
+                        <?php
+                            $sql = "SELECT * 
+                                    FROM categories   
+                                    WHERE category_name = 'Flash Sales'";
+                            $query = mysqli_query($connect, $sql);
+                            $category = mysqli_fetch_assoc($query)
+                        ?>
+                        <h2><i class="fa-solid fa-tag"></i><?=$category['category_name']; ?></h2>
                         <p>Time: <span class="fss-countdown">12:00 PM - 1:00 PM</span></p>
-                        <p><a href="flash-sales.php">See all  <i class="fa-solid fa-angle-right"></i></a></p>
+                        <p><a href="flash-sales.php?category=<?=$category['id']; ?>?<?=$category['category_name']; ?>">See all  <i class="fa-solid fa-angle-right"></i></a></p>
                     </div>
                     <div class="fss-item-container">
+                        <?php
+                            $sql = "SELECT p.*, c.category_name 
+                                    FROM products p 
+                                    INNER JOIN categories c ON c.id = p.product_category 
+                                    WHERE c.category_name = 'Flash Sales' 
+                                    ORDER BY p.id ASC 
+                                    LIMIT 4";
+                            $query = mysqli_query($connect, $sql);
+                            while($product = mysqli_fetch_assoc($query)):
+                        ?>
                         <div class="fss-item">
-                            <div class="fss-item-sale">
-                                <small class="fss-discount">-20%</small>
-                                <img src="uploads/flash-sale-1.png" alt="">
-                            </div>
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste, in eius ducimus sed</h3>
-                            <p>12,000 <span>₦12,000</span></p>
-
-                            <div>
-                                <label for="">11 items left</label>
-                                <input type="range">
-                            </div>
-
+                            <a href="product-details.php?product=<?=$product['id'];?>?<?=$product['product_name'];?>">
+                                <div class="fss-item-sale">
+                                    <?php
+                                        if(isset($product['product_discount'])){
+                                    ?>
+                                    <small class="fss-discount">-<small class='discount'><?=$product['product_discount'];?></small>%</small>
+                                    <?php } ;?>
+                                    <img src="../admin/uploads/<?=$product['product_image'];?>" alt="">
+                                </div>
+                                <h3><?=ucfirst($product['product_name']);?></h3>
+                                <p class="discount-price"></p>
+                                <p class="actual-price"><?=$product['product_price'];?></p>
+                            </a>
                         </div>
-                        <div class="fss-item">
-                            <div class="fss-item-sale">
-                                <small class="fss-discount">-20%</small>
-                                <img src="uploads/flash-sale-1.png" alt="">
-                            </div>
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste, in eius ducimus sed</h3>
-                            <p>12,000 <span>₦12,000</span></p>
-
-                            <div>
-                                <label for="">11 items left</label>
-                                <input type="range">
-                            </div>
-
-                        </div>
-                        <div class="fss-item">
-                            <div class="fss-item-sale">
-                                <small class="fss-discount">-20%</small>
-                                <img src="uploads/flash-sale-1.png" alt="">
-                            </div>
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste, in eius ducimus sed</h3>
-                            <p>12,000 <span>₦12,000</span></p>
-
-                            <div>
-                                <label for="">11 items left</label>
-                                <input type="range">
-                            </div>
-
-                        </div>
-                        <div class="fss-item">
-                            <div class="fss-item-sale">
-                                <small class="fss-discount">-20%</small>
-                                <img src="uploads/flash-sale-1.png" alt="">
-                            </div>
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste, in eius ducimus sed</h3>
-                            <p>₦120,000 <span>₦12,000</span></p>
-
-                            <div>
-                                <label for="">11 items left</label>
-                                <input type="range">
-                            </div>
-
-                        </div>
-                        
+                        <?php endwhile;?>
                     </div>
                 </div>
+                
             </div>
             <div class= "av-cat-section">
                 <div class="acs-item-container">
-                    <div class="acs-item">
-                        <div class="acs-item-sale">
-                            <img src="uploads/flash-sale-1.png" alt="">
+                    <?php
+                        $sql = "SELECT * FROM categories WHERE category_name != 'Flash Sales' ORDER BY id ASC";
+                        $query = mysqli_query($connect, $sql);
+                        while($category = mysqli_fetch_assoc($query)):
+                            $cat_id = $category['id'];
+                            $product_sql = "SELECT * FROM products WHERE product_category = $cat_id ORDER BY id DESC LIMIT 1";
+                            $product_query = mysqli_query($connect, $product_sql);
+
+                            // Only show category if it has products
+                            if(mysqli_num_rows($product_query) > 0):
+                    ?>
+                    <a href="category.php?category=<?=$category['id'];?>?<?=$category['category_name'];?>">
+                        <?php while($product = mysqli_fetch_assoc($product_query)): ?>
+                        <div class="acs-item">
+                            <div class="acs-item-sale">
+                                <img src="../admin/uploads/<?=$product['product_image'];?>" alt="">
+                            </div>
+                            <p><?=$category['category_name'];?></p>
                         </div>
-                        <p>Phone & tablets</p>
-                    </div>
-                    <div class="acs-item">
-                        <div class="acs-item-sale">
-                            <img src="uploads/flash-sale-1.png" alt="">
-                        </div>
-                        <p>Phone & tablets</p>
-                    </div>
-                    <div class="acs-item">
-                        <div class="acs-item-sale">
-                            <img src="uploads/flash-sale-1.png" alt="">
-                        </div>
-                        <p>Phone & tablets</p>
-                    </div>
-                    <div class="acs-item">
-                        <div class="acs-item-sale">
-                            <img src="uploads/flash-sale-1.png" alt="">
-                        </div>
-                        <p>Phone & tablets</p>
-                    </div>
-                    <div class="acs-item">
-                        <div class="acs-item-sale">
-                            <img src="uploads/flash-sale-1.png" alt="">
-                        </div>
-                        <p>Phone & tablets</p>
-                    </div>
-                    <div class="acs-item">
-                        <div class="acs-item-sale">
-                            <img src="uploads/flash-sale-1.png" alt="">
-                        </div>
-                        <p>Phone & tablets</p>
-                    </div>
-                    <div class="acs-item">
-                        <div class="acs-item-sale">
-                            <img src="uploads/flash-sale-1.png" alt="">
-                        </div>
-                        <p>Phone & tablets</p>
-                    </div>
-                    <div class="acs-item">
-                        <div class="acs-item-sale">
-                            <img src="uploads/flash-sale-1.png" alt="">
-                        </div>
-                        <p>Phone & tablets</p>
-                    </div>
+                        <?php endwhile;?>
+                    </a>
+                    <?php 
+                        endif;
+                        endwhile;
+                    ?>
                 </div>
             </div>
-            <div class= "top-deals-section">
+            <div class="tds-section">
                 <div class="tds-container">
                     <div class="tds-heading">
-                        <h2>Top Deals</h2>
-                        <p><a href="top-deals.php">See all  <i class="fa-solid fa-angle-right"></i></a></p>
+                        <?php
+                            $sql = "SELECT * 
+                                    FROM categories   
+                                    WHERE category_name = 'Top Deals'";
+                            $query = mysqli_query($connect, $sql);
+                            $category = mysqli_fetch_assoc($query)
+                        ?>
+                        <h2><?=$category['category_name']; ?></h2>
+                        <p><a href="top-deals.php?category=<?=$category['id']; ?>?<?=$category['category_name']; ?>">See all  <i class="fa-solid fa-angle-right"></i></a></p>
                     </div>
                     <div class="tds-item-container">
+                        <?php
+                            $sql = "SELECT p.*, c.category_name 
+                                    FROM products p 
+                                    INNER JOIN categories c ON c.id = p.product_category 
+                                    WHERE c.category_name = 'Top Deals' 
+                                    ORDER BY p.id ASC 
+                                    LIMIT 4";
+                            $query = mysqli_query($connect, $sql);
+                            while($product = mysqli_fetch_assoc($query)):
+                        ?>
+                       
                         <div class="tds-item">
-                            <div class="tds-item-sale">
-                                <small class="tds-discount">-20%</small>
-                                <img src="uploads/flash-sale-1.png" alt="">
-                            </div>
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste, in eius ducimus sed</h3>
-                            <p>12,000 <span>₦12,000</span></p>
-                            
-                            <div class="addToCart-container">
-                                <button id="addToCart">Add to cart</button>
-                                <div class="inc-cart-count">
-                                    <button><i class="fa-solid fa-minus"></i></button>
-                                    <span>1</span>
-                                    <button><i class="fa-solid fa-plus"></i></button>
+                            <a href="product-details.php?product=<?= $product['id']; ?>?<?=$product['product_name']; ?>">
+                                <div class="tds-item-sale">
+                                    <?php
+                                        if(isset($product['product_discount'])){
+                                    ?>
+                                    <small class="tds-discount">-<small class='discount'><?=$product['product_discount'];?></small>%</small>
+                                    <?php } ;?>
+                                    <img src="../admin/uploads/<?=$product['product_image'];?>" alt="">
                                 </div>
-                            </div>
-                            
-                        </div>
-                        <div class="tds-item">
-                            <div class="tds-item-sale">
-                                <small class="tds-discount">-20%</small>
-                                <img src="uploads/flash-sale-1.png" alt="">
-                            </div>
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste, in eius ducimus sed</h3>
-                            <p>12,000 <span>₦12,000</span></p>
-                            
-                            <div class="addToCart-container">
-                                <button id="addToCart">Add to cart</button>
-                                <div class="inc-cart-count">
-                                    <button><i class="fa-solid fa-minus"></i></button>
-                                    <span>1</span>
-                                    <button><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="tds-item">
-                            <div class="tds-item-sale">
-                                <small class="tds-discount">-20%</small>
-                                <img src="../images/banner-img.png" alt="">
-                            </div>
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste, in eius ducimus sed</h3>
-                            <p>12,000  <span>₦12,000</span></p>
-                            
-                            <div class="addToCart-container">
-                                <button id="addToCart">Add to cart</button>
-                                <div class="inc-cart-count">
-                                    <button><i class="fa-solid fa-minus"></i></button>
-                                    <span>1</span>
-                                    <button><i class="fa-solid fa-plus"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tds-item">
-                            <div class="tds-item-sale">
-                                <small class="tds-discount">-20%</small>
-                                <img src="uploads/flash-sale-1.png" alt="">
-                            </div>
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste, in eius ducimus sed</h3>
-                            <p>₦12,000 <span>₦12,000</span></p>
-                            
+                                <h3><?=ucfirst($product['product_name']);?></h3>
+                                <p class="discount-price"></p>
+                                <p class="actual-price"><?=$product['product_price'];?></p>
+                            </a>
                             <div class="addToCart-container">
                                 <button id="addToCart">Add to cart</button>
                                 <div class="inc-cart-count">
@@ -248,6 +176,7 @@ if (isset($_SESSION['user_id'])) {
                             </div>
                         </div>
                         
+                        <?php endwhile;?>
                     </div>
                 </div>
             </div>

@@ -77,12 +77,12 @@ if (isset($_POST['edit_category'])) {
     }
 }
 
-// Add Post
+// Add Product
 if(isset($_POST['add_product'])){
     $product_name = test_input($_POST['product_name']);
     $product_price = test_input($_POST['product_price']);
-    $product_discount = $_POST['product_discount'];
-    $product_details = test_input($_POST['product_details']);
+    $product_discount = test_input($_POST['product_discount']);
+    $product_details = $_POST['product_details'];
     $category = test_input($_POST['category']);
     // Post Image
     $product_image = $_FILES['product_image']['name'];
@@ -119,7 +119,7 @@ if(isset($_POST['add_product'])){
 }
 
 
-// Edit Post
+// Edit Product
 if (isset($_POST['edit_product'])) {
     $product_name = test_input($_POST['product_name']);
     $product_price = test_input($_POST['product_price']);
@@ -161,12 +161,15 @@ if (isset($_POST['edit_product'])) {
             }
                
                 // Update product details in the database
-                $stmt = "UPDATE products SET product_name='$product_name', product_price='$product_price', product_discount='$product_discount', product_details='$product_details', product_image='$product_image', product_category='$category' WHERE id=$product_id";
+                $stmt = $connect->prepare("UPDATE products SET product_name=?, product_price=?, product_discount=?, product_details=?, product_image=?, product_category=? WHERE id=?");
+                $stmt->bind_param("sdssssi", $product_name, $product_price, $product_discount, $product_details, $product_image, $category, $product_id);
         } else {
             // Update product details in the database without changing the image
-            $stmt = "UPDATE products SET product_name='$product_name', product_price='$product_price', product_discount='$product_discount', product_details='$product_details', product_category='$category' WHERE id=$product_id";
+            $stmt = $connect->prepare("UPDATE products SET product_name=?, product_price=?, product_discount=?, product_details=?, product_category=? WHERE id=?");
+            $stmt->bind_param("sdsssi", $product_name, $product_price, $product_discount, $product_details, $category, $product_id);
         }
-        if (mysqli_query($connect, $stmt)) {
+        $result = $stmt->execute();
+        if ($result) {
             $msg = "<div class='alert alert-success'>Product updated successfully</div>";
         } else {
             $msg = "<div class='alert alert-danger'>Error updating post: " . mysqli_error($connect) . "</div>";
