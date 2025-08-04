@@ -1400,21 +1400,35 @@ footer .copyright-section{
 } */
 
 /* --- P2P Marketplace Styles --- */
-.p2p-main {
+.p2p-section .sidebar > ul:first-of-type li:nth-of-type(4){
+    background-color: #9bf7ea;
+}
+.p2p-section .sidebar > ul:first-of-type li:nth-of-type(4)::before{
+    content: "";
+    position: absolute;
+    width: 4px;
+    height:100%;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+    top: 0;
+    left: -13px;
+    transition: all 0.3s ease;
+    background-color: #9bf7ea;
+}
+.p2p-container {
     width: 95%;
     margin: 40px auto 0;
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 4px 24px rgba(60, 60, 120, 0.08);
     padding: 32px 24px;
 }
 
-.p2p-main h1 {
+.p2p-container h1 {
     font-size: 2.2rem;
     font-weight: 700;
     color: #28454e;
     margin-bottom: 24px;
-    text-align: center;
+    /* text-align: center; */
 }
 
 .p2p-create-form {
@@ -1457,20 +1471,94 @@ footer .copyright-section{
 .p2p-create-form button {
     width: 100%;
     background: #9bf7ea;
-    color: #fff;
+    color: #28454e;
     border: none;
-    border-radius: 8px;
-    padding: 14px 0;
+    border-radius: 7px;
+    padding: 12px 0;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
     box-shadow: 0 2px 8px rgba(60, 60, 120, 0.10);
-    transition: background 0.2s, box-shadow 0.2s;
+    transition: background 0.2s;
 }
 
 .p2p-create-form button:hover {
     background: #84e6d7;
-    box-shadow: 0 4px 16px rgba(60, 60, 120, 0.16);
 }
 
+.p2p-list-table {
+    width: 100%;
+    margin: 0 auto 32px;
+    overflow-x: auto;
+}
+
+.p2p-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(60, 60, 120, 0.08);
+    overflow: hidden;
+}
+
+.p2p-table th, .p2p-table td {
+    padding: 14px 12px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.p2p-table th {
+    background: #9bf7ea;
+    color: #28454e;
+    font-weight: 700;
+    border-bottom: 2px solid #e0e3eb;
+}
+
+.p2p-table tr {
+    transition: background 0.2s;
+}
+
+.p2p-table tr:hover {
+    background: #f8f8f8;
+}
+
+.p2p-table td {
+    border-bottom: 1px solid #e0e3eb;
+}
+
+.p2p-btn {
+    display: inline-block;
+    padding: 7px 18px;
+    border-radius: 6px;
+    font-size: 0.98rem;
+    font-weight: 500;
+    text-decoration: none;
+    margin: 0 3px;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+}
+
+.p2p-edit {
+    background: #84e6d7;
+    color: #28454e;
+}
+
+.p2p-edit:hover {
+    background: #9bf7ea;
+}
+.p2p-delete {
+    background: #e07c24;
+    color: #fff;
+}
+
+.p2p-delete:hover {
+    background: #c96a1c;
+}
+
+@media (max-width: 700px) {
+    .p2p-table th, .p2p-table td {
+        padding: 10px 6px;
+        font-size: 0.95rem;
+    }
+}
 /* --- End of P2P Marketplace Styles --- */

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="Fonts/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
-    <title>Dashboard - Manage Admins</title>
+    <title>Prefix - Manage Admins</title>
 </head>
 <body class="sb-nav-fixed">
     <div class="container-fluid">

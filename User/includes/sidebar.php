@@ -6,6 +6,6 @@
         <li><i class="fa-solid fa-people-arrows"></i><a href="P2P.php">P2P</a></li>
     </ul>
     <ul>
-        <li><i class="fa-solid fa-gear"></i><a href="">Settings</a></li>
+        <li><i class="fa-solid fa-gear"></i><a href="logout.php">Settings</a></li>
     </ul>
 </aside>

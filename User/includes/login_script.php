@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include '../includes/config.php';
 session_start();
 $emailOrUsername = $login_password = $msg = $rememberMe = '';
 $emailOrUsernameErr = $login_passwordErr = '';
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
                     $updateStmt->bind_param("si", $hashedToken, $row['id']);
                     $updateStmt->execute();
                 }
-                header("Location: User/index.php");
+                header("Location: index.php");
             }
         }else {
             $msg = '<p class="msg-error"><i class="fa-regular fa-circle-xmark"></i> User not found</p>';

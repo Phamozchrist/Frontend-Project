@@ -10,4 +10,4 @@ if (isset($_SESSION['user_id'])) {
     $stmt->bind_param("i", $_SESSION['user_id']);
     $stmt->execute();
 }
-header("Location: ../login.php");
+header("Location: ../user/login.php");

@@ -1,5 +1,5 @@
 <?php 
-require '../includes/session.php';
+require 'includes/session.php';
 if (isset($_SESSION['user_id'])) {
     if (isset($_COOKIE['user_id'])) {
         $_SESSION['user_id'] = $_COOKIE['user_id'];
@@ -30,7 +30,7 @@ if (isset($_SESSION['user_id'])) {
         <main>   
             <div class="user-hero-section">
                 <div class="uhs-heading">
-                    <h1>Welcome, Stephen</h1>
+                    <h1>Welcome, <?=$user['firstname'];?></h1>
                     <p>Come and buy what we are selling ooo!</p>
                 </div>
 
@@ -44,7 +44,7 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                     <div>
                         <p>Posts</p>
-                        <a href="">
+                        <a href="p2p.php">
                             <p>View Details</p>
                             <small>></small>
                         </a>

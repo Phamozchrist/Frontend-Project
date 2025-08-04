@@ -1,7 +1,7 @@
 <?php
 // Admin Session Management
 // Include the database connection file
-include 'config.php';
+include '../includes/config.php';
 // Start the session
 session_start();
 // Check if the user is logged in

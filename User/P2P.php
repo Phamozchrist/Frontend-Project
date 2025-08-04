@@ -1,26 +1,16 @@
 <?php
-require '../includes/session.php';
-// Handle new post creation
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_post'])) {
-    $title = mysqli_real_escape_string($connect, $_POST['title']);
-    $price = floatval($_POST['price']);
-    $desc = mysqli_real_escape_string($connect, $_POST['description']);
-    $user_id = $_SESSION['user_id'];
-    // Handle image upload if needed
-    $image = '';
-    if (!empty($_FILES['image']['name'])) {
-        $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-        $filename = rand(1000,9999) . "." . $ext;
-        $target = "../admin/uploads/" . $filename;
-        move_uploaded_file($_FILES['image']['tmp_name'], $target);
-        $image = $filename;
+ require 'includes/session.php';
+if (isset($_SESSION['user_id'])) {
+    if (isset($_COOKIE['user_id'])) {
+        $_SESSION['user_id'] = $_COOKIE['user_id'];
+    } else {
+        header("Location: ../login.php");
+        exit();
     }
-    $sql = "INSERT INTO p2p_posts (user_id, title, price, description, image) VALUES ('$user_id', '$title', '$price', '$desc', '$image')";
-    mysqli_query($connect, $sql);
 }
-
+$user_id = $_SESSION['user'];
 // Fetch all P2P posts
-$posts = mysqli_query($connect, "SELECT p.*, u.username FROM p2p_posts p JOIN user u ON p.user_id = u.id ORDER BY p.id DESC");
+$posts = mysqli_query($connect, "SELECT p.*, u.username FROM p2p_posts p INNER JOIN user u ON p.user_id = u.id ORDER BY p.id DESC");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,44 +18,119 @@ $posts = mysqli_query($connect, "SELECT p.*, u.username FROM p2p_posts p JOIN us
     <meta charset="UTF-8">
     <title>P2P Marketplace</title>
     <link rel="stylesheet" href="../style/user.style.css">
+    <link rel="stylesheet" href="../fonts/css/all.min.css">
+    <title>Prefix - P2P</title>
+    
 </head>
 <body>
-    <?php include "includes/navbar.php"; ?>
-    <?php include "includes/sidebar.php"; ?>
-    <div class="p2p-main">
-        <h1>P2P Marketplace</h1>
-        <!-- Create Post Form -->
-        <section>
-            <form class="p2p-create-form" method="post" enctype="multipart/form-data">
-                <h2>Create a Post</h2>
-                <input type="text" name="title" placeholder="Item Title" required>
-                <input type="number" name="price" placeholder="Price" required>
-                <textarea name="description" placeholder="Description" required></textarea>
-                <input type="file" name="image" accept="image/*">
-                <button type="submit" name="create_post">Post Item</button>
-            </form>
-        </section>
-        <!-- List of Posts -->
-        <section>
-            <h2 style="text-align:center; margin-bottom:18px;">Buy & Sell</h2>
-            <div class="p2p-list">
-                <?php while($post = mysqli_fetch_assoc($posts)): ?>
-                    <div class="p2p-item">
-                        <?php if($post['image']): ?>
-                            <img src="../admin/uploads/<?= htmlspecialchars($post['image']); ?>" alt="<?= htmlspecialchars($post['title']); ?>">
-                        <?php endif; ?>
-                        <h3><?= htmlspecialchars($post['title']); ?></h3>
-                        <div class="p2p-price">₦<?= htmlspecialchars($post['price']); ?></div>
-                        <p><?= htmlspecialchars($post['description']); ?></p>
-                        <small>Seller: <?= htmlspecialchars($post['username']); ?></small>
-                        <div class="p2p-btns">
-                            <button class="p2p-buy-btn">Buy</button>
-                            <button class="p2p-chat-btn">Chat</button>
-                        </div>
-                    </div>
-                <?php endwhile; ?>
+    <section class="p2p-section">
+        <?php include "includes/navbar.php"; ?>
+        <!-- Top Navigition bar -->
+
+        <?php include "includes/sidebar.php"; ?>
+        <!-- Side Navigation bar -->
+        <main>
+            <div class="p2p-container">
+                <h1>P2P Marketplace</h1>
+                <!-- Create Post Form -->
+                <?php
+                // ...existing code...
+                
+                $user_posts = mysqli_query($connect, "SELECT * FROM p2p_posts WHERE user_id = '$user_id' ORDER BY id DESC");
+                ?>
+                <!-- ...existing code... -->
+               
+                <!-- User's Unique Posts Section -->
+                <h2 style="margin:28px 0 18px;" style="display: inline; width: 50%;">Your Posts</h2>
+                <span><a href="p2p-addpost.php">Create Post</a></span>
+                <div class="p2p-list-table">
+                    <table class="p2p-table">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Image</th>
+                                <th>Price</th>
+                                <th>Phone no.</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if(mysqli_num_rows($user_posts) > 0): ?>
+                                <?php while($post = mysqli_fetch_assoc($user_posts)): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($post['title']); ?></td>
+                                    <td>
+                                        <?php if($post['image']): ?>
+                                            <img src="../admin/uploads/<?= htmlspecialchars($post['image']); ?>" alt="<?= htmlspecialchars($post['title']); ?>" width="70" style="border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+                                        <?php else: ?>
+                                            <span style="color:#aaa;">No Image</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>₦<?= htmlspecialchars($post['price']); ?></td>
+                                    <td><?= htmlspecialchars($post['phone_number']); ?></td>
+                                    <td>
+                                        <a href="p2p-post-details.php?post=<?=$post['id'];?>?<?=$post['title'];?>" class="p2p-btn p2p-edit">View</a>
+                                        <a href="p2p-editpost.php?edit_post=<?=$post['id'];?>?<?=$post['title'];?>" class="p2p-btn p2p-edit">Edit</a>
+                                        <a href="action.php?delete_post=<?=$post['id'];?>?<?=$post['title'];?>" class="p2p-btn p2p-delete" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+                                    </td>
+                                </tr>
+                                <?php endwhile; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="5" style="text-align:center;color:#888;">You have not created any post yet.</td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- ...rest of your page... -->
+                <!-- Buy & Sell Table -->
+                <h2 style="margin-bottom:18px;">Buy from other users</h2>
+                <div class="p2p-list-table">
+                    <table class="p2p-table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Product Name</th>
+                                <th>Image</th>
+                                <th>Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if(mysqli_num_rows($posts) > 0): ?>
+                                <?php while($post = mysqli_fetch_assoc($posts)): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars(ucfirst($post['username'])); ?></td>
+                                    <td><?= htmlspecialchars($post['title']); ?></td>
+                                    <td>
+                                        <?php if($post['image']): ?>
+                                            <img src="../admin/uploads/<?= htmlspecialchars($post['image']); ?>" alt="<?= htmlspecialchars($post['title']); ?>" width="70" style="border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+                                        <?php else: ?>
+                                            <span style="color:#aaa;">No Image</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>$<?= htmlspecialchars($post['price']); ?></td>
+                                    <td>
+                                        <a href="p2p-post-details.php?post=<?=$post['id'];?>?<?=$post['title'];?>" class="p2p-btn p2p-edit">Buy</a>
+                                    </td>
+                                </tr>
+                                <?php endwhile; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="5" style="text-align:center;color:#888;">No Post Found</td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </section>
-    </div>
+            
+        </main>
+        <?php include "includes/footer.php"; ?>
+       <!-- Footer Section ends here -->
+    </section>
+
+    <script src="../javascript/user.script.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 // User Session Management
-require 'config.php';
+require '../includes/config.php';
 session_start();
 $msg = "";
 // Check if the user is logged in
