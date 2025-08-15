@@ -101,7 +101,7 @@ if (isset($_SESSION['user_id'])) {
             <div class= "av-cat-section">
                 <div class="acs-item-container">
                     <?php
-                        $sql = "SELECT * FROM categories WHERE category_name != 'Flash Sales' ORDER BY id ASC";
+                        $sql = "SELECT * FROM categories WHERE category_name != 'Flash Sales' AND category_name != 'Top Deals' ORDER BY id ASC";
                         $query = mysqli_query($connect, $sql);
                         while($category = mysqli_fetch_assoc($query)):
                             $cat_id = $category['id'];
@@ -137,7 +137,7 @@ if (isset($_SESSION['user_id'])) {
                             $query = mysqli_query($connect, $sql);
                             $category = mysqli_fetch_assoc($query)
                         ?>
-                        <h2><?=$category['category_name']; ?></h2>
+                        <h2><?=$category['category_name']; ?></h2> 
                         <p><a href="top-deals.php?category=<?=$category['id']; ?>?<?=$category['category_name']; ?>">See all  <i class="fa-solid fa-angle-right"></i></a></p>
                     </div>
                     <div class="tds-item-container">
@@ -152,14 +152,13 @@ if (isset($_SESSION['user_id'])) {
                             while($product = mysqli_fetch_assoc($query)):
                         ?>
                        
+            
                         <div class="tds-item">
-                            <a href="product-details.php?product=<?= $product['id']; ?>?<?=$product['product_name']; ?>">
+                            <a href="product-details.php?product=<?= $product['id']; ?>?<?= urlencode($product['product_name']); ?>">
                                 <div class="tds-item-sale">
-                                    <?php
-                                        if(isset($product['product_discount'])){
-                                    ?>
+                                    <?php if(isset($product['product_discount'])) { ?>
                                     <small class="tds-discount">-<small class='discount'><?=$product['product_discount'];?></small>%</small>
-                                    <?php } ;?>
+                                    <?php } ?>
                                     <img src="../admin/uploads/<?=$product['product_image'];?>" alt="">
                                 </div>
                                 <h3><?=ucfirst($product['product_name']);?></h3>
@@ -167,10 +166,10 @@ if (isset($_SESSION['user_id'])) {
                                 <p class="actual-price"><?=$product['product_price'];?></p>
                             </a>
                             <div class="addToCart-container">
-                                <button id="addToCart">Add to cart</button>
+                                <button class="addToCart">Add to cart</button>
                                 <div class="inc-cart-count">
                                     <button><i class="fa-solid fa-minus"></i></button>
-                                    <span>1</span>
+                                    <span>0</span>
                                     <button><i class="fa-solid fa-plus"></i></button>
                                 </div>
                             </div>
@@ -208,7 +207,6 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                 </div>
             </div>
-            
         </main>
         <!-- <div class="container-2">
             <div class="slider-container">

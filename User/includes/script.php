@@ -1,7 +1,7 @@
 <?php
 require 'includes/session.php';
-$title = $price = $desc = $image = $phone_num = $msg =  '';
-$user_id = '';
+$title = $price = $desc = $image = $phone_num = $msg = $confirmPassword = '';
+$passwordErr = $newPasswordErr = $confirmPasswordErr = $user_id = '';
 // Handle new post creation
 if (isset($_POST['create_post'])) {
     $title = mysqli_real_escape_string($connect, $_POST['title']);
@@ -78,6 +78,72 @@ if (isset($_GET['edit_post'])) {
         } else {
             $msg = "<div class='alert alert-danger'>Error updating post: " . mysqli_error($connect) . "</div>";
         }
+    }
+}
+
+if (isset($_GET['save'])) {
+    $password = isset($_POST['password']) ? $_POST['password'] : '';
+    $newPassword = isset($_POST['new_password']) ? $_POST['new_password'] : '';
+    $confirmPassword = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '';
+    $user_id = intval($_SESSION['user']);
+
+    // Validate New Password
+    if (empty($newPassword)) {
+        $newPasswordErr = '<i class="fa-regular fa-circle-xmark"></i> Password is required';
+    } else if(!preg_match('/^(?=.*[A-Za-z])(?=.*[\d])(?=.*[!@#$%?])[A-Za-z\d!@#$%?]*$/',$password)){
+        $newPasswordErr = '<i class="fa-regular fa-circle-xmark"></i> Password must include an uppercase, number, symbol e.g P@ssw0rd';
+    } elseif (strlen($newPassword < 8)) {
+        $newPasswordErr = '<i class="fa-regular fa-circle-xmark"></i> Password must be at least 8 characters';
+    }else {
+        $newPasswordErr = '';
+    }
+    // Validate Confirm Password
+    if (empty($confirmPassword)) {
+        $confirmPasswordErr = '<i class="fa-regular fa-circle-xmark"></i> Password not confirmed';
+    } elseif ($confirmPassword !== $password) {
+        $confirmPasswordErr = '<i class="fa-regular fa-circle-xmark"></i> Password do not match';
+    } else {
+        $confirmPasswordErr = '';
+    }
+
+    if(empty($newPassword) || empty($password) || empty($confirmPassword)){
+        $msg = '<p class="msg=error"><i class="fa-regular fa-circle-xmark"></i> Please fill in all fields;</p>'; 
+    }
+    // Display Success Message
+    $error = $passwordErr . $newPasswordErr .  $confirmPasswordErr;
+    
+        // Verify the Old password
+        
+    if(empty($error)){
+        $stmt = $connect->prepare('SELECT * FROM user WHERE id = ?');
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $passwordHash = $row["password"];
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = $result->fetch_assoc()) {
+                if (!password_verify($password, $passwordHash)) {
+                    $msg = '<p class="msg-error"><i class="fa-regular fa-circle-xmark"></i> Incorrect password</p>';
+                }elseif (password_verify($newpassword, $passwordHash))  {
+                    $msg = '<p class="msg-error"><i class="fa-regular fa-checked"></i> No changes made.</p>"';
+                }else {
+                    $msg = '<p class="msg-error"><i class="fa-regular fa-checked"></i> No changes made.</p>"';
+                }
+                
+            }
+        }
+        if (empty($error)) {
+            $passwordHash = password_hash($newPassword, PASSWORD_BCRYPT);
+            $updatestmt = $connect->prepare("UPDATE user SET password=?, WHERE id=?");
+            $stmt->bind_param("si", $newPassword, $user_id);;
+            
+            if ($updateStmt->execute()) {
+                header("Location: ../user/settings.php");
+            }else {
+                $msg = '<i class="fa-regular fa-circle-xmark"></i> Error: ' . mysqli_error($insertStmt);
+            }
+        }
+            
     }
 }
 

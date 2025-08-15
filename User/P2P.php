@@ -41,8 +41,13 @@ $posts = mysqli_query($connect, "SELECT p.*, u.username FROM p2p_posts p INNER J
                 <!-- ...existing code... -->
                
                 <!-- User's Unique Posts Section -->
-                <h2 style="margin:28px 0 18px;" style="display: inline; width: 50%;">Your Posts</h2>
-                <span><a href="p2p-addpost.php">Create Post</a></span>
+                <div class="p2p-header">
+                    <h2>Your Posts</h2>
+                    <span>
+                        <a href="p2p-addpost.php" class="p2p-create-btn">Create Post +</a>
+                    </span>
+                
+                </div>
                 <div class="p2p-list-table">
                     <table class="p2p-table">
                         <thead>
@@ -70,8 +75,7 @@ $posts = mysqli_query($connect, "SELECT p.*, u.username FROM p2p_posts p INNER J
                                     <td><?= htmlspecialchars($post['phone_number']); ?></td>
                                     <td>
                                         <a href="p2p-post-details.php?post=<?=$post['id'];?>?<?=$post['title'];?>" class="p2p-btn p2p-edit">View</a>
-                                        <a href="p2p-editpost.php?edit_post=<?=$post['id'];?>?<?=$post['title'];?>" class="p2p-btn p2p-edit">Edit</a>
-                                        <a href="action.php?delete_post=<?=$post['id'];?>?<?=$post['title'];?>" class="p2p-btn p2p-delete" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+                                        <a href="#" class="p2p-btn p2p-delete" data-delete-url="action.php?delete_post=<?=$post['id'];?>?<?=$post['title'];?>" onclick="openDeleteModal(this); return false;">Delete</a>
                                     </td>
                                 </tr>
                                 <?php endwhile; ?>
@@ -83,7 +87,6 @@ $posts = mysqli_query($connect, "SELECT p.*, u.username FROM p2p_posts p INNER J
                         </tbody>
                     </table>
                 </div>
-                <!-- ...rest of your page... -->
                 <!-- Buy & Sell Table -->
                 <h2 style="margin-bottom:18px;">Buy from other users</h2>
                 <div class="p2p-list-table">
@@ -131,6 +134,16 @@ $posts = mysqli_query($connect, "SELECT p.*, u.username FROM p2p_posts p INNER J
        <!-- Footer Section ends here -->
     </section>
 
+    <div id="deleteModal" class="p2p-modal">
+        <div class="p2p-modal-content">
+            <h3>Delete Post</h3>
+            <p>Are you sure you want to delete this post?</p>
+            <div class="p2p-modal-actions">
+                <button id="cancelDelete" class="p2p-modal-btn p2p-cancel-btn">Cancel</button>
+                <a id="confirmDelete" href="#" class="p2p-modal-btn p2p-ok-btn">OK</a>
+            </div>
+        </div>
+    </div>
     <script src="../javascript/user.script.js"></script>
 </body>
 </html>

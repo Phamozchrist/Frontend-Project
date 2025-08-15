@@ -8,9 +8,11 @@
     <div class="cart-container">
         <div class="cart navbar-cart-icon">
             <a href="cart.php"><i class="fa-solid fa-shopping-cart"></i></a>
+            <span class=".cart-count-badge"></span>
         </div>
         <div class="user-dp">
             <img src="../../images/blog-img1.png" alt="Dp">
+            <i class="fa-solid fa-angle-down"></i>
         </div>
     </div>
 </header>

@@ -44,8 +44,6 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
         <main>
             
         </main>
-
-       <!-- <a href="../includes/logout.php">Logout</a> -->
        <!-- Footer Section starts here -->
        <?php include "includes/footer.php"; ?>
        <!-- Footer Section ends here -->

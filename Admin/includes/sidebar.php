@@ -9,16 +9,6 @@
                         Dashboard
                     </a>
                     <div class="sb-sidenav-menu-heading">Interface</div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts1">
-                        <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
-                        Users
-                        <div class="sb-sidenav-collapse-arrow"><i class="fa-solid fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="manage_users.php">Manage User</a>
-                        </nav>
-                    </div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts2">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
                         Admins
@@ -27,6 +17,16 @@
                     <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="manage_admins.php">Manage Admins</a>
+                        </nav>
+                    </div>
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts1">
+                        <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
+                        Users
+                        <div class="sb-sidenav-collapse-arrow"><i class="fa-solid fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="manage_users.php">Manage User</a>
                         </nav>
                     </div>
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
@@ -49,6 +49,26 @@
                         <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                         <a class="nav-link" href="add_category.php">Add Category</a>
                         <a class="nav-link" href="manage_category.php">Manage Category</a>
+                        </nav>
+                    </div>
+                      <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3" aria-expanded="false" aria-controls="collapseLayouts23">
+                        <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
+                        Orders
+                        <div class="sb-sidenav-collapse-arrow"><i class="fa-solid fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseLayouts3" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="manage_orders.php">Manage Orders</a>
+                        </nav>
+                    </div>
+                      <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4" aria-expanded="false" aria-controls="collapseLayouts4">
+                        <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
+                        P2P
+                        <div class="sb-sidenav-collapse-arrow"><i class="fa-solid fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseLayouts4" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="manage_p2p-post.php">Manage P2P Post</a>
                         </nav>
                     </div>
                 </div>

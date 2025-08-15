@@ -81,17 +81,6 @@ if (isset($_SESSION['user_id'])) {
                 endwhile;
             ?>
         </main>
-        <!-- <div class="container-2">
-            <div class="slider-container">
-                <div class="slider-track">
-                    <div class="slide"><img src="../images/banner-img.png" alt=""></div>
-                    <div class="slide"><img src="../images/banner-img.png" alt=""></div>
-                    <div class="slide"><img src="../images/banner-img.png" alt=""></div>
-                </div>
-            </div>
-        </div> -->
-
-       <!-- <a href="../includes/logout.php">Logout</a> -->
        <!-- Footer Section starts here -->
        <?php include "includes/footer.php"; ?>
        <!-- Footer Section ends here -->
