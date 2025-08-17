@@ -5,9 +5,10 @@ session_destroy();
 setcookie("remember_token", "", time() - 3600, "/", "", false, true);
 
 // Remove token from database
-if (isset($_SESSION['user_id'])) {
+if (isset($_SESSION['user'])) {
     $stmt = $connect->prepare("UPDATE user SET remember_token = NULL WHERE id = ?");
-    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->bind_param("i", $_SESSION['user']);
     $stmt->execute();
 }
 header("Location: ../user/login.php");
+?>
