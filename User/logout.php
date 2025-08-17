@@ -11,3 +11,4 @@ if (isset($_SESSION['user_id'])) {
     $stmt->execute();
 }
 header("Location: ../user/login.php");
+?>
