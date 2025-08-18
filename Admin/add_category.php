@@ -1,13 +1,9 @@
 <?php 
-include 'includes/script.php'; 
-if (isset($_SESSION['admin_id'])) {
-    if (isset($_COOKIE['admin_id'])) {
-        $_SESSION['admin_id'] = $_COOKIE['admin_id'];
-    } else {
-        header("Location: ../login.php");
-        exit();
-    }
-};
+include 'includes/script.php';
+if (!isset($_SESSION['admin'])) {
+    header("Location: ../login.php");
+    exit();
+} 
 ?>
 <!DOCTYPE html>
 <html lang="en">

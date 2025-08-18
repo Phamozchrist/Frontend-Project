@@ -1,5 +1,9 @@
 <?php 
 include 'includes/script.php';
+if (!isset($_SESSION['admin'])) {
+    header("Location: ../login.php");
+    exit();
+} 
 // Get Product ID from URL
 if (isset($_GET['edit']) && is_numeric($_GET['edit']) && !empty($_GET['edit'])) {
     $product_id = (int)$_GET['edit'];

@@ -1,4 +1,10 @@
-<?php include 'includes/session.php'; ?>
+<?php 
+include 'includes/session.php'; 
+if (!isset($_SESSION['admin'])) {
+    header("Location: ../login.php");
+    exit();
+} 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
