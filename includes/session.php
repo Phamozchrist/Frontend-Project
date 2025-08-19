@@ -1,6 +1,6 @@
 <?php
 // User Session Management
-require '../includes/config.php';
+require 'config.php';
 session_start();
 $msg = "";
 // Check if the user is logged in
@@ -15,7 +15,7 @@ if (!isset($_SESSION['user'])) {
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
-
+    
     // Fetch user data or redirect on error
     if ($result && mysqli_num_rows($result) > 0) {
         $user = mysqli_fetch_assoc($result);

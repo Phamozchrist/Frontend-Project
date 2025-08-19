@@ -1,5 +1,5 @@
 <?php
-include '../includes/config.php';
+include 'config.php';
 session_start();
 $emailOrUsername = $login_password = $msg = $rememberMe = '';
 $emailOrUsernameErr = $login_passwordErr = '';
@@ -8,7 +8,7 @@ if(isset($_SESSION['success'])){
     unset($_SESSION['success']);
 }
 // Check if the form is submitted
-if ($_SERVER['REQUEST_METHOD']=='POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Sanitize user input to prevent sql injection
     $emailOrUsername= mysqli_real_escape_string($connect, $_POST['emailOrUsername']);
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
                     $updateStmt->bind_param("si", $hashedToken, $row['id']);
                     $updateStmt->execute();
                 }
-                header("Location: index.php");
+                header("Location: ../user/index.php");
             }
         }else {
             $msg = '<p class="msg-error"><i class="fa-regular fa-circle-xmark"></i> User not found</p>';

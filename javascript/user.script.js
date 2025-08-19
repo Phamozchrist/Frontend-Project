@@ -7,6 +7,26 @@ sidebar.addEventListener("click", () => {
   mainExpand.classList.toggle("main-collapse");
 });
 
+const toggleButton = document.querySelector(".user-dp");
+const profileDropdown = document.querySelector(".profile-dropdown");
+let bd = document.body;
+if (profileDropdown) {
+  bd.addEventListener("click", (e) => {
+    if (!profileDropdown.contains(e.target) && !toggleButton.contains(e.target)) {
+      profileDropdown.classList.remove("show");
+      profileDropdown.style.display = "none";
+    }
+  });
+}
+
+toggleButton.addEventListener("click", () => {
+  profileDropdown.classList.toggle("show");
+  if (profileDropdown.classList.contains("show")) {
+    profileDropdown.style.display = "block";
+  } else {
+    profileDropdown.style.display = "none";
+  }
+});
 let discounts = document.querySelectorAll(".discount");
 let actualPrices = document.querySelectorAll(".actual-price");
 let discountPrices = document.querySelectorAll(".discount-price");
@@ -328,3 +348,17 @@ toggleEyes.forEach((eye) => {
 //   let cartCount = document.querySelectorAll('.inc-cart-count span');
 //   let totalCount = document.querySelector('.cart-count');
 // });
+
+  const input = document.getElementById("uploadProfile");
+  const profilePic = document.getElementById("profilePic");
+
+  input.addEventListener("change", function () {
+    const file = this.files[0];
+    if (file) {
+      let reader = new FileReader();
+      reader.onload = function (e) {
+        profilePic.src = e.target.result; // show preview
+      };
+      reader.readAsDataURL(file);
+    }
+  });

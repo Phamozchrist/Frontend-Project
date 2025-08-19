@@ -1,5 +1,5 @@
 <?php
-require 'includes/session.php';
+require '../includes/session.php';
 $title = $price = $desc = $image = $phone_num = $msg = $confirmPassword = '';
 $passwordErr = $newPasswordErr = $confirmPasswordErr = $user_id = '';
 // Handle new post creation

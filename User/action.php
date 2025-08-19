@@ -1,6 +1,6 @@
 <?php
 // // Include the session file to manage user sessions
-include 'includes/session.php';
+include '../includes/session.php';
 
 // Delete Category Action
 if (isset($_GET['delete_post'])) {

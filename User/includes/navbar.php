@@ -15,5 +15,23 @@
             <i class="fa-solid fa-angle-down"></i>
         </div>
     </div>
-</header>
 
+</header>
+<div class="profile-dropdown">
+    <div class="profile-header">
+        <div class="profile-info-details">
+            <img src="../../images/blog-img1.png"  alt="Profile Picture" class="profile-pic">
+            <div class="bio-name">Stephen Famous</div>
+        </div>
+        <button class="profile-btn"><a href="profile.php">View Profile</a></button>
+    </div>
+    <div class="profile-links">
+        <h3>Account</h3>
+        <ul>
+            <li><i class="fas fa-gear"></i><a href="settings.php">Settings & Privacy</a></li>
+        </ul>
+    </div>
+    <div class="profile-links-footer">
+        <li><i class="fa-solid fa-arrow-right-from-bracket"></i><a href="../logout.php">Logout</a></li>
+    </div>
+</div>

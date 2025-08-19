@@ -1,8 +1,8 @@
 <?php 
 require 'includes/script.php';
-if (isset($_SESSION['user'])) {
-    if (isset($_COOKIE['user'])) {
-        $_SESSION['user'] = $_COOKIE['user'];
+if (isset($_SESSION['user_id'])) {
+    if (isset($_COOKIE['user_id'])) {
+        $_SESSION['user_id'] = $_COOKIE['user_id'];
     } else {
         header("Location: ../login.php");
         exit();
@@ -31,7 +31,7 @@ if (isset($_SESSION['user'])) {
             <aside class="settings-sidebar">
                 <h4>Settings Center</h4>
                 <div style="display: none;">
-                    <img src="../admin/uploads/" alt="">
+                    <!-- <img src="../admin/uploads/" alt=""> -->
                     <div>
                         <p></p>
                         <p></p>
@@ -46,7 +46,7 @@ if (isset($_SESSION['user'])) {
                     </li>
                     <li class="nested-nav nsn-2 close-nested-nav">Account Management
                         <ul class="nested-sidebar-nav">
-                            <li class="profileBtn"><i class="fa-solid fa-user"></i>Profile</li>
+                            <li class="profileBtn"><i class="fa-solid fa-user"></i>Edit Profile</li>
                         </ul>
                     </li>
                     <li class="nested-nav nsn-3 close-nested-nav">Privacy & Security
@@ -57,27 +57,62 @@ if (isset($_SESSION['user'])) {
                     </li>
                 </ul>
             </aside>
-            <div style="width: 70%; margin-left: 28px;">
+            <div style="width: 67%; margin-left: 28px;">
                 <div id="default-settings"> 
                     <i class="fa-solid fa-gear"></i>
                     <p>Customize your experiences by adjusting preferences & account settings to suit your needs</p>
                 </div>
                 <div id="themes-container">
-                    
+                    <h4>Theme Settings</h4>
+                    <p>Choose a theme that suits your style and preferences.</p>
+                    <div class="theme-options">
+                        <div class="theme-option light-theme active" data-theme="light">
+                            <span>Light Theme</span>
+                        </div>
+                        <div class="theme-option dark-theme" data-theme="dark">
+                            <span>Dark Theme</span>
+                        </div>
+                        <div class="theme-option system-theme" data-theme="blue">
+                            <span>System default</span>
+                        </div>
+                    </div>
                 </div>
                 <div id="profile-container">
-                    <div class="cover-image">
-                        <input type="file" name="" id="" >
-                    </div>
-                    <div>
-                        <input type="file" name="" id="">
-                        <i class="fa-solid fa-camera"></i>
+                    <h4>Edit Profile</h4>
+                    <div class="profile-card">
+                        <div class="profile-avatar">
+                            <form class="avatar-form">
+                                <label for="profile_pic" class="avatar-upload">
+                                    <img src="../admin/uploads/default_profile.png" alt="Profile Picture" id="profilePic" class="profile-pic">
+                                    <i class="fa-solid fa-camera"></i>
+                                    <input type="file" name="profile_pic" id="profile_pic" id="uploadProfile" accept="image/*" style="display:none;">
+                                </label>
+                            </form>
+                        </div>
+                        <div class="profile-info">
+                            <h2>Famous Stephen</h2> 
+                            <span class="online"><small></small> active</span>
+                            <span class="online">user</span>
+                            <button name="edit_profile" class="edit-btn">
+                                <i class="fa-solid fa-pen"></i> Edit Profile
+                            </button>
+                            <p class="profile-email">stevo@gmail.com</p>
+                            <!-- Example additional fields -->
+                            <p class="profile-joined">Created on: <?= htmlspecialchars($user['joined'] ?? '2025-01-01'); ?></p>
+                        </div>
                     </div>
                 </div>
                 <div id="auth-container">
-    
+                    <h4>Two-Factor Authentication</h4>
+                    <p>Enable Two-Factor Authentication to add an extra layer of security to your account.</p>
+                    <div class="auth-btns">
+                        <button class="enable-auth-btn">Enable</button>
+                        <button class="disable-auth-btn">Disable</button>
+                    </div>
                 </div>
                 <div id="pass-container">
+                    <h4>Password Management</h4>
+                    <p>Change your password to keep your account secure.</p>
                     <?php if(!empty($msg)) { ?>
                         <?=($msg);?>
                     <?php } ?>
@@ -117,5 +152,20 @@ if (isset($_SESSION['user'])) {
     </section>
 
     <script src="../javascript/user.script.js"></script>
+    <script>
+        const input1 = document.getElementById("uploadProfile");
+        const profilePic = document.getElementById("profilePic");
+
+        input1.addEventListener("change", function(){
+            const file = this.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function(e){
+                    profilePic.src = e.target.result; // show preview
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 </body>
 </html>

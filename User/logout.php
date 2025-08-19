@@ -10,5 +10,5 @@ if (isset($_SESSION['user'])) {
     $stmt->bind_param("i", $_SESSION['user']);
     $stmt->execute();
 }
-header("Location: ../user/login.php");
+header("Location: ../login.php");
 ?>
