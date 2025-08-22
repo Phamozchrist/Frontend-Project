@@ -25,8 +25,8 @@
         </ul>
 
         <div class="bl-container">
-            <span><a href="">BUY NOW</a></span>
-            <span>LOGIN</span>
+            <span><a href="login.php">BUY NOW</a></span>
+            <span><a href="login.php">LOGIN</a></span>
             <span class="mode-toggle"><i class="fa-solid fa-moon"></i></span>
         </div>
     </div>

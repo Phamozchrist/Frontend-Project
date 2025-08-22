@@ -71,6 +71,7 @@
     
 
     <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-    <script src="../javascript/login_auth.js" defer></script>
+    <script src="javascript/login_auth.js" defer></script>
+    <script src="javascript/msg.js"></script>
 </body>
 </html>

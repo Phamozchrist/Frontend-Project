@@ -106,8 +106,12 @@ if(isset($_POST['add_product'])){
         $target_file = $target_dir . basename($product_image);
         if (move_uploaded_file($product_image_tmp, $target_file)) {
             // Insert product details into the database
-            $stmt = "INSERT INTO products (product_name, product_price, product_discount, product_details, product_image, product_category) VALUES ('$product_name', '$product_price', '$product_discount', '$product_details', '$product_image', '$category')";
-            if (mysqli_query($connect, $stmt)) {
+            $stmt = $connect ->prepare("INSERT INTO products (product_name, product_price, product_discount, product_details, product_image, product_category) VALUES ( ?,?,?,?,?,?)");
+            $stmt->bind_param("sdssssi", $product_name, $product_price, $product_discount, $product_details, $product_image, $category,);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            // Check if the product was added successfully
+            if ($result) {
                 $msg = "<div class='alert alert-success'>Product added successfully</div>";
             } else {
                 $msg = "<div class='alert alert-danger'>Error adding product: " . mysqli_error($connect) . "</div>";
@@ -139,7 +143,6 @@ if (isset($_POST['edit_product'])) {
     $stmt = "SELECT * FROM products WHERE id=$product_id";
     $result = mysqli_query($connect, $stmt);
     $product = mysqli_fetch_assoc($result);
-    $current_product_image = $product['product_image'];
 
     if (empty($product_name) || empty($product_price) || empty($product_discount) || empty($product_details) || empty($category)) {
         $msg = "<div class='alert alert-danger'>All fields are required</div>";
@@ -219,10 +222,8 @@ if (isset($_POST['edit_admin'])) {
     }else{
         // Check if the admin already exists in the database
         $stmt = $connect->prepare("SELECT * FROM admin");
-        // $stmt->bind_param('i', $admin_id);
         $stmt->execute();
         $result = $stmt->get_result();
-        $sql='SELECT * FROM admin';
         if (mysqli_num_rows($result) > 0) {
             while($row = mysqli_fetch_assoc($result)){
                 if($email == $row['email'] && $first_name == $row['firstname'] && $last_name == $row['lastname']){

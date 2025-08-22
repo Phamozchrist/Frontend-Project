@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if(empty($firstname) || empty($lastname) || empty($username) || empty($email) || empty($password) || empty($confirmPassword) || !$terms){
-        $msg = '<p class="msg=error"><i class="fa-regular fa-circle-xmark"></i> Please fill in all fields;</p>'; 
+        $msg = '<p class="msg-error"><i class="fa-regular fa-circle-xmark"></i> Please fill in all fields;</p>'; 
     }
 
     // Display Success Message
@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
     }else{
-        $msg = '<i class="fa-regular fa-circle-xmark"></i> Please fix the errors below.';
+        $msg = '<i class="fa-regular fa-circle-xmark"></i> Please fix all errors below;';
     }
 
 }

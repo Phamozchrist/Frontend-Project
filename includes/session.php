@@ -9,7 +9,6 @@ if (!isset($_SESSION['user'])) {
     exit();
 } else {
     $user_id = $_SESSION['user'];
-
     // Prepare and execute the query
     $stmt = $connect->prepare("SELECT * FROM user WHERE id = ?");
     $stmt->bind_param("i", $user_id);

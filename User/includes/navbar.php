@@ -11,7 +11,7 @@
             <span class=".cart-count-badge"></span>
         </div>
         <div class="user-dp">
-            <img src="../../images/blog-img1.png" alt="Dp">
+            <img src="../admin/uploads/<?= $user['profile_pics'];?>" alt="Dp">
             <i class="fa-solid fa-angle-down"></i>
         </div>
     </div>
@@ -20,8 +20,8 @@
 <div class="profile-dropdown">
     <div class="profile-header">
         <div class="profile-info-details">
-            <img src="../../images/blog-img1.png"  alt="Profile Picture" class="profile-pic">
-            <div class="bio-name">Stephen Famous</div>
+            <img src="../admin/uploads/<?=$user['profile_pics'];?>"  alt="Profile Picture" class="profile-pic">
+            <div class="bio-name"><?=$user['firstname'];?> <?=$user['lastname'];?></div>
         </div>
         <button class="profile-btn"><a href="profile.php">View Profile</a></button>
     </div>
@@ -32,6 +32,6 @@
         </ul>
     </div>
     <div class="profile-links-footer">
-        <li><i class="fa-solid fa-arrow-right-from-bracket"></i><a href="../logout.php">Logout</a></li>
+        <li><i class="fa-solid fa-arrow-right-from-bracket"></i><a href="../user/logout.php">Logout</a></li>
     </div>
 </div>

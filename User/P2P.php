@@ -19,8 +19,8 @@ $posts = mysqli_query($connect, "SELECT p.*, u.username FROM p2p_posts p INNER J
     <title>P2P Marketplace</title>
     <link rel="stylesheet" href="../style/user.style.css">
     <link rel="stylesheet" href="../fonts/css/all.min.css">
+    <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <title>Prefix - P2P</title>
-    
 </head>
 <body>
     <section class="p2p-section">
@@ -32,15 +32,9 @@ $posts = mysqli_query($connect, "SELECT p.*, u.username FROM p2p_posts p INNER J
         <main>
             <div class="p2p-container">
                 <h1>P2P Marketplace</h1>
-                <!-- Create Post Form -->
                 <?php
-                // ...existing code...
-                
-                $user_posts = mysqli_query($connect, "SELECT * FROM p2p_posts WHERE user_id = '$user_id' ORDER BY id DESC");
+                    $user_posts = mysqli_query($connect, "SELECT * FROM p2p_posts WHERE user_id = '$user_id' ORDER BY id DESC");
                 ?>
-                <!-- ...existing code... -->
-               
-                <!-- User's Unique Posts Section -->
                 <div class="p2p-header">
                     <h2>Your Posts</h2>
                     <span>
@@ -60,8 +54,10 @@ $posts = mysqli_query($connect, "SELECT p.*, u.username FROM p2p_posts p INNER J
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if(mysqli_num_rows($user_posts) > 0): ?>
-                                <?php while($post = mysqli_fetch_assoc($user_posts)): ?>
+                            <?php 
+                                if(mysqli_num_rows($user_posts) > 0):
+                                while($post = mysqli_fetch_assoc($user_posts)): 
+                            ?>
                                 <tr>
                                     <td><?= htmlspecialchars($post['title']); ?></td>
                                     <td>
@@ -71,7 +67,7 @@ $posts = mysqli_query($connect, "SELECT p.*, u.username FROM p2p_posts p INNER J
                                             <span style="color:#aaa;">No Image</span>
                                         <?php endif; ?>
                                     </td>
-                                    <td>₦<?= htmlspecialchars($post['price']); ?></td>
+                                    <td>$<?= htmlspecialchars($post['price']); ?></td>
                                     <td><?= htmlspecialchars($post['phone_number']); ?></td>
                                     <td>
                                         <a href="p2p-post-details.php?post=<?=$post['id'];?>?<?=$post['title'];?>" class="p2p-btn p2p-edit">View</a>
@@ -101,8 +97,10 @@ $posts = mysqli_query($connect, "SELECT p.*, u.username FROM p2p_posts p INNER J
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if(mysqli_num_rows($posts) > 0): ?>
-                                <?php while($post = mysqli_fetch_assoc($posts)): ?>
+                            <?php 
+                                if(mysqli_num_rows($posts) > 0):
+                                while($post = mysqli_fetch_assoc($posts)): 
+                            ?>
                                 <tr>
                                     <td><?= htmlspecialchars(ucfirst($post['username'])); ?></td>
                                     <td><?= htmlspecialchars($post['title']); ?></td>
@@ -128,10 +126,7 @@ $posts = mysqli_query($connect, "SELECT p.*, u.username FROM p2p_posts p INNER J
                     </table>
                 </div>
             </div>
-            
         </main>
-        <?php include "includes/footer.php"; ?>
-       <!-- Footer Section ends here -->
     </section>
 
     <div id="deleteModal" class="p2p-modal">
@@ -145,5 +140,29 @@ $posts = mysqli_query($connect, "SELECT p.*, u.username FROM p2p_posts p INNER J
         </div>
     </div>
     <script src="../javascript/user.script.js"></script>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem("theme") || "system-default-theme";
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+            let themeToApply = savedTheme;
+            if (savedTheme === "system-default-theme") {
+                themeToApply = prefersDark.matches ? "dark-theme" : "light-theme";
+            }
+
+            // Remove any previous theme classes
+            document.body.classList.remove("light-theme", "dark-theme", "system-default-theme");
+            document.body.classList.add(themeToApply);
+
+            // Listen for OS theme changes if system default is selected
+            prefersDark.addEventListener("change", function() {
+                if (localStorage.getItem("theme") === "system-default-theme") {
+                    const newTheme = prefersDark.matches ? "dark-theme" : "light-theme";
+                    document.body.classList.remove("light-theme", "dark-theme");
+                    document.body.classList.add(newTheme);
+                }
+            });
+        })();
+    </script>
 </body>
 </html>

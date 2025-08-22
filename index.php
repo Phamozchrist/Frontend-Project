@@ -343,8 +343,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="javascript/script.js"></script>
-    <script>
-       
-    </script>
 </body>
 </html>

@@ -14,12 +14,8 @@
   </head>
   <body>
     <!-- Navbar starts here -->
-    <?php include 'includes/navbar.php'; ?>
+    <!-- <?php include 'includes/navbar.php'; ?> -->
     <!-- Navbar ends here -->
-
-    <!-- Modal begins here -->
-    <?php include 'includes/modals.php'; ?>
-    <!-- Modal ends here -->
 
     <!-- Loader starts here -->
     <?php include 'includes/loader.php'; ?>

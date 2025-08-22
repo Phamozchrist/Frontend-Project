@@ -1,11 +1,25 @@
 const sidebar = document.querySelector(".sidebar");
 const mainExpand = document.querySelector("main");
 
+
 sidebar.addEventListener("click", () => {
   sidebar.classList.toggle("sidebar-expand");
-  sidebar.classList.toggle("sidebar-collapse");
   mainExpand.classList.toggle("main-collapse");
 });
+if (
+  window.location.pathname === "/user/settings.php" ||
+  window.location.pathname === "/user/theme.php" ||
+  window.location.pathname === "/user/edit_profile.php" ||
+  window.location.pathname === "/user/two-factor-authentication.php" ||
+  window.location.pathname === "/user/password_management.php"
+) {
+  const settingsSidebar = document.querySelector(".settings-sidebar");
+  sidebar.addEventListener("click", () => {
+    // sidebar.classList.toggle("sidebar-expand");
+    mainExpand.classList.toggle("main-collapse-settings");
+    settingsSidebar.classList.toggle("settings-sidebar-move");
+  });
+}
 
 const toggleButton = document.querySelector(".user-dp");
 const profileDropdown = document.querySelector(".profile-dropdown");
@@ -42,7 +56,6 @@ for (let i = 0; i < actualPrices.length; i++) {
     actualPrices[i].textContent = `$${price}`;
     actualPrices[i].style.textDecoration = "line-through";
     actualPrices[i].style.fontSize = "12px";
-    actualPrices[i].style.color = "#2c2e2e";
   } else {
     discountPrices[i].style.display = "none";
     actualPrices[i].style.textDecoration = "none";
@@ -82,109 +95,39 @@ const setNavTrigger1 = document.querySelector(
 const setNavTrigger2 = document.querySelector(
   ".settings-sidebar .sidebar-nav-container .nsn-3"
 );
-const nestedNav = document.querySelector(".settings-sidebar .sidebar-nav-container .nsn-1 .nested-sidebar-nav li");
-const nestedNav1 = document.querySelector(".settings-sidebar .sidebar-nav-container .nsn-2 .nested-sidebar-nav li");
-const nestedNav2 = document.querySelector(".settings-sidebar .sidebar-nav-container .nsn-3 .nested-sidebar-nav .passBtn");
-const nestedNav3 = document.querySelector(".settings-sidebar .sidebar-nav-container .nsn-3 .nested-sidebar-nav .authBtn");
+const angletoggle = document.querySelectorAll(".settings-sidebar .sidebar-nav-container .nested-nav .fa-angle-down");
+if(window.location.pathname === "/user/theme.php") {
+  setNavTrigger.classList.toggle("open-nested-nav");
+  angletoggle[0].classList.toggle("active");
+}
+if(window.location.pathname === "/user/edit_profile.php") {
+  setNavTrigger1.classList.toggle("open-nested-nav");
+  angletoggle[1].classList.toggle("active");
+}
+if(window.location.pathname === "/user/two-factor-authentication.php") {
+  setNavTrigger2.classList.toggle("open-nested-nav2");
+  angletoggle[2].classList.toggle("active");
+}
+if(window.location.pathname === "/user/password_management.php") {
+  setNavTrigger2.classList.toggle("open-nested-nav2");
+  angletoggle[2].classList.toggle("active");
+}
+
 
 setNavTrigger.addEventListener("click", () => {
   setNavTrigger.classList.toggle("open-nested-nav");
-  setNavTrigger.classList.toggle("close-nested-nav");
-  nestedNav.onclick = (event) => {
-    event.stopPropagation();
-  };
+  angletoggle[0].classList.toggle("active");
 });
 setNavTrigger1.addEventListener("click", () => {
-  setNavTrigger1.classList.toggle("open-nested-nav1");
-  setNavTrigger1.classList.toggle("close-nested-nav");
-  nestedNav1.onclick = (event) => {
-    event.stopPropagation();
-  };
+  setNavTrigger1.classList.toggle("open-nested-nav");
+  angletoggle[1].classList.toggle("active");
 });
 setNavTrigger2.addEventListener("click", () => {
   setNavTrigger2.classList.toggle("open-nested-nav2");
-  setNavTrigger2.classList.toggle("close-nested-nav");
-  nestedNav2.onclick = (event) => {
-    event.stopPropagation();
-  };
-  nestedNav3.onclick = (event) => {
-    event.stopPropagation();
-  };
+  angletoggle[2].classList.toggle("active");
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  const themesBtn = document.querySelector(".themesBtn");
-  const profileBtn= document.querySelector(".profileBtn");
-  const authBtn = document.querySelector(".authBtn");
-  const passBtn = document.querySelector(".passBtn");
-  const themesCon = document.getElementById("themes-container");
-  const profileCon = document.getElementById("profile-container");
-  const authCon = document.getElementById("auth-container");
-  const passCon = document.getElementById("pass-container");
-  const defaultCon = document.getElementById('default-settings');
 
-  defaultCon.style.display = "block";
-
-  themesBtn.addEventListener("click", function () {
-    themesCon.style.display = "block";
-    profileCon.style.display = "none";
-    authCon.style.display = "none";
-    passCon.style.display = "none";
-    defaultCon.style.display = "none";
-
-    if (themesCon.style.display == "block") {
-      themesBtn.style.backgroundColor = "#9bf7ea";
-      profileBtn.style.backgroundColor = "";
-      authBtn.style.backgroundColor = "";
-      passBtn.style.backgroundColor = "";
-    }
-  });
-
-  profileBtn.addEventListener("click", function () {
-    themesCon.style.display = "none";
-    profileCon.style.display = "block";
-    authCon.style.display = "none";
-    passCon.style.display = "none";
-    defaultCon.style.display = "none";
-
-    if (profileCon.style.display == "block") {
-      themesBtn.style.backgroundColor = "";
-      profileBtn.style.backgroundColor = "#9bf7ea";
-      authBtn.style.backgroundColor = "";
-      passBtn.style.backgroundColor = "";
-    }
-  });
-
-  authBtn.addEventListener("click", function () {
-    themesCon.style.display = "none";
-    profileCon.style.display = "none";
-    authCon.style.display = "block";
-    passCon.style.display = "none";
-    defaultCon.style.display = "none";
-
-    if (authCon.style.display == "block") {
-      themesBtn.style.backgroundColor = "";
-      profileBtn.style.backgroundColor = "";
-      authBtn.style.backgroundColor = "#9bf7ea";
-      passBtn.style.backgroundColor = "";
-    }
-  });
-
-  passBtn.addEventListener("click", function () {
-    themesCon.style.display = "none";
-    profileCon.style.display = "none";
-    authCon.style.display = "none";
-    passCon.style.display = "block";
-    defaultCon.style.display = "none";
-
-    if (passCon.style.display == "block") {
-      themesBtn.style.backgroundColor = "";
-      profileBtn.style.backgroundColor = "";
-      authBtn.style.backgroundColor = "";
-      passBtn.style.backgroundColor = "#9bf7ea";
-    }
-  });
-});
 const fields = [
   "password",
   "confirm_password",
@@ -349,16 +292,16 @@ toggleEyes.forEach((eye) => {
 //   let totalCount = document.querySelector('.cart-count');
 // });
 
-  const input = document.getElementById("uploadProfile");
-  const profilePic = document.getElementById("profilePic");
+const input = document.getElementById("uploadProfile");
+const profilePic = document.getElementById("profilePic");
 
-  input.addEventListener("change", function () {
-    const file = this.files[0];
-    if (file) {
-      let reader = new FileReader();
-      reader.onload = function (e) {
-        profilePic.src = e.target.result; // show preview
-      };
-      reader.readAsDataURL(file);
-    }
-  });
+input.addEventListener("change", function () {
+  const file = this.files[0];
+  if (file) {
+    let reader = new FileReader();
+    reader.onload = function (e) {
+      profilePic.src = e.target.result; // show preview
+    };
+    reader.readAsDataURL(file);
+  }
+});

@@ -52,6 +52,7 @@ if (!isset($_SESSION['admin'])) {
                                     <tr>
                                         <th>Username</th>
                                         <th>Product Name</th>
+                                        <th>Description</th>
                                         <th>Image</th>
                                         <th>Price</th>
                                         <th>Phone no.</th>
@@ -61,31 +62,34 @@ if (!isset($_SESSION['admin'])) {
                                 <tbody>
                                     <?php
                                         // Fetch categories from the database
-                                        $query = "SELECT p.*, u.username 
-                                                  FROM p2p_posts p
-                                                  INNER JOIN user u ON p.user_id = u.id 
-                                                  ORDER BY p.id DESC";
-                                        $result = mysqli_query($connect, $query);
-                                        while ($post = mysqli_fetch_assoc($result)) {
+                                        $query = $connect->prepare(
+                                            "SELECT p.*, u.username
+                                            FROM p2p_posts p
+                                            INNER JOIN user u ON p.user_id = u.id
+                                            ORDER BY p.id DESC"
+                                        );
+                                        $query->execute();
+                                        $result = $query->get_result();
+                                        if(mysqli_num_rows($result) > 0):
+                                        while ($post = mysqli_fetch_assoc($result)):
                                     ?>
                                     <tr>
                                         <td><?=$post['username'];?></td>
                                         <td><?=$post['title'];?></td>
+                                        <td><?=$post['description'];?></td>
                                         <td><img src="../admin/uploads/<?= htmlspecialchars($post['image']); ?>" alt="<?= htmlspecialchars($post['title']); ?>" width="100"></td>
-                                        <td><?=$post['price'];?></td>
+                                        <td>$<?=$post['price'];?></td>
                                         <td><?=$post['phone_number'];?></td>
                                         <td>
                                             <a href="action.php?delete_post=<?=$post['id'];?>" class="btn btn-danger">Delete</a>
                                            
-                                        </td>
-                                        <?php if(mysqli_num_rows($result) == 0): ?>
-                                        <td>No Post found</td>
-                                        <?php endif; ?>
-                                            
-
-                                        
+                                        </td>                                
                                     </tr>
-                                    <?php } ?>
+                                    <?php endwhile; else: ?>
+                                    <tr>
+                                        <td colspan="7" class="text-center">No P2P posts found.</td>
+                                    </tr>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>

@@ -12,7 +12,7 @@
     <title>Prefix -Create an account</title>
 </head>
 <body>
-    <?php include 'includes/loader.php';?>
+    <?php include_once 'includes/loader.php';?>
     <div id="create-account-modal">
         <div class="create-account-container">
             <div>
@@ -31,7 +31,7 @@
             <form method="post" id="form">
                 <h2>Sign up to PreFix</h2>
                 <?php if(!empty($msg)) { ?>
-                    <p class="msg-error"><?=htmlspecialchars($msg);?></p>
+                    <p class="msg-error"><?=$msg?></p>
                 <?php } ?>
                 <div>
                     <label for="email">Firstname*</label>
@@ -94,5 +94,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="javascript/auth.js"></script>
+    <!-- <script src="javascript/msg.js"></script> -->
 </body>
 </html>

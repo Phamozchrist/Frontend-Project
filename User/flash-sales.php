@@ -31,6 +31,7 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style/user.style.css">
     <link rel="stylesheet" href="../fonts/css/all.min.css">
+    <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <title>Prefix - <?=ucfirst($category['category_name']);?></title>
 </head>
 <body>
@@ -74,10 +75,10 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
                                         <p class="actual-price"><?=$product['product_price'];?></p>
                                     </a>
                                     <div class="addToCart-container">
-                                        <button id="addToCart">Add to cart</button>
+                                        <button class="addToCart">Add to cart</button>
                                         <div class="inc-cart-count">
                                             <button><i class="fa-solid fa-minus"></i></button>
-                                            <span>1</span>
+                                            <span>0</span>
                                             <button><i class="fa-solid fa-plus"></i></button>
                                         </div>
                                     </div>
@@ -96,5 +97,29 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
     </section>
 
     <script src="../javascript/user.script.js"></script>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem("theme") || "system-default-theme";
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+            let themeToApply = savedTheme;
+            if (savedTheme === "system-default-theme") {
+                themeToApply = prefersDark.matches ? "dark-theme" : "light-theme";
+            }
+
+            // Remove any previous theme classes
+            document.body.classList.remove("light-theme", "dark-theme", "system-default-theme");
+            document.body.classList.add(themeToApply);
+
+            // Listen for OS theme changes if system default is selected
+            prefersDark.addEventListener("change", function() {
+                if (localStorage.getItem("theme") === "system-default-theme") {
+                    const newTheme = prefersDark.matches ? "dark-theme" : "light-theme";
+                    document.body.classList.remove("light-theme", "dark-theme");
+                    document.body.classList.add(newTheme);
+                }
+            });
+        })();
+    </script>
 </body>
 </html>

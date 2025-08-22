@@ -16,10 +16,7 @@
     <!-- Navbar starts here -->
     <?php include 'includes/navbar.php'; ?>
     <!-- Navbar ends here -->
-
-    <!-- Modal begins here -->
-    <?php include 'includes/modals.php'; ?>
-    <!-- Modal ends here -->
+     
     <!-- Loader starts here -->
     <div id="loader-wrapper">
       <div class="img"></div>

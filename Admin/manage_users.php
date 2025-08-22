@@ -60,12 +60,13 @@ if (!isset($_SESSION['admin'])) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                        // Fetch categories from the database
+                                        // Fetch users from the database
                                         $query = "SELECT u.*, 
                                             (SELECT COUNT(*) FROM orders o WHERE o.user_id = u.id) AS total_orders 
                                             FROM user u";
                                         $result = mysqli_query($connect, $query);
-                                        while ($row = mysqli_fetch_assoc($result)) {
+                                        if(mysqli_num_rows($result)> 0) :
+                                        while ($row = mysqli_fetch_assoc($result)):
                                     ?>
                                     <tr>
                                         <td><?=$row['firstname'];?></td>
@@ -77,14 +78,16 @@ if (!isset($_SESSION['admin'])) {
                                             <a href="action.php?delete_user=<?=$row['id'];?>" class="btn btn-danger">Delete</a>
                                            
                                         </td>
-                                        <?php if(mysqli_num_rows($result) == 0): ?>
-                                        <td>No Category</td>
-                                        <?php endif; ?>
+                                        
                                             
 
                                         
                                     </tr>
-                                    <?php } ?>
+                                    <?php endwhile; else: ?>    
+                                    <tr>
+                                        <td colspan="6" class="text-center">No users found.</td>
+                                    </tr>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
