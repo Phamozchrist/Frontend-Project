@@ -1,6 +1,12 @@
+const searchForm = document.getElementById("searchForm");
+const searchInput = document.getElementById('searchForm')
+function handleSearchKeydown(e) {
+  if (e.key === "Enter") {
+    searchForm.submit();
+  }
+}
 const sidebar = document.querySelector(".sidebar");
 const mainExpand = document.querySelector("main");
-
 
 sidebar.addEventListener("click", () => {
   sidebar.classList.toggle("sidebar-expand");
@@ -20,13 +26,26 @@ if (
     settingsSidebar.classList.toggle("settings-sidebar-move");
   });
 }
+if (
+  window.location.pathname === "/user/settings.php" ||
+  window.location.pathname === "/user/theme.php" ||
+  window.location.pathname === "/user/two-factor-authentication.php" ||
+  window.location.pathname === "/user/password_management.php"
+) {
+  document.body.style.overflow = "hidden";
+} else {
+  document.body.style.removeProperty("overflow");
+}
 
 const toggleButton = document.querySelector(".user-dp");
 const profileDropdown = document.querySelector(".profile-dropdown");
 let bd = document.body;
 if (profileDropdown) {
   bd.addEventListener("click", (e) => {
-    if (!profileDropdown.contains(e.target) && !toggleButton.contains(e.target)) {
+    if (
+      !profileDropdown.contains(e.target) &&
+      !toggleButton.contains(e.target)
+    ) {
       profileDropdown.classList.remove("show");
       profileDropdown.style.display = "none";
     }
@@ -85,7 +104,6 @@ function openDeleteModal(el) {
   if (modal) modal.classList.add("show");
 }
 
-
 const setNavTrigger = document.querySelector(
   ".settings-sidebar .sidebar-nav-container .nsn-1"
 );
@@ -95,44 +113,42 @@ const setNavTrigger1 = document.querySelector(
 const setNavTrigger2 = document.querySelector(
   ".settings-sidebar .sidebar-nav-container .nsn-3"
 );
-const angletoggle = document.querySelectorAll(".settings-sidebar .sidebar-nav-container .nested-nav .fa-angle-down");
-if(window.location.pathname === "/user/theme.php") {
+const angletoggle = document.querySelectorAll(
+  ".settings-sidebar .sidebar-nav-container .nested-nav .fa-angle-down"
+);
+if (window.location.pathname === "/user/theme.php") {
   setNavTrigger.classList.toggle("open-nested-nav");
   angletoggle[0].classList.toggle("active");
 }
-if(window.location.pathname === "/user/edit_profile.php") {
+if (window.location.pathname === "/user/edit_profile.php") {
   setNavTrigger1.classList.toggle("open-nested-nav");
   angletoggle[1].classList.toggle("active");
 }
-if(window.location.pathname === "/user/two-factor-authentication.php") {
+if (window.location.pathname === "/user/two-factor-authentication.php") {
   setNavTrigger2.classList.toggle("open-nested-nav2");
   angletoggle[2].classList.toggle("active");
 }
-if(window.location.pathname === "/user/password_management.php") {
+if (window.location.pathname === "/user/password_management.php") {
   setNavTrigger2.classList.toggle("open-nested-nav2");
   angletoggle[2].classList.toggle("active");
 }
 
+if (setNavTrigger) {
+  setNavTrigger.addEventListener("click", () => {
+    setNavTrigger.classList.toggle("open-nested-nav");
+    angletoggle[0].classList.toggle("active");
+  });
+  setNavTrigger1.addEventListener("click", () => {
+    setNavTrigger1.classList.toggle("open-nested-nav");
+    angletoggle[1].classList.toggle("active");
+  });
+  setNavTrigger2.addEventListener("click", () => {
+    setNavTrigger2.classList.toggle("open-nested-nav2");
+    angletoggle[2].classList.toggle("active");
+  });
+}
 
-setNavTrigger.addEventListener("click", () => {
-  setNavTrigger.classList.toggle("open-nested-nav");
-  angletoggle[0].classList.toggle("active");
-});
-setNavTrigger1.addEventListener("click", () => {
-  setNavTrigger1.classList.toggle("open-nested-nav");
-  angletoggle[1].classList.toggle("active");
-});
-setNavTrigger2.addEventListener("click", () => {
-  setNavTrigger2.classList.toggle("open-nested-nav2");
-  angletoggle[2].classList.toggle("active");
-});
-
-
-const fields = [
-  "password",
-  "confirm_password",
-  "new_password",
-];
+const fields = ["password", "confirm_password", "new_password"];
 fields.forEach((field) => {
   document
     .getElementById(field)
@@ -228,7 +244,7 @@ function checkFormValidity() {
       (input.type === "password" && !value) ||
       (input.type !== "password" && value === "") ||
       input.style.border === "1px solid red"
-    ){
+    ) {
       allValid = false;
     }
   }
@@ -304,4 +320,88 @@ input.addEventListener("change", function () {
     };
     reader.readAsDataURL(file);
   }
+});
+
+// --- Cart Icon and Add to Cart Functionality for Flash Sales ---
+document.addEventListener("DOMContentLoaded", function () {
+  function getCart() {
+    return JSON.parse(localStorage.getItem("cart") || "{}");
+  }
+  function setCart(cart) {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartBadge();
+  }
+  function updateCartBadge() {
+    let badge = document.querySelector(".cart-count-badge");
+    if (!badge) return;
+    let cart = getCart();
+    let totalCount = Object.values(cart).reduce(
+      (sum, item) => sum + item.qty,
+      0
+    );
+    badge.textContent = totalCount > 0 ? totalCount : "";
+  }
+
+  // On page load, update cart badge
+  updateCartBadge();
+  document.querySelectorAll("#addToCart-container").forEach(function (item) {
+    const addBtn = item.querySelectorAll(".addToCart");
+    const incCart = item.querySelectorAll(".inc-cart-count");
+    const minusBtn = incCart.querySelectoAllr("button:first-child");
+    const plusBtn = incCart.querySelectorAll("button:last-child");
+    const countSpan = incCart.querySelectorAll("span");
+
+    // Get product info
+    const prodName = item.querySelector("h3").textContent.trim();
+    const prodImg = item.querySelector("img").getAttribute("src");
+    const prodPrice = item.querySelector(".actual-price").textContent.trim();
+
+    // Load count from cart
+    let cart = getCart();
+    let qty = cart[prodName]?.qty || 0;
+    if (qty > 0) {
+      addBtn.style.display = "none";
+      incCart.style.display = "flex";
+      countSpan.textContent = qty;
+    } else {
+      addBtn.style.display = "block";
+      incCart.style.display = "none";
+      countSpan.textContent = "0";
+    }
+
+    addBtn.addEventListener("click", function () {
+      qty = 1;
+      addBtn.style.display = "none";
+      incCart.style.display = "flex";
+      countSpan.textContent = qty;
+      cart = getCart();
+      cart[prodName] = { qty, prodImg, prodPrice };
+      setCart(cart);
+    });
+
+    plusBtn.addEventListener("click", function () {
+      qty++;
+      countSpan.textContent = qty;
+      cart = getCart();
+      cart[prodName] = { qty, prodImg, prodPrice };
+      setCart(cart);
+    });
+
+    minusBtn.addEventListener("click", function () {
+      if (qty > 1) {
+        qty--;
+        countSpan.textContent = qty;
+        cart = getCart();
+        cart[prodName] = { qty, prodImg, prodPrice };
+        setCart(cart);
+      } else {
+        qty = 0;
+        addBtn.style.display = "block";
+        incCart.style.display = "none";
+        cart = getCart();
+        delete cart[prodName];
+        setCart(cart);
+      }
+    });
+  });
 });

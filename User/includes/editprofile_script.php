@@ -57,7 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_uinfo'])) {
 
     if (empty($firstname) || empty($lastname) || empty($username) || empty($email) || empty($address)) {
         $msg = '<div class="msg-error"><i class="fa-regular fa-circle-xmark"></i>All fields are required </div>';
-    }elseif ($firstname == $user['firstname'] && $lastname == $user['lastname'] && $username == $user['username'] && $email == $user['email'] && $address == $user['address'] && $profile_image == $user['profile_pics'] && $cover_image == $user['cover_pics']) {
+    }
+    if ($firstname == $user['firstname'] && $lastname == $user['lastname'] && $username == $user['username'] && $email == $user['email'] && $address == $user['address'] && $profile_image == $user['profile_pics'] && $cover_image == $user['cover_pics']) {
         $msg = '<div class="msg-error"><i class="fa-regular fa-circle-xmark"></i>No changes made to user info </div>';
     }else{
         // Check if profile image or cover image is being uploaded
@@ -75,10 +76,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_uinfo'])) {
             }
             $stmt = $connect->prepare(
                 "UPDATE user 
-                SET firstname = ?, lastname = ?, username = ?, email = ?, address = ?, profile_pics = ?
+                SET firstname = ?, lastname = ?, username = ?, email = ?, address = ?, profile_pics = ?, cover_pics = ?
                 WHERE id = ?"
             );
-            $stmt->bind_param("ssssssi", $firstname, $lastname, $username, $email, $address, $profile_image, $user_id);
+            $stmt->bind_param("sssssssi", $firstname, $lastname, $username, $email, $address, $profile_image, $cover_image, $user_id);
         }elseif (!empty($cover_image)) {
             if (!in_array($cover_ext, $allowed_ext)) {
                 $msg = "<div class='alert alert-danger'>Invalid file type. Only JPG, JPEG, and PNG are allowed</div>";
@@ -93,10 +94,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_uinfo'])) {
             }
             $stmt = $connect->prepare(
                 "UPDATE user 
-                SET firstname = ?, lastname = ?, username = ?, email = ?, address = ?, cover_pics = ?
+                SET firstname = ?, lastname = ?, username = ?, email = ?, address = ?,profile_pics = ? cover_pics = ?
                 WHERE id = ?"
             );
-            $stmt->bind_param("ssssssi", $firstname, $lastname, $username, $email, $address, $cover_image, $user_id);
+            $stmt->bind_param("sssssssi", $firstname, $lastname, $username, $email, $address, $profile_image, $cover_image, $user_id);
         } elseif (!empty($profile_image) && !empty($cover_image)) {
             if (!in_array($ext, $allowed_ext) && !in_array($cover_ext, $allowed_ext)) {
                 $msg = "<div class='alert alert-danger'>Invalid file type. Only JPG, JPEG, and PNG are allowed</div>";

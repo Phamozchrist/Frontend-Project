@@ -19,6 +19,30 @@ if (isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="../fonts/css/all.min.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <title>Prefix - Settings </title>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem("theme") || "system-default-theme";
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+            let themeToApply = savedTheme;
+            if (savedTheme === "system-default-theme") {
+                themeToApply = prefersDark.matches ? "dark-theme" : "light-theme";
+            }
+
+            // Remove any previous theme classes
+            document.documentElement.classList.remove("light-theme", "dark-theme", "system-default-theme");
+            document.documentElement.classList.add(themeToApply);
+
+            // Listen for OS theme changes if system default is selected
+            prefersDark.addEventListener("change", function() {
+                if (localStorage.getItem("theme") === "system-default-theme") {
+                    const newTheme = prefersDark.matches ? "dark-theme" : "light-theme";
+                    document.documentElement.classList.remove("light-theme", "dark-theme");
+                    document.documentElement.classList.add(newTheme);
+                }
+            });
+        })();
+    </script>
 </head>
 <body>
     <section class="settings-section theme-section">
@@ -39,7 +63,7 @@ if (isset($_SESSION['user_id'])) {
                     <select name="theme" id="theme">
                         <option value="light-theme">Light</option>
                         <option value="dark-theme">Dark</option>
-                        <option value="system-default-theme">System-default</option>
+                        <option value="system-default-theme">System Default</option>
                     </select>
                 </div>
             </div>

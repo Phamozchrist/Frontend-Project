@@ -13,25 +13,25 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     // Validate old password
     if(empty($oldPassword)){
-        $passwordErr = 'Old Password is required';
+        $passwordErr = '<i class="fa-regular fa-circle-xmark"></i> Old Password is required';
     }
     // Validate new password
     if (empty($newPassword)) {
-        $newPasswordErr = 'New Password is required';
+        $newPasswordErr = '<i class="fa-regular fa-circle-xmark"></i> New Password is required';
     } elseif (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%?])[A-Za-z\d!@#$%?]{8,}$/', $newPassword)) {
-        $newPasswordErr = 'Password must include a letter, number & symbol, min 8 chars';
+        $newPasswordErr = '<i class="fa-regular fa-circle-xmark"></i> Password must include a letter, number & symbol, min 8 chars';
     }
 
     // Validate confirm password
     if (empty($confirmPassword)) {
-        $confirmPasswordErr = 'Please confirm password';
+        $confirmPasswordErr = '<i class="fa-regular fa-circle-xmark"></i> Please confirm password';
     } elseif ($confirmPassword !== $newPassword) {
-        $confirmPasswordErr = 'Passwords do not match';
+        $confirmPasswordErr = '<i class="fa-regular fa-circle-xmark"></i> Passwords do not match';
     }
 
     // Validate all fields
     if (empty($oldPassword) || empty($newPassword) || empty($confirmPassword)) {
-        $msg = '<p class="msg-error">All fields are required</p>';
+        $msg = '<p class="msg-error"><i class="fa-regular fa-circle-xmark"></i> All fields are required</p>';
     }
     if (empty($newPasswordErr) && empty($confirmPasswordErr)) {
         // Verify old password from DB
@@ -42,9 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
         if ($row = $result->fetch_assoc()) {
             if (!password_verify($oldPassword, $row['password'])) {
-                $msg = '<p class="msg-error">Incorrect old password</p>';
+                $msg = '<p class="msg-error"><i class="fa-regular fa-circle-xmark"></i> Incorrect old password</p>';
             } elseif (password_verify($newPassword, $row['password'])) {
-                $msg = '<p class="msg-error">New password cannot be same as old password</p>';
+                $msg = '<p class="msg-error"><i class="fa-regular fa-circle-xmark"></i> New password cannot be same as old password</p>';
             } else {
                 // Hash new password
                 $hashed = password_hash($newPassword, PASSWORD_BCRYPT);
@@ -53,9 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 $updateStmt->bind_param("si", $hashed, $user_id);
 
                 if ($updateStmt->execute()) {
-                    $msg = '<p class="msg-success">Password updated successfully</p>';
+                    $msg = '<p class="msg-success"><i class="fa-regular fa-circle-check"></i> Password updated successfully</p>';
                 } else {
-                    $msg = '<p class="msg-error">Error: '.$updateStmt->error.'</p>';
+                    $msg = '<p class="msg-error"><i class="fa-regular fa-circle-xmark"></i> Error: '.$updateStmt->error.'</p>';
                 }
             }
         }

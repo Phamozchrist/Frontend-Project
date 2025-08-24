@@ -11,7 +11,7 @@
     <ul class="sidebar-nav-container">
         <li class="nested-nav nsn-1 close-nested-nav">General Settings <i class="fa-solid fa-angle-down"></i>
             <ul class="nested-sidebar-nav">
-                <li class="themesBtn"><a href="theme.php"><i class="fa-solid fa-palette"></i>Themes</a></li>
+                <li class="themesBtn"><a href="theme.php"><i class="fa-solid fa-circle-half-stroke"></i>Themes</a></li>
             </ul>
         </li>
         <li class="nested-nav nsn-2 close-nested-nav">Account Management <i class="fa-solid fa-angle-down"></i>

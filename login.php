@@ -10,6 +10,30 @@
     <link rel="stylesheet" href="../fonts/css/all.min.css">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"> -->
     <title>Prefix - Login</title>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem("theme") || "system-default-theme";
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+            let themeToApply = savedTheme;
+            if (savedTheme === "system-default-theme") {
+                themeToApply = prefersDark.matches ? "dark-theme" : "light-theme";
+            }
+
+            // Remove any previous theme classes
+            document.documentElement.classList.remove("light-theme", "dark-theme", "system-default-theme");
+            document.documentElement.classList.add(themeToApply);
+
+            // Listen for OS theme changes if system default is selected
+            prefersDark.addEventListener("change", function() {
+                if (localStorage.getItem("theme") === "system-default-theme") {
+                    const newTheme = prefersDark.matches ? "dark-theme" : "light-theme";
+                    document.documentElement.classList.remove("light-theme", "dark-theme");
+                    document.documentElement.classList.add(newTheme);
+                }
+            });
+        })();
+    </script>
 </head>
 <body class="login-container">
     <!-- <?php include 'includes/loader.php';?> -->

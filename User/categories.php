@@ -19,6 +19,30 @@ if (isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="../fonts/css/all.min.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <title>Prefix - Categories</title>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem("theme") || "system-default-theme";
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+            let themeToApply = savedTheme;
+            if (savedTheme === "system-default-theme") {
+                themeToApply = prefersDark.matches ? "dark-theme" : "light-theme";
+            }
+
+            // Remove any previous theme classes
+            document.documentElement.classList.remove("light-theme", "dark-theme", "system-default-theme");
+            document.documentElement.classList.add(themeToApply);
+
+            // Listen for OS theme changes if system default is selected
+            prefersDark.addEventListener("change", function() {
+                if (localStorage.getItem("theme") === "system-default-theme") {
+                    const newTheme = prefersDark.matches ? "dark-theme" : "light-theme";
+                    document.documentElement.classList.remove("light-theme", "dark-theme");
+                    document.documentElement.classList.add(newTheme);
+                }
+            });
+        })();
+    </script>
 </head>
 <body>
     <section class="categories-section">
@@ -47,7 +71,7 @@ if (isset($_SESSION['user_id'])) {
                 <div class="container">
                     <div class="heading">
                         <h2><?= $category['category_name'] ?></h2>
-                        <p><a href="">See all  <i class="fa-solid fa-angle-right"></i></a></p>
+                        <p><a href="category.php?category=<?=$category['id']?>?<?=$category['category_name']?>">See all  <i class="fa-solid fa-angle-right"></i></a></p>
                     </div>
                     <div class="item-container">
                         <?php while($product = mysqli_fetch_assoc($product_query)): ?>
@@ -60,8 +84,8 @@ if (isset($_SESSION['user_id'])) {
                                     <img src="../admin/uploads/<?= $product['product_image']; ?>" alt="">
                                 </div>
                                 <h3><?= ucfirst($product['product_name']); ?></h3>
+                                <p class="discount-price"></p>
                                 <p class="actual-price"><?= $product['product_price']; ?></p>
-                                <span class="discount-price"></span>
                             </a>
                             <div class="addToCart-container">
                                 <button class="addToCart">Add to cart</button>
@@ -82,35 +106,91 @@ if (isset($_SESSION['user_id'])) {
                 endwhile;
             ?>
         </main>
-       <!-- Footer Section starts here -->
-       <?php include "includes/footer.php"; ?>
-       <!-- Footer Section ends here -->
     </section>
 
     <script src="../javascript/user.script.js"></script>
     <script>
-        (function() {
-            const savedTheme = localStorage.getItem("theme") || "system-default-theme";
-            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+                // --- Add to Cart Logic for Categories Page ---
+        document.addEventListener("DOMContentLoaded", function () {
+        function getCart() {
+            return JSON.parse(localStorage.getItem("cart") || "{}");
+        }
+        function setCart(cart) {
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCartBadge();
+        }
+        function updateCartBadge() {
+            let badge = document.querySelector(".cart-count-badge");
+            if (!badge) return;
+            let cart = getCart();
+            let totalCount = Object.values(cart).reduce((sum, item) => sum + item.qty, 0);
+            badge.textContent = totalCount > 0 ? totalCount : "";
+        }
 
-            let themeToApply = savedTheme;
-            if (savedTheme === "system-default-theme") {
-                themeToApply = prefersDark.matches ? "dark-theme" : "light-theme";
+        // On page load, update cart badge
+        updateCartBadge();
+
+        document.querySelectorAll(".item").forEach(function (item) {
+            const addBtn = item.querySelector(".addToCart");
+            const incCart = item.querySelector(".inc-cart-count");
+            const minusBtn = incCart.querySelector("button:first-child");
+            const plusBtn = incCart.querySelector("button:last-child");
+            const countSpan = incCart.querySelector("span");
+
+            // Get product info
+            const prodName = item.querySelector("h3").textContent.trim();
+            const prodImg = item.querySelector("img").getAttribute("src");
+            const prodPrice = item.querySelector(".actual-price").textContent.trim();
+
+            // Load count from cart
+            let cart = getCart();
+            let qty = cart[prodName]?.qty || 0;
+            if (qty > 0) {
+            addBtn.style.display = "none";
+            incCart.style.display = "flex";
+            countSpan.textContent = qty;
+            } else {
+            addBtn.style.display = "block";
+            incCart.style.display = "none";
+            countSpan.textContent = "0";
             }
 
-            // Remove any previous theme classes
-            document.body.classList.remove("light-theme", "dark-theme", "system-default-theme");
-            document.body.classList.add(themeToApply);
-
-            // Listen for OS theme changes if system default is selected
-            prefersDark.addEventListener("change", function() {
-                if (localStorage.getItem("theme") === "system-default-theme") {
-                    const newTheme = prefersDark.matches ? "dark-theme" : "light-theme";
-                    document.body.classList.remove("light-theme", "dark-theme");
-                    document.body.classList.add(newTheme);
-                }
+            addBtn.addEventListener("click", function () {
+            qty = 1;
+            addBtn.style.display = "none";
+            incCart.style.display = "flex";
+            countSpan.textContent = qty;
+            cart = getCart();
+            cart[prodName] = { qty, prodImg, prodPrice };
+            setCart(cart);
             });
-        })();
+
+            plusBtn.addEventListener("click", function () {
+            qty++;
+            countSpan.textContent = qty;
+            cart = getCart();
+            cart[prodName] = { qty, prodImg, prodPrice };
+            setCart(cart);
+            });
+
+            minusBtn.addEventListener("click", function () {
+            if (qty > 1) {
+                qty--;
+                countSpan.textContent = qty;
+                cart = getCart();
+                cart[prodName] = { qty, prodImg, prodPrice };
+                setCart(cart);
+            } else {
+                qty = 0;
+                addBtn.style.display = "block";
+                incCart.style.display = "none";
+                cart = getCart();
+                delete cart[prodName];
+                setCart(cart);
+            }
+            });
+        });
+        });
     </script>
 </body>
 </html>

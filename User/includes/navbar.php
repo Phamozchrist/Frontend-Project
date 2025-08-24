@@ -1,9 +1,8 @@
 <header>
     <div class="logo"></div>
-    <form>
+    <form action="search.php" method="get" id="searchForm">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="search" placeholder="Search for items here" autocomplete="off">
-        
+        <input type="search" placeholder="Search for items here" name="search" onclick="handleSearchkeydown()" value="<?=isset($_GET['search']) && !empty($_GET['search']) ? $search :''?>" id="searchInput">
     </form>
     <div class="cart-container">
         <div class="cart navbar-cart-icon">

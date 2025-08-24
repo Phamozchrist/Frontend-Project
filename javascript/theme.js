@@ -3,12 +3,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
 
   function applyTheme(theme) {
-    document.body.classList.remove("light-theme", "dark-theme", "system-default-theme");
+    document.documentElement.classList.remove("light-theme", "dark-theme", "system-default-theme");
 
     if (theme === "system-default-theme") {
-      document.body.classList.add(prefersDark.matches ? "dark-theme" : "light-theme");
+      document.documentElement.classList.add(prefersDark.matches ? "dark-theme" : "light-theme");
     } else {
-      document.body.classList.add(theme);
+      document.documentElement.classList.add(theme);
     }
   }
 

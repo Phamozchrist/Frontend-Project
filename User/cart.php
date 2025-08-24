@@ -18,6 +18,31 @@ if (isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="../fonts/css/all.min.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <title>Prefix - Cart </title>
+    
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem("theme") || "system-default-theme";
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+            let themeToApply = savedTheme;
+            if (savedTheme === "system-default-theme") {
+                themeToApply = prefersDark.matches ? "dark-theme" : "light-theme";
+            }
+
+            // Remove any previous theme classes
+            document.documentElement.classList.remove("light-theme", "dark-theme", "system-default-theme");
+            document.documentElement.classList.add(themeToApply);
+
+            // Listen for OS theme changes if system default is selected
+            prefersDark.addEventListener("change", function() {
+                if (localStorage.getItem("theme") === "system-default-theme") {
+                    const newTheme = prefersDark.matches ? "dark-theme" : "light-theme";
+                    document.documentElement.classList.remove("light-theme", "dark-theme");
+                    document.documentElement.classList.add(newTheme);
+                }
+            });
+        })();
+    </script>
 </head>
 <body>
     <section class="cart-section">
@@ -55,14 +80,14 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                 </div>
                 <div class="cart-summary">
-                    <div class="summary-details">
+                    <!-- <div class="summary-details">
                     <h2>Order Summary</h2>
                         <div class="summary-row"><span>Subtotal:</span><span>₦${subtotal.toLocaleString()}</span></div>
                         <div class="summary-row"><span>Shipping:</span><span>₦0</span></div>
                         <div class="summary-row total"><span>Total:</span><span>₦${subtotal.toLocaleString()}</span></div>
                         <button class="checkout-btn">Proceed to Checkout</button>
                     </div>
-                </div>
+                </div> -->
             </section>
         </main>
        <!-- Footer Section starts here -->
@@ -71,29 +96,5 @@ if (isset($_SESSION['user_id'])) {
     </section>
 
     <script src="../javascript/user.script.js"></script>
-    <script>
-        (function() {
-            const savedTheme = localStorage.getItem("theme") || "system-default-theme";
-            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
-
-            let themeToApply = savedTheme;
-            if (savedTheme === "system-default-theme") {
-                themeToApply = prefersDark.matches ? "dark-theme" : "light-theme";
-            }
-
-            // Remove any previous theme classes
-            document.body.classList.remove("light-theme", "dark-theme", "system-default-theme");
-            document.body.classList.add(themeToApply);
-
-            // Listen for OS theme changes if system default is selected
-            prefersDark.addEventListener("change", function() {
-                if (localStorage.getItem("theme") === "system-default-theme") {
-                    const newTheme = prefersDark.matches ? "dark-theme" : "light-theme";
-                    document.body.classList.remove("light-theme", "dark-theme");
-                    document.body.classList.add(newTheme);
-                }
-            });
-        })();
-    </script>
 </body>
 </html>

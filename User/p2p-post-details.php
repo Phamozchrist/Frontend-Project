@@ -30,6 +30,30 @@ if (isset($_GET['post']) && !empty($_GET['post'])) {
     <link rel="stylesheet" href="../fonts/css/all.min.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <title>Prefix - P2P - <?=ucfirst($post['title']);?></title>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem("theme") || "system-default-theme";
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+            let themeToApply = savedTheme;
+            if (savedTheme === "system-default-theme") {
+                themeToApply = prefersDark.matches ? "dark-theme" : "light-theme";
+            }
+
+            // Remove any previous theme classes
+            document.documentElement.classList.remove("light-theme", "dark-theme", "system-default-theme");
+            document.documentElement.classList.add(themeToApply);
+
+            // Listen for OS theme changes if system default is selected
+            prefersDark.addEventListener("change", function() {
+                if (localStorage.getItem("theme") === "system-default-theme") {
+                    const newTheme = prefersDark.matches ? "dark-theme" : "light-theme";
+                    document.documentElement.classList.remove("light-theme", "dark-theme");
+                    document.documentElement.classList.add(newTheme);
+                }
+            });
+        })();
+    </script>
 </head>
 <body>
     <section class="categories-section">
@@ -73,31 +97,6 @@ if (isset($_GET['post']) && !empty($_GET['post'])) {
         </main>
     </section>
 
-
     <script src="../javascript/user.script.js"></script>
-    <script>
-        (function() {
-            const savedTheme = localStorage.getItem("theme") || "system-default-theme";
-            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
-
-            let themeToApply = savedTheme;
-            if (savedTheme === "system-default-theme") {
-                themeToApply = prefersDark.matches ? "dark-theme" : "light-theme";
-            }
-
-            // Remove any previous theme classes
-            document.body.classList.remove("light-theme", "dark-theme", "system-default-theme");
-            document.body.classList.add(themeToApply);
-
-            // Listen for OS theme changes if system default is selected
-            prefersDark.addEventListener("change", function() {
-                if (localStorage.getItem("theme") === "system-default-theme") {
-                    const newTheme = prefersDark.matches ? "dark-theme" : "light-theme";
-                    document.body.classList.remove("light-theme", "dark-theme");
-                    document.body.classList.add(newTheme);
-                }
-            });
-        })();
-    </script>
 </body>
 </html>

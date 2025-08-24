@@ -19,6 +19,30 @@ if (isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="../fonts/css/all.min.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <title>Prefix - Settings </title>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem("theme") || "system-default-theme";
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+            let themeToApply = savedTheme;
+            if (savedTheme === "system-default-theme") {
+                themeToApply = prefersDark.matches ? "dark-theme" : "light-theme";
+            }
+
+            // Remove any previous theme classes
+            document.documentElement.classList.remove("light-theme", "dark-theme", "system-default-theme");
+            document.documentElement.classList.add(themeToApply);
+
+            // Listen for OS theme changes if system default is selected
+            prefersDark.addEventListener("change", function() {
+                if (localStorage.getItem("theme") === "system-default-theme") {
+                    const newTheme = prefersDark.matches ? "dark-theme" : "light-theme";
+                    document.documentElement.classList.remove("light-theme", "dark-theme");
+                    document.documentElement.classList.add(newTheme);
+                }
+            });
+        })();
+    </script>
 </head>
 <body>
     <section class="settings-section password-management-section">
@@ -51,7 +75,7 @@ if (isset($_SESSION['user_id'])) {
                         <input type="password" name="new_password" id="new_password" class="<?=empty($newPasswordErr) ? '' : 'is-invalid';?>">  
                         <i class="fa-regular fa-eye show-password toggle-eye" data-target="new_password"></i>
                         <p class="new_password-err"><?=$newPasswordErr;?></p>
-                        <p>Password should be at least 8 characters including a number and a lowercase letter.</p>
+                        <p class="pass-inc">Password should be at least 8 characters including a number and a lowercase letter.</p>
                     </div>
                     <div class="form-box">
                         <label for="confirm_password">Confirm Password*</label>
@@ -60,7 +84,7 @@ if (isset($_SESSION['user_id'])) {
                         <p class="confirm_password-err"><?=$confirmPasswordErr;?></p>
                     </div>
                     <div class="btnCon">
-                        <button type="submit" name="save" id="button" disabled>
+                        <button type="submit" name="save" id="button">
                             <span id="btnText">Save</span>
                             <span id="spinner" class="spinner hidden"></span>
                         </button>
@@ -71,29 +95,5 @@ if (isset($_SESSION['user_id'])) {
     </section>
     <script src="../javascript/user.script.js"></script>
     <script src="../javascript/msg.js"></script>
-    <script>
-        (function() {
-            const savedTheme = localStorage.getItem("theme") || "system-default-theme";
-            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
-
-            let themeToApply = savedTheme;
-            if (savedTheme === "system-default-theme") {
-                themeToApply = prefersDark.matches ? "dark-theme" : "light-theme";
-            }
-
-            // Remove any previous theme classes
-            document.body.classList.remove("light-theme", "dark-theme", "system-default-theme");
-            document.body.classList.add(themeToApply);
-
-            // Listen for OS theme changes if system default is selected
-            prefersDark.addEventListener("change", function() {
-                if (localStorage.getItem("theme") === "system-default-theme") {
-                    const newTheme = prefersDark.matches ? "dark-theme" : "light-theme";
-                    document.body.classList.remove("light-theme", "dark-theme");
-                    document.body.classList.add(newTheme);
-                }
-            });
-        })();
-    </script>
 </body>
 </html>

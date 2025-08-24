@@ -1735,6 +1735,9 @@ footer .copyright-section{
     z-index: -24;
     border-bottom-right-radius: 100%;
 }
+html.dark-theme #login-modal{
+    background-color: #28292a;
+}
 #login-modal {
     width: 100%;
     color: black;
@@ -1746,6 +1749,9 @@ footer .copyright-section{
     justify-self:center;
     place-content:center;
 }
+html.dark-theme .login-logo-container .login-logo{
+    background-image: url('../images/dark-mode-pc\ logo.png');
+}
 .login-logo-container .login-logo{
     background-image: url('../images/pc\ logo.png');
     background-size: contain;
@@ -1756,6 +1762,9 @@ footer .copyright-section{
 }
 .login-logo-container p{
     display: none;
+}
+html.dark-theme .login-header h1{
+    color: white;
 }
 .login-header {
     display: flex;
@@ -2017,32 +2026,57 @@ form .login-details{
     margin-bottom: 20px;
 }
 .create-account-modal-content form .msg-error {
-    border: 2px solid red;
-    width:100%;
-    border-radius:10px;
-    padding: 10px;
-    background-color: rgb(233, 177, 177);
-    color:white;
+    border-left: 4px solid red;
+    font-style: oblique;
+    width: 400px;
+    border-radius: 10px;
+    padding: 15px 10px;
+    font-size: 14px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(255, 0, 0);
+    position: fixed;
+    z-index: 1000;
+    top: 80px;
+    right: 100px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
+
 .login-modal-content form .msg-error {
-    border: 2px solid red;
-    width:100%;
-    border-radius:10px;
-    padding: 10px;
-    font-size:14px;
-    background-color: rgb(233, 177, 177);
-    margin-bottom: 20px;
-    color:white;
+    border-left: 4px solid red;
+    font-style: oblique;
+    width: 400px;
+    border-radius: 10px;
+    padding: 15px 10px;
+    font-size: 14px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(255, 0, 0);
+    position: fixed;
+    z-index: 1000;
+    top: 80px;
+    right: 100px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
+
 .login-modal-content form .msg-success {
-    border: 2px solid blue;
-    width:100%;
-    border-radius:10px;
-    padding:10px;
-    font: 16px;
-    color: rgb(255, 255, 255);
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
-    background-color: rgba(0, 0, 255, 0.459);
+    font-style: oblique;
+    border-left: 4px solid rgb(38, 255, 0);
+    width: 400px;
+    border-radius: 10px;
+    padding: 15px 10px;
+    font-size: 14px;
+    color: green;
+    position: fixed;
+    z-index: 1000;
+    top: 80px;
+    right: 100px;
+    background-color: rgba(255, 255, 255, 0.459);
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 .login-modal-content form button:disabled{
     cursor: not-allowed;
