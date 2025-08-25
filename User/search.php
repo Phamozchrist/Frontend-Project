@@ -54,30 +54,30 @@ $result1 = $query->get_result();
 </head>
 <body>
     <section>
-            <?php
-                if (isset($_GET['search']) && !empty($_GET['search'])) {
-                    $search = $_GET['search'];
-                    $stmt = $connect->prepare(
-                        "SELECT p.*, c.category_name 
-                         FROM products p 
-                         INNER JOIN categories c ON c.id = p.product_category 
-                         WHERE (
-                            p.product_name LIKE ?
-                            OR p.product_details LIKE ? 
-                        )
-                            AND c.category_name != 'Flash Sales'
-                            AND c.category_name != 'Top Deals'  
-                            ORDER BY p.id DESC"
-                    );
-                    $likeSearch = "%$search%";
-                    $stmt->bind_param("ss", $likeSearch, $likeSearch);
-                }else{
-                    $stmt = $connect->prepare( "SELECT p.*, c.category_name FROM products p INNER JOIN categories c ON c.id = p.product_category ORDER BY p.id DESC");
+        <?php
+            if (isset($_GET['search']) && !empty($_GET['search'])) {
+                $search = $_GET['search'];
+                $stmt = $connect->prepare(
+                    "SELECT p.*, c.category_name 
+                        FROM products p 
+                        INNER JOIN categories c ON c.id = p.product_category 
+                        WHERE (
+                        p.product_name LIKE ?
+                        OR p.product_details LIKE ? 
+                    )
+                        AND c.category_name != 'Flash Sales'
+                        AND c.category_name != 'Top Deals'  
+                        ORDER BY p.id DESC"
+                );
+                $likeSearch = "%$search%";
+                $stmt->bind_param("ss", $likeSearch, $likeSearch);
+            }else{
+                $stmt = $connect->prepare( "SELECT p.*, c.category_name FROM products p INNER JOIN categories c ON c.id = p.product_category ORDER BY p.id DESC");
 
-                }
-                $stmt->execute();
-                $result = $stmt->get_result();
-            ?>
+            }
+            $stmt->execute();
+            $result = $stmt->get_result();
+        ?>
         <?php include "includes/navbar.php"; ?>
         <!-- Top Navigition bar -->
 
@@ -96,7 +96,7 @@ $result1 = $query->get_result();
                     <ul class="sidebar-nav-container">
                         
                         <?php while ($category = mysqli_fetch_assoc($result1)):?>
-                            <li><a href="category.php?category=?<?=$category['id']?>?<?=$category['category_name']?>"><?=$category['category_name']?></a></li>
+                            <li><a href="category.php?category=<?=$category['id']?>?<?=$category['category_name']?>"><?=$category['category_name']?></a></li>
                         <?php endwhile; ?>
                     </ul>
                 </aside>
@@ -128,7 +128,7 @@ $result1 = $query->get_result();
                             </div>
                             <?php endwhile; ?>
                             <?php else: ?>
-                            <p>No Result Found</p>
+                            <p class="nrf">No Result Found:"<?=$search?>"</p>
                             <?php endif; ?>
                         </div>
                     </div>

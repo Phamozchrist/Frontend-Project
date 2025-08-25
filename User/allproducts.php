@@ -115,8 +115,6 @@ $result1 = $query->get_result();
                                 </div>
                             </div>
                             <?php endwhile; ?>
-                            <?php else: ?>
-                            <p>No Result Found</p>
                             <?php endif; ?>
                         </div>
                     </div>

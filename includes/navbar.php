@@ -20,13 +20,13 @@
                     </li>
                 </ul>
             </li>
-            <li><a href="services.php">SERVICES</a></li>
+            <li><a href="services.php">SERVI</a></li>
             <li><a href="contact.php">CONTACT</a></li>
         </ul>
 
         <div class="bl-container">
             <span><a href="login.php">BUY NOW</a></span>
-            <span><a href="login.php">LOGIN</a></span>
+            <p><a href="login.php">LOGIN</a></p>
             <span class="mode-toggle"><i class="fa-solid fa-moon"></i></span>
         </div>
         

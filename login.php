@@ -47,12 +47,12 @@
             <h1 class="dv-title">Log in to PreFix</h1>
             <h1 class="mv-title">Log in</h1>
         </div>
+        <?php if(!empty($msg)) { ?>
+            <?=($msg);?>
+        <?php } ?>
         <div class="login-modal-content">            
             <form id="form" method="post">
             <p class="rv-ca-container">Don't have an account?<a href="register.php" id="trigger">   Create account</a></p>
-                <?php if(!empty($msg)) { ?>
-                    <?=($msg);?>
-                <?php } ?>
                 <div class="form-box">
                     <i class="fa-solid fa-user eU-icon"></i>
                     <input type="text" name="emailOrUsername" id="emailOrUsername" class="<?=empty($emailOrUsernameErr) ? '' : 'is-invalid';?>" value="<?= htmlspecialchars($emailOrUsername); ?>" required>

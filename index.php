@@ -12,7 +12,7 @@
 <body>
     <section class="f-body">
         <!-- Navbar starts here -->
-       <?php include 'includes/navbar.php'; ?>
+       <?php include "includes/navbar.php";?>
         <!-- Navbar ends here -->
 
         <!-- Loader starts here -->

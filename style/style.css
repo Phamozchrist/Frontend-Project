@@ -2043,7 +2043,7 @@ form .login-details{
     gap: 15px;
 }
 
-.login-modal-content form .msg-error {
+.msg-error {
     border-left: 4px solid red;
     font-style: oblique;
     width: 400px;
@@ -2060,8 +2060,7 @@ form .login-details{
     align-items: center;
     gap: 15px;
 }
-
-.login-modal-content form .msg-success {
+.msg-success {
     font-style: oblique;
     border-left: 4px solid rgb(38, 255, 0);
     width: 400px;

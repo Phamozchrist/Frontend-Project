@@ -46,9 +46,7 @@ html.dark-theme .home-section .sidebar ul:first-of-type li:nth-of-type(1) {
   transition: all 0.3s ease;
   background-color: #9bf7ea;
 }
-.home-section header form {
-  opacity: 0;
-}
+
 html.dark-theme header {
   background-color: #28292a;
 
@@ -251,7 +249,7 @@ html.dark-theme .sidebar ul li:hover {
   background-color: #9bf7ea;
   top: 0;
   left: -13px;
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
 }
 
 .sidebar ul li:hover::before {
@@ -1076,6 +1074,7 @@ html.dark-theme .all-categories-section {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 15px;
     padding: 10px;
+    position: relative;
 
     .item {
       background-color: #f8f8f8;
@@ -1954,7 +1953,9 @@ html.dark-theme
   transition: all 0.3s ease;
   background-color: #9bf7ea;
 }
-
+.settings-section header form{
+  opacity: 0;
+}
 .msg-error {
   border-left: 4px solid red;
   font-style: oblique;
@@ -2563,6 +2564,20 @@ footer .copyright-section {
 .search-wrapper{
   display: flex;
   gap: 10px;
+
+  .nrf{
+    font-size: 40px;
+    position: absolute; 
+    top: 50px;   
+    width: 100%;
+    text-align: center;
+    display: block;
+  }
+}
+html.dark-theme .search-wrapper{
+  .nrf{
+    color: rgb(255, 255, 255);
+  }
 }
 html.dark-theme .search-sidebar{
   background-color: #28292a;

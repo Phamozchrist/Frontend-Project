@@ -1,10 +1,3 @@
-const searchForm = document.getElementById("searchForm");
-const searchInput = document.getElementById('searchForm')
-function handleSearchKeydown(e) {
-  if (e.key === "Enter") {
-    searchForm.submit();
-  }
-}
 const sidebar = document.querySelector(".sidebar");
 const mainExpand = document.querySelector("main");
 
@@ -159,15 +152,12 @@ function validateField(field) {
   const input = document.getElementById(field);
   const error = document.querySelector(`.${field}-err`);
   const value = input.value.trim();
-  const button = document.getElementById("button");
-  let isValid = true;
 
   switch (field) {
     case "password":
       const passwordRegex =
         /^(?=.*[A-Za-z])(?=.*[\d])(?=.*[!@#$%?*^])[A-Za-z\d!@#$%?*^]+$/;
       if (value === "") {
-        isValid = false;
         setError(input, error, "Old Password is required");
       } else if (!passwordRegex.test(value)) {
         isValid = false;
@@ -177,7 +167,6 @@ function validateField(field) {
           "Password must include an uppercase, number, symbol e.g P@ssw0rd"
         );
       } else if (value.length < 8) {
-        isValid = false;
         setError(input, error, "Minimum 8 characters");
       } else {
         setSuccess(input, error);
@@ -187,7 +176,6 @@ function validateField(field) {
       const newpasswordRegex =
         /^(?=.*[A-Za-z])(?=.*[\d])(?=.*[!@#$%?*^])[A-Za-z\d!@#$%?*^]+$/;
       if (value === "") {
-        isValid = false;
         setError(input, error, "New Password is required");
       } else if (!newpasswordRegex.test(value)) {
         isValid = false;
@@ -197,7 +185,6 @@ function validateField(field) {
           "Password must include an uppercase, number, symbol e.g P@ssw0rd"
         );
       } else if (value.length < 8) {
-        isValid = false;
         setError(input, error, "Minimum 8 characters");
       } else {
         setSuccess(input, error);
@@ -206,7 +193,6 @@ function validateField(field) {
     case "confirm_password":
       const password = document.getElementById("new_password").value.trim();
       if (value === "") {
-        isValid = false;
         setError(input, error, "Please confirm password");
       } else if (value !== password) {
         isValid = false;
