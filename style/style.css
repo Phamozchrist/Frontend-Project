@@ -16,7 +16,7 @@
 }
 /* Dark-mode for homepage */
 .dark-mode{
-    background-color: rgb(3, 0, 19);
+    background-color: #28292a;
     color: white;
 }
 .dark-mode .f-body::before{
@@ -70,7 +70,7 @@
 
     ul{
         
-        background-color: rgb(3, 0, 19);
+        background-color: #28292a;
         box-shadow: 0px 3px 5px 0px #f8f8f85e;
         
     }
@@ -132,7 +132,7 @@
     }
 }
 .dark-mode #loader-wrapper {
-    background-color: rgb(0, 3, 19);
+    background-color: #28292a;
 }
 .dark-mode #loader-wrapper .img{
     background-image: url('../images/dark-mode-pc\ logo.png');
@@ -141,13 +141,13 @@
     color: white;
 }
 .dark-mode .search-box form{
-    background-color: rgb(3, 0, 19);
+    background-color: #28292a;
     box-shadow: rgba(234, 234, 234, 0.342) 0px 20px 50px 0px;
     border-top: 10px solid rgb(255, 255, 255);
    
     input{
         border: 1px solid #ffffff;
-        background-color: rgb(3, 0, 19);
+        background-color: #28292a;
         color: white;
         
     }
@@ -157,15 +157,15 @@
     select{
         border: 1px solid #ffffff;
         color: #ffffff;
-        background-color: rgb(3, 0, 19);
+        background-color: #28292a;
     }
     select option:hover {
-        background-color: rgb(3, 0, 19);
+        background-color: #28292a;
         color: #ffffff;
     }
 }
 .dark-mode .section-5 .price-container .price-list{
-    background-color: rgb(0, 3, 19);
+    background-color: #28292a;
 
     div{
 
@@ -198,7 +198,7 @@
 }
 
 .dark-mode .section-6 .slider-track-2 .slide-2{
-    background-color: rgb(0, 3, 19);
+    background-color: #28292a;
     box-shadow: 0px 0px 18px -6px rgb(228, 227, 227);
 }
 .dark-mode .section-6 .slider-track-2 .slide-2::after{
@@ -1724,6 +1724,7 @@ footer .copyright-section{
     }
     
 }
+
 .login-modal-content::before{
     content: " ";
     position: absolute;
@@ -1811,6 +1812,7 @@ form .form-box{
     position:relative;
     z-index: 10;
 }
+
 form .form-box input {
     width: 100%;
     padding: 7px 33px 7px 33px;
@@ -1823,6 +1825,7 @@ form .form-box input {
     position:relative;
     z-index: 10;
 }
+
 form .form-box label{
     position: absolute;
     top: 35px;
@@ -1838,6 +1841,7 @@ form .form-box label{
 form .form-box input:is(:focus, :valid){
     border: 1px solid #00c8ac;
 }
+
 form .form-box input:is(:focus, :valid) ~ label{
     transform:translateY(-210%);
     font-size: 12px;
@@ -1851,7 +1855,7 @@ form .login-details{
     justify-content: space-between;
     position:relative;
     z-index: 10;
-
+    
     .custom-checkbox {
         display: flex;
         align-items: center;
@@ -1909,6 +1913,7 @@ form .login-details{
     color: rgb(0,0,0);
 
 }
+
 .login-modal-content form div .show-password {
     cursor: pointer;
     position: absolute;
@@ -1958,6 +1963,9 @@ form .login-details{
     font-size: 12px;
     text-align: center;
 }
+html.dark-theme .terms p{
+    color: white;
+}
 #login-modal .terms p a{
     text-decoration: none;
     color: #00c8ac;
@@ -1981,7 +1989,7 @@ form .login-details{
     display:flex
 }
 #create-account-modal .create-account-container{
-    background-image:linear-gradient(to top, #02bfa3cc,#28454e);
+    background-image:linear-gradient(to top, #62fce8 ,#000000);
     color: white;
     width:50%;
 
@@ -2002,13 +2010,13 @@ form .login-details{
         width: 100%;
     }
 }
+html.dark-theme .create-account-modal-content{
+    background-color: #28292a;
+    color: white;
+}
 .create-account-modal-content {
     position:relative;
     background-color: #fefefe;
-    /* border-radius: 10px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0; */
-    margin: 0 auto 1%;
     padding: 20px 80px 40px;
     width: 50%;
     z-index: 120;
@@ -2025,57 +2033,41 @@ form .login-details{
 .create-account-modal-content form h2{
     margin-bottom: 20px;
 }
-.create-account-modal-content form .msg-error {
-    border-left: 4px solid red;
-    font-style: oblique;
-    width: 400px;
-    border-radius: 10px;
-    padding: 15px 10px;
-    font-size: 14px;
-    background-color: rgb(255, 255, 255);
-    color: rgb(255, 0, 0);
-    position: fixed;
-    z-index: 1000;
-    top: 80px;
-    right: 100px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
 
 .msg-error {
     border-left: 4px solid red;
     font-style: oblique;
-    width: 400px;
+    width: 30%;
     border-radius: 10px;
     padding: 15px 10px;
     font-size: 14px;
     background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.151);
     color: rgb(255, 0, 0);
     position: fixed;
     z-index: 1000;
     top: 80px;
-    right: 100px;
+    right: 50px;
     display: flex;
     align-items: center;
     gap: 15px;
 }
 .msg-success {
-    font-style: oblique;
-    border-left: 4px solid rgb(38, 255, 0);
-    width: 400px;
-    border-radius: 10px;
-    padding: 15px 10px;
-    font-size: 14px;
-    color: green;
-    position: fixed;
-    z-index: 1000;
-    top: 80px;
-    right: 100px;
-    background-color: rgba(255, 255, 255, 0.459);
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  font-style: oblique;
+  border-left: 4px solid rgb(38, 255, 0);
+  width: 30%;
+  border-radius: 10px;
+  padding: 15px 10px;
+  font-size: 14px;
+  color: green;
+  position: fixed;
+  z-index: 1000;
+  top: 80px;
+  right: 50px;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 .login-modal-content form button:disabled{
     cursor: not-allowed;
@@ -2150,6 +2142,9 @@ form .login-details{
     opacity: 0.7;
 
 }
+html.dark-theme .create-account-footer p{
+    color: white;
+}
 .create-account-footer{
     margin: 15px 0;
 
@@ -2203,6 +2198,13 @@ to {
 }
 }
 /* Loader */
+html.dark-theme #loader-wrapper{
+    background: #28292a;
+
+    .img{
+        background-image: url('../images/dark-mode-pc\ logo.png');
+    }
+}
 
 #loader-wrapper {
     position: fixed;
@@ -2556,7 +2558,7 @@ to {
 }
 @media screen and (max-width:984px){
     .dark-mode .navigation-header #md-nav-menu #logo{
-        background-image: url('../mages/Prefix-footer-logo.png');
+        background-image: url('../images/Prefix-footer-logo.png');
     }
     .dark-mode .navigation-header .md-nav-menulist ul li a{
         color: #ffffff;
@@ -2855,7 +2857,7 @@ to {
 }
 @media screen and (max-width:758px){
     .dark-mode .f-body::before{
-        background-color: rgb(3, 0, 19);
+        background-color: #28292a;
     }
     .f-body::before{
         background-color: #fff;

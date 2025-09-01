@@ -30,6 +30,7 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style/user.style.css">
+    <link rel="stylesheet" href="../style/rv.user.style.css">
     <link rel="stylesheet" href="../fonts/css/all.min.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <title>Prefix - <?=ucfirst($category['category_name']);?></title>
@@ -63,8 +64,14 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
         <?php include "includes/navbar.php"; ?>
         <!-- Top Navigition bar -->
 
+        <?php include "includes/rv-top-navbar.php"; ?>
+        <!-- Rv Top Navigition bar -->
+
         <?php include "includes/sidebar.php"; ?>
         <!-- Side Navigation bar -->
+
+        <?php include "includes/bottom-navbar.php"; ?>
+        <!-- Bottom Navigation bar -->
 
         <main>
             <p class="r-nav">
@@ -85,7 +92,7 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
                         <?php if(mysqli_num_rows($product_query) > 0): ?>
                             <?php while($product = mysqli_fetch_assoc($product_query)): ?>
                                 <div class="fss-item">
-                                    <a href="product-details.php?product=<?= $product['id']; ?>?<?=$product['product_name']; ?>">
+                                    <a href="product-details.php?product=<?= $product['id']; ?>&<?=$product['product_name']; ?>">
                                         <div class="fss-item-sale">
                                             <?php
                                                 if(isset($product['product_discount'])){
@@ -121,5 +128,36 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
     </section>
 
     <script src="../javascript/user.script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const countdownEl = document.querySelector(".fss-countdown");
+            const container = document.querySelector(".flash-sale-section");
+
+            function updateCountdown() {
+                let now = new Date();
+                let start = new Date();
+                let end = new Date();
+
+                // Sale runs 12:00 – 13:00 every day
+                start.setHours(9, 0, 0, 0);
+                end.setHours(18, 0, 0, 0);
+
+                if (now >= start && now < end) {
+                    // Sale is active
+                    let secondsLeft = Math.floor((end - now) / 1000);
+                    let mins = Math.floor(secondsLeft / 60);
+                    let secs = secondsLeft % 60;
+                    countdownEl.textContent = mins + "m : " + secs + "s";
+                    container.style.display = "block";
+                } else {
+                    // Sale ended or not started
+                    container.style.display = "none";
+                }
+            }
+
+            updateCountdown(); // run immediately
+            setInterval(updateCountdown, 1000); // update every second
+        });
+    </script>
 </body>
 </html>

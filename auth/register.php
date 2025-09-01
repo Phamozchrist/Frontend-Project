@@ -4,11 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/style.css">
-    <link rel="stylesheet" href="style/register.rv.css">
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/register.rv.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="fonts/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="../fonts/css/all.min.css">
     <title>Prefix - Create an account</title>
     <script>
         (function() {
@@ -36,7 +35,7 @@
     </script>
 </head>
 <body>
-    <?php include_once 'includes/loader.php';?>
+    <?php include_once '../includes/loader.php';?>
     <div id="create-account-modal">
         <div class="create-account-container">
             <div>
@@ -45,7 +44,7 @@
                 <p>Join us and start your journey with PreFix.</p>
             </div>
             <div class="create-account-img">
-                <img src="images/dark-mode-banner-img.png" alt="">
+                <img src="../images/dark-mode-banner-img.png" alt="">
             </div>
         </div>
         
@@ -114,10 +113,7 @@
         </div>
     </div>
 
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="javascript/auth.js"></script>
-    <!-- <script src="javascript/msg.js"></script> -->
+    <script src="../javascript/auth.js"></script>
+    <script src="../javascript/msg.js"></script>
 </body>
 </html>

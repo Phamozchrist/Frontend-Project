@@ -1,8 +1,8 @@
 <?php
 require '../includes/session.php';
-if (isset($_SESSION['user_id'])) {
-    if (isset($_COOKIE['user_id'])) {
-        $_SESSION['user_id'] = $_COOKIE['user_id'];
+if (!isset($_SESSION['user'])) {
+    if (isset($_COOKIE['user'])) {
+        $_SESSION['user'] = $_COOKIE['user'];
     } else {
         header("Location: ../login.php");
         exit();
@@ -15,6 +15,7 @@ if (isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <title>My Profile</title>
     <link rel="stylesheet" href="../style/user.style.css">
+    <link rel="stylesheet" href="../style/rv.user.style.css">
     <link rel="stylesheet" href="../fonts/css/all.min.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <script>
@@ -46,6 +47,12 @@ if (isset($_SESSION['user_id'])) {
     <?php include "includes/navbar.php"; ?>
     <?php include "includes/sidebar.php"; ?>
     <!-- Side Navigation bar -->
+
+    <?php include "includes/rv-top-navbar.php"; ?>
+    <!-- Rv Top Navigition bar -->
+
+    <?php include "includes/bottom-navbar.php"; ?>
+    <!-- Bottom Navigation bar -->
 
     <main class="profile-main">
         <div class="profile-card">
@@ -81,7 +88,7 @@ if (isset($_SESSION['user_id'])) {
             <h3>More Info</h3>
 
             <p> <i class="fas fa-envelope"></i><?=$user['email'];?></p>
-            <p> <i class="fas fa-location-dot"></i><?=$user['address'];?></p>
+            <p> <i class="fas fa-location-dot"></i><?= isset($user['address']) ? $user['address'] : 'No address';?></p>
         </div>
         <div class="p2p-list-table profile-post">
             <?php

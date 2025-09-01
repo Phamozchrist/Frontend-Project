@@ -8,7 +8,7 @@
     </nav>
     <div class="md-nav-menulist">
         <ul>
-            <li class="active"><a href="index.php">HOME</a></li>
+            <li><a href="index.php">HOME</a></li>
             <li><a href="about.php">ABOUT</a></li>
             <li class="nested-nav">SHOP <span>&dtrif;</span>
                 <ul>
@@ -20,13 +20,13 @@
                     </li>
                 </ul>
             </li>
-            <li><a href="services.php">SERVI</a></li>
+            <li><a href="services.php">SERVICES</a></li>
             <li><a href="contact.php">CONTACT</a></li>
         </ul>
 
         <div class="bl-container">
-            <span><a href="login.php">BUY NOW</a></span>
-            <p><a href="login.php">LOGIN</a></p>
+            <span><a href="auth/login.php">BUY NOW</a></span>
+            <p><a href="auth/login.php">LOGIN</a></p>
             <span class="mode-toggle"><i class="fa-solid fa-moon"></i></span>
         </div>
         
@@ -34,7 +34,7 @@
     <nav id="navigator">
         <div id="logo"></div>
         <ul>
-            <li><a href="index.php" class="active">HOME</a></li>
+            <li><a href="index.php">HOME</a></li>
             <li><a href="about.php">ABOUT</a></li>
             <li class="nested-nav">SHOP <span>&dtrif;</span>
                 <ul>
@@ -51,8 +51,8 @@
         </ul>
 
         <div>
-            <span><a href="">BUY NOW</a></span>
-            <span>LOGIN</span>
+            <span><a href="auth/login.php">BUY NOW</a></span>
+            <span><a href="auth/login.php">LOGIN</a></span>
             <span class="mode-toggle"><i class="fa-solid fa-moon"></i></span>
         </div>
     </nav>

@@ -1,8 +1,8 @@
 <?php
 require 'includes/script.php';
-if (isset($_SESSION['user_id'])) {
-    if (isset($_COOKIE['user_id'])) {
-        $_SESSION['user_id'] = $_COOKIE['user_id'];
+if (!isset($_SESSION['user'])) {
+    if (isset($_COOKIE['user'])) {
+        $_SESSION['user'] = $_COOKIE['user'];
     } else {
         header("Location: ../login.php");
         exit();
@@ -15,6 +15,7 @@ if (isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <title>P2P Marketplace</title>
     <link rel="stylesheet" href="../style/user.style.css">
+<link rel="stylesheet" href="../style/rv.user.style.css">
     <link rel="stylesheet" href="../fonts/css/all.min.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <title>Prefix - P2P</title>
@@ -50,13 +51,18 @@ if (isset($_SESSION['user_id'])) {
 
         <?php include "includes/sidebar.php"; ?>
         <!-- Side Navigation bar -->
+
+        <?php include "includes/rv-top-navbar.php"; ?>
+        <!-- Rv Top Navigition bar -->
+
+        <?php include "includes/bottom-navbar.php"; ?>
+        <!-- Side Navigation bar -->
         <main>
             <div class="p2p-container">
                 <h1>Create Post</h1>
                 <!-- Create Post Form -->
                 <div>
                     <form class="p2p-create-form" method="post" enctype="multipart/form-data">
-                        <h2>Create a Post</h2>
                         <input type="text" name="title" placeholder="Item Title" required>
                         <input type="text" name="price" placeholder="Price" required>
                         <input type="text" name="phone_num" placeholder="Phone Number" required>

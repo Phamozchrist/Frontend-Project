@@ -1,4 +1,4 @@
-<header>
+<header class="top-header">
     <div class="logo"></div>
     <form action="search.php" method="get" id="searchForm">
         <?php 

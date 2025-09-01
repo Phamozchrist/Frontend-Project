@@ -1,13 +1,15 @@
 <aside class="settings-sidebar">
     <h4>Settings Center</h4>
-    <div style="display: none;">
-        <img src="../admin/uploads/" alt="">
+    <a href="profile.php" class="settings-profile">
         <div>
-            <p></p>
-            <p></p>
+            <img src="../admin/uploads/<?=$user['profile_pics']?>" alt="">
+        </div>
+        <div>
+            <p><?=$user['firstname'];?> <?=$user['lastname'];?></p>
+            <p><?=$user['email'];?></p>
         </div>
 
-    </div>
+    </a>
     <ul class="sidebar-nav-container">
         <li class="nested-nav nsn-1 close-nested-nav">General Settings <i class="fa-solid fa-angle-down"></i>
             <ul class="nested-sidebar-nav">

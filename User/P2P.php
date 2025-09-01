@@ -1,8 +1,8 @@
 <?php
  require '../includes/session.php';
-if (isset($_SESSION['user_id'])) {
-    if (isset($_COOKIE['user_id'])) {
-        $_SESSION['user_id'] = $_COOKIE['user_id'];
+if (!isset($_SESSION['user'])) {
+    if (isset($_COOKIE['user'])) {
+        $_SESSION['user'] = $_COOKIE['user'];
     } else {
         header("Location: ../login.php");
         exit();
@@ -18,6 +18,7 @@ $posts = mysqli_query($connect, "SELECT p.*, u.username FROM p2p_posts p INNER J
     <meta charset="UTF-8">
     <title>P2P Marketplace</title>
     <link rel="stylesheet" href="../style/user.style.css">
+<link rel="stylesheet" href="../style/rv.user.style.css">
     <link rel="stylesheet" href="../fonts/css/all.min.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <title>Prefix - P2P</title>
@@ -51,8 +52,14 @@ $posts = mysqli_query($connect, "SELECT p.*, u.username FROM p2p_posts p INNER J
         <?php include "includes/navbar.php"; ?>
         <!-- Top Navigition bar -->
 
+        <?php include "includes/rv-top-navbar.php"; ?>
+        <!-- Rv Top Navigition bar -->
+
         <?php include "includes/sidebar.php"; ?>
         <!-- Side Navigation bar -->
+
+        <?php include "includes/bottom-navbar.php"; ?>
+        <!-- Bottom Navigation bar -->
         <main>
             <div class="p2p-container">
                 <h1>P2P Marketplace</h1>

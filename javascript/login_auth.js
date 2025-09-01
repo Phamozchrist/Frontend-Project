@@ -1,19 +1,19 @@
 // particlesJS.load("particles-js", "particles.json");
-// function disableScroll() {
-//   document.body.style.overflow = "hidden";
-// }
+function disableScroll() {
+  document.body.style.overflow = "hidden";
+}
 
-// function enableScroll() {
-//   document.body.style.overflow = "auto";
-// }
+function enableScroll() {
+  document.body.style.overflow = "auto";
+}
 
-// window.onload = function () {
-//   setTimeout(function () {
-//     document.getElementById("loader-wrapper").style.display = "none";
-//     enableScroll();
-//   }, 2000);
-//   disableScroll();
-// };
+window.onload = function () {
+  setTimeout(function () {
+    document.getElementById("loader-wrapper").style.display = "none";
+    enableScroll();
+  }, 1000);
+  disableScroll();
+};
 const login_fields = ["emailOrUsername", "login_password"];
 
 login_fields.forEach((field) => {

@@ -10,7 +10,7 @@ window.onload = function () {
   setTimeout(function () {
     document.getElementById("loader-wrapper").style.display = "none";
     enableScroll();
-  }, 2000);
+  }, 1000);
   disableScroll();
 };
 

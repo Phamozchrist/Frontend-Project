@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include '../includes/config.php';
 session_start();
 $emailOrUsername = $login_password = $msg = $rememberMe = '';
 $emailOrUsernameErr = $login_passwordErr = '';

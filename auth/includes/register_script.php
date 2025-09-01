@@ -1,5 +1,5 @@
 <?php
-require 'config.php';
+require '../includes/config.php';
 session_start();
 $firstname = $lastname = $username = $email = $password = $confirmPassword = $msg  = $terms = '';
 $firstnameErr = $lastnameErr = $usernameErr = $emailErr = $passwordErr = $confirmPasswordErr = $termsErr= '';
@@ -119,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             if ($insertStmt->execute()) {
                 $_SESSION['success'] = '<p class="msg-success"><i class="fa-regular fa-checked"></i> Registration successful! You can now log in.</p>';
-                header("Location: ../login.php");
+                header("Location: login.php");
 
             }else {
                 $msg = '<i class="fa-regular fa-circle-xmark"></i> Error: ' . mysqli_error($insertStmt);

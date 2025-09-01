@@ -41,9 +41,9 @@ function enableScroll() {
 window.onload = function() {
     setTimeout(function() {
         document.getElementById("loader-wrapper").style.display = "none"; 
-        enableScroll()
-    }, 2000);
-    disableScroll()
+        enableScroll();
+    }, 1000);
+    disableScroll();
 };
 
 
@@ -279,29 +279,5 @@ modeToggle.forEach((modeToggle)=>{
         darkMode = body.classList.contains('dark-mode');
         localStorage.setItem('darkMode', darkMode);
     });
-});
-
-const mdMenu = document.querySelector('.navigation-header #md-nav-menu button');
-const mdMenuNestedNav = document.querySelector('.navigation-header .md-nav-menulist ul .nested-nav');
-const mdMenuNestedNavMenu = document.querySelector('.navigation-header .md-nav-menulist ul .nested-nav ul');
-const onsmdMenuNestedNav = document.querySelector('.navigation-onscroll .md-nav-menulist ul .nested-nav');
-const onsmdMenuNestedNavMenu = document.querySelector('.navigation-onscroll .md-nav-menulist ul .nested-nav ul');
-const navMenu = document.querySelector('.navigation-header .md-nav-menulist');
-const onsmdMenu = document.querySelector('.navigation-onscroll #md-nav-menu button');
-const onsnavMenu = document.querySelector('.navigation-onscroll .md-nav-menulist');
-
-mdMenu.addEventListener('click', () => {
-    navMenu.classList.toggle('md-nav-open');
-    mdMenuNestedNavMenu.classList.remove('md-nestednav-open');
-});
-mdMenuNestedNav.addEventListener('click', () => {
-    mdMenuNestedNavMenu.classList.toggle('md-nestednav-open');
-});
-onsmdMenu.addEventListener('click', () => {
-    onsnavMenu.classList.toggle('md-nav-open');
-    onsmdMenuNestedNavMenu.classList.remove('md-nestednav-open');
-});
-onsmdMenuNestedNav.addEventListener('click', () => {
-    onsmdMenuNestedNavMenu.classList.toggle('md-nestednav-open');
 });
 

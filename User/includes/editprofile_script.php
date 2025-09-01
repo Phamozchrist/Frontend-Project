@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_uinfo'])) {
             }
             $stmt = $connect->prepare(
                 "UPDATE user 
-                SET firstname = ?, lastname = ?, username = ?, email = ?, address = ?,profile_pics = ? cover_pics = ?
+                SET firstname = ?, lastname = ?, username = ?, email = ?, address = ?, profile_pics = ?, cover_pics = ?
                 WHERE id = ?"
             );
             $stmt->bind_param("sssssssi", $firstname, $lastname, $username, $email, $address, $profile_image, $cover_image, $user_id);

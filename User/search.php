@@ -1,8 +1,8 @@
 <?php 
 require '../includes/session.php';
-if (isset($_SESSION['user_id'])) {
-    if (isset($_COOKIE['user_id'])) {
-        $_SESSION['user_id'] = $_COOKIE['user_id'];
+if (!isset($_SESSION['user'])) {
+    if (isset($_COOKIE['user'])) {
+        $_SESSION['user'] = $_COOKIE['user'];
     } else {
         header("Location: ../login.php");
         exit();
@@ -24,6 +24,7 @@ $result1 = $query->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style/user.style.css">
+<link rel="stylesheet" href="../style/rv.user.style.css">
     <link rel="stylesheet" href="../fonts/css/all.min.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <title>Prefix - Search</title>
@@ -81,14 +82,20 @@ $result1 = $query->get_result();
         <?php include "includes/navbar.php"; ?>
         <!-- Top Navigition bar -->
 
+        <?php include "includes/rv-top-navbar.php"; ?>
+        <!-- Rv Top Navigition bar -->
+
         <?php include "includes/sidebar.php"; ?>
         <!-- Side Navigation bar -->
+
+        <?php include "includes/bottom-navbar.php"; ?>
+        <!-- Bottom Navigation bar -->
 
         <main class="search-settings">
             <p class="r-nav">
                 <a href="index.php">Home <i class="fa-solid fa-angle-right"></i></a> 
                 <a href="allproducts.php">All Products <i class="fa-solid fa-angle-right"></i></a>
-                <span><?=$search;?></span>
+                <span><?=$search ?? "";?></span>
             </p>
             <div class="search-wrapper">
                 <aside class="search-sidebar">
@@ -100,7 +107,7 @@ $result1 = $query->get_result();
                         <?php endwhile; ?>
                     </ul>
                 </aside>
-                <div class="all-categories-section">
+                <div class="all-categories-section rv-all-products ">
                     <div class="container">
                         <div class="item-container">
                             <?php if (mysqli_num_rows($result) > 0): ?>

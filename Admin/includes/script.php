@@ -107,7 +107,7 @@ if(isset($_POST['add_product'])){
         if (move_uploaded_file($product_image_tmp, $target_file)) {
             // Insert product details into the database
             $stmt = $connect ->prepare("INSERT INTO products (product_name, product_price, product_discount, product_details, product_image, product_category) VALUES ( ?,?,?,?,?,?)");
-            $stmt->bind_param("sdssssi", $product_name, $product_price, $product_discount, $product_details, $product_image, $category,);
+            $stmt->bind_param("sdssss", $product_name, $product_price, $product_discount, $product_details, $product_image, $category,);
             $stmt->execute();
             $result = $stmt->get_result();
             // Check if the product was added successfully

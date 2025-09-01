@@ -145,7 +145,7 @@ const fields = ["password", "confirm_password", "new_password"];
 fields.forEach((field) => {
   document
     .getElementById(field)
-    .addEventListener("input", () => validateField(field));
+    ?.addEventListener("input", () => validateField(field));
 });
 
 function validateField(field) {
@@ -241,7 +241,7 @@ function checkFormValidity() {
 const form = document.getElementById("form");
 const btnText = document.getElementById("btnText");
 const spinner = document.getElementById("spinner");
-form.addEventListener("submit", (e) => {
+form?.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const button = document.getElementById("button");
@@ -269,7 +269,7 @@ inputs.forEach((input, index) => {
 const toggleEyes = document.querySelectorAll(".toggle-eye");
 
 toggleEyes.forEach((eye) => {
-  eye.addEventListener("click", () => {
+  eye?.addEventListener("click", () => {
     const inputId = eye.getAttribute("data-target");
     const input = document.getElementById(inputId);
 
@@ -297,7 +297,7 @@ toggleEyes.forEach((eye) => {
 const input = document.getElementById("uploadProfile");
 const profilePic = document.getElementById("profilePic");
 
-input.addEventListener("change", function () {
+input?.addEventListener("change", function () {
   const file = this.files[0];
   if (file) {
     let reader = new FileReader();
@@ -309,7 +309,7 @@ input.addEventListener("change", function () {
 });
 
 // --- Cart Icon and Add to Cart Functionality for Flash Sales ---
-document.addEventListener("DOMContentLoaded", function () {
+document?.addEventListener("DOMContentLoaded", function () {
   function getCart() {
     return JSON.parse(localStorage.getItem("cart") || "{}");
   }

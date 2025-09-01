@@ -1,26 +1,4 @@
 @media (max-width:900px) {
-    #login-modal::before{
-        content: " ";
-        position: absolute;
-        width: 185px;
-        height: 190px;
-        background-color: rgb(224, 253, 249);
-        left: 0px;
-        top: 0px;
-        z-index: -1;
-        border-bottom-right-radius: 100%;
-    }
-    #login-modal::after{
-        content: " ";
-        position: absolute;
-        width: 185px;
-        height: 190px;
-        background-color: rgb(224, 253, 249);
-        right: 0px;
-        bottom: 0px;
-        z-index: -1;
-        border-top-left-radius: 100%;
-    }
     .login-modal-content::before{
        display: none;
     }
@@ -37,6 +15,9 @@
             color: #000000;
             border-radius: 5px;
         }
+    }
+    html.dark-theme #login-modal{
+        color: white;
     }
     #login-modal {
         width: 100%;
@@ -72,6 +53,7 @@
             width: 100%;
             max-width: 350px;
             line-height:1.8;
+            padding: 5px;
         }
 
         .dv-title{
@@ -85,12 +67,29 @@
         position:static;
         background-color: #fefefe00;
         border-radius: 0px;
-        margin: 0 auto 1%;
-        padding: 0px;
+        margin: 0 auto;
+        padding: 5px;
         width: 100%;
         max-width: 350px;
         box-shadow: 0 0 0 rgba(221, 221, 221, 0);
         contain:none;
+    }
+    html.dark-theme .login-modal-content form div .show-password{
+        color: white;
+    }
+    html.dark-theme .login-modal-content form div .lp-icon , html.dark-theme .login-modal-content form div .eU-icon {
+        color: #fff;
+    }
+    html.dark-theme form .form-box input:is(:focus, :valid) ~ label{
+        background-color: #28292a;
+        padding: 0 5px;
+    }
+    html.dark-theme form .form-box input {
+        border: 1px solid #ccc;
+        color: white;
+    }
+    html.dark-theme form .form-box label{
+        color:#e2e2e2;
     }
     .login-modal-content form > div:first-of-type {
         margin-bottom: 20px;
@@ -151,19 +150,40 @@
     .login-modal-content form div .emailOrUsername-err, .login-modal-content form div .login_password-err{
         font-size:14px;
     }
-    .login-modal-content form .msg-error {
-        transition:all 0.3s ease;
-        position: absolute;
-        margin: 0 auto;
-        width: 100%;
-        max-width: 350px;
-        top: 15px;
+    .msg-error {
+        border-left: 4px solid red;
+        font-style: oblique;
+        width: 50%;
+        border-radius: 10px;
+        padding: 15px 10px;
+        font-size: 14px;
+        background-color: rgb(255, 255, 255);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.151);
+        color: rgb(255, 0, 0);
+        position: fixed;
+        z-index: 1000;
+        top: 80px;
+        right: 10px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
     }
-    .login-modal-content form .msg-success {
-        position: absolute;
-        margin: 0 auto;
-        width: 100%;
-        max-width: 350px;
-        top: 15px;
-    }
+    .msg-success {
+        border-left: 4px solid rgb(35, 255, 0);
+        font-style: oblique;
+        width: 50%;
+        border-radius: 10px;
+        padding: 15px 10px;
+        font-size: 14px;
+        background-color: rgb(255, 255, 255);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.151);
+        color: green;
+        position: fixed;
+        z-index: 1000;
+        top: 80px;
+        right: 10px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }    
 }

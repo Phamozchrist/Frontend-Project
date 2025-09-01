@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="../style/login.rv.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <link rel="stylesheet" href="../fonts/css/all.min.css">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"> -->
     <title>Prefix - Login</title>
     <script>
         (function() {
@@ -36,7 +35,7 @@
     </script>
 </head>
 <body class="login-container">
-    <!-- <?php include 'includes/loader.php';?> -->
+    <?php include_once '../includes/loader.php';?>
     <div id="particles-js"></div>
     <div id="login-modal">
         <div class="login-logo-container">
@@ -93,9 +92,7 @@
         </div>
     </div>
     
-
-    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-    <script src="javascript/login_auth.js" defer></script>
-    <script src="javascript/msg.js"></script>
+    <script src="../javascript/login_auth.js"></script>
+    <script src="../javascript/msg.js"></script>
 </body>
 </html>

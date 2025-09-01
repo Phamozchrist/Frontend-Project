@@ -5,7 +5,7 @@ session_start();
 $msg = "";
 // Check if the user is logged in
 if (!isset($_SESSION['user'])) {
-    header("Location: ../login.php");
+    header("Location: ../auth/login.php");
     exit();
 } else {
     $user_id = $_SESSION['user'];
@@ -20,7 +20,7 @@ if (!isset($_SESSION['user'])) {
         $user = mysqli_fetch_assoc($result);
     } else {
         $msg = "<p>Error fetching user data: " . mysqli_error($connect) . "</p>";
-        header("Location: ../login.php");
+        header("Location: ../auth/login.php");
         exit();
     }
 }

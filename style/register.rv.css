@@ -2,8 +2,8 @@
     #create-account-modal {
         display:block;
     }
+
     #create-account-modal .create-account-container{
-        background-image:linear-gradient(to top, #007c6a,#28454e);
         color: white;
         width:100%;
     
@@ -27,14 +27,18 @@
             }
         }
     }
+    
     .create-account-modal-content {
         position:relative;
         background-color: #fefefe;
-        margin: 0 auto 1%;
+        margin: 0 auto;
         padding: 20px 50px 40px;
         
         width: 100%;
         z-index: 120;
+    }
+    html.dark-theme .create-account-modal-content .logo{
+        background-image: url('../images/dark-mode-pc\ logo.png');
     }
     .create-account-modal-content .logo{
         display: block;
@@ -61,41 +65,6 @@
     }
     .create-account-modal-content form h2{
         margin-bottom: 20px;
-    }
-    .create-account-modal-content form .msg-error {
-        border: 2px solid red;
-        width:100%;
-        border-radius:10px;
-        padding: 10px;
-        background-color: rgb(233, 177, 177);
-        color:white;
-    }
-    .login-modal-content form .msg-error {
-        border: 2px solid red;
-        width:100%;
-        border-radius:10px;
-        padding: 10px;
-        font-size:14px;
-        background-color: rgb(233, 177, 177);
-        margin-bottom: 20px;
-        color:white;
-    }
-    .login-modal-content form .msg-success {
-        border: 2px solid blue;
-        width:100%;
-        border-radius:10px;
-        padding:10px;
-        font: 16px;
-        color: rgb(255, 255, 255);
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
-        background-color: rgba(0, 0, 255, 0.459);
-    }
-    .login-modal-content form button:disabled{
-        cursor: not-allowed;
-        opacity: 0.9;
-        background-color: #28454e;
-        color: white;
-    
     }
     .create-account-modal-content form button:disabled{
         background-color: #28454e;
@@ -189,5 +158,23 @@
     }
     .create-account-modal-content p a:hover{
         text-decoration: underline;
+    }
+    .msg-error {
+        border-left: 4px solid red;
+        font-style: oblique;
+        width: 50%;
+        border-radius: 10px;
+        padding: 15px 10px;
+        font-size: 14px;
+        background-color: rgb(255, 255, 255);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.151);
+        color: rgb(255, 0, 0);
+        position: fixed;
+        z-index: 1000;
+        top: 80px;
+        right: 10px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
     }
 }
