@@ -84,7 +84,7 @@
             </form>
         </div>
         <div class="login-footer">
-            <p><a href="admin/login.php">Log in as an Administrator</a></p>
+            <p><a href="../admin/login.php">Log in as an Administrator</a></p>
             <p>Don't have an account?<a href="register.php" id="trigger">   Create account</a></p>
         </div>
         <div class="terms">

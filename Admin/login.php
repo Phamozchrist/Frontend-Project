@@ -23,9 +23,9 @@
             <h1 class="dv-title">Log in as a PreFix Administrator</h1>
             <h1 class="mv-title">Log in only on a desktop or laptop</h1>
         </div>
+        <?=$msg;?>
         <div class="login-modal-content admin-modal-content">            
             <form id="form" method="post">
-                <?=$msg;?>
                 <div class="form-box">
                     <i class="fa-solid fa-user eU-icon"></i>
                     <input type="text" name="email" id="emailOrUsername" class="<?=empty($emailErr) ? '' : 'is-invalid';?>" value="<?= htmlspecialchars($email); ?>" required>
@@ -55,5 +55,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
     <script src="../../javascript/login_auth.js"></script>
+    <script src="../../javascript/msg.js"></script>
 </body>
 </html>

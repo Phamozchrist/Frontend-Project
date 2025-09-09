@@ -30,10 +30,10 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style/user.style.css">
-<link rel="stylesheet" href="../style/rv.user.style.css">
+    <link rel="stylesheet" href="../style/rv.user.style.css">
     <link rel="stylesheet" href="../fonts/css/all.min.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
-    <title>Prefix - <?=ucfirst($category['category_name']);?></title>
+    <title>Prefix - Orders</title>
     <script>
         (function() {
             const savedTheme = localStorage.getItem("theme") || "system-default-theme";
@@ -58,6 +58,9 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
             });
         })();
     </script>
+    <style>
+        
+    </style>
 </head>
 <body>
     <section class="orders-section">
@@ -73,8 +76,27 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
         <?php include "includes/bottom-navbar.php"; ?>
         <!-- Bottom Navigation bar -->
 
-        <main>
-            
+        <main class="orders-main">
+            <div class="orders-container">
+                <p class="orders-heading">Orders</p>
+                <?php 
+                    $oruserID = $_SESSION['user'];
+                    $orstmt = $connect->prepare("SELECT o.*, p.* FROM orders o INNER JOIN products p ON o.user_id = p.id ORDER BY p.id DESC  WHERE o.id = ?");
+                    $orstmt->bind_param('i',$oruserID);
+                    $orstmt->execute();
+                    $result = $orstmt->get_result();
+                    if($result->num_rows > 0):
+                ?>
+                <div class="ordered-item"></div>
+                <?php else:?>
+                <div class="no-order">
+                    <i class="fa-solid fa-dolly"></i>
+                    <p>You have placed no orders yet!</p>
+                    <p>All order will be placed here for you to access anytime </p>
+                    <button><a href="index.php">Continue Shopping </a></button>
+                </div>
+                <?php endif; ?>
+            </div>
         </main>
     </section>
 

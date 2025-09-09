@@ -122,9 +122,6 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
                 </div>
             </div>
         </main>
-       <!-- Footer Section starts here -->
-       <?php include "includes/footer.php"; ?>
-       <!-- Footer Section ends here -->
     </section>
 
     <script src="../javascript/user.script.js"></script>

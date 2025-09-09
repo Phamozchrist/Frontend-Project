@@ -65,3 +65,15 @@ if (isset($_GET['delete_post'])) {
         header("Location: p2p.php");
     }
 }
+
+if(isset($_GET['delete_order'])){
+    $oruserId = intval($_GET['delete_order']);
+    $stmt = "DELETE FROM orders WHERE id = $oruserId";
+    if (mysqli_query($connect, $stmt)) {
+        $_SESSION['msg'] = "<div class='alert alert-success'>Order deleted successfully</div>";
+        header("Location: manage_orders.php");
+    } else {
+        $_SESSION['msg'] = "<div class='alert alert-danger'>Error deleting Order: " . mysqli_error($connect) . "</div>";
+        header("Location: manage_orders.php");
+    }
+}

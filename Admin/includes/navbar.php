@@ -14,7 +14,7 @@
     <ul class="navbar-nav ms-auto me-3 me-lg-4">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img class="rounded-circle" src="uploads/default_profile.png?>"  width="30" height="30">
+                <img class="rounded-circle" src="uploads/default_profile.png"  width="30" height="30">
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="#">Profile</a></li>

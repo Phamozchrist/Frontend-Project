@@ -13,15 +13,9 @@
 
 
 html.light-theme {
-  /* background: url("../images/download.jpg");
-  background-attachment: fixed;
-  background-size: 150px; */
   background-color: #f8f8f8;
 }
 html.dark-theme {
-  /* background: url("../images/download\ \(1\).jpg");
-  background-attachment: fixed;
-  background-size: 150px; */
   background-color: #3f4041;
 }
 html.dark-theme .home-section .sidebar ul:first-of-type li:nth-of-type(1) {
@@ -95,7 +89,7 @@ header {
   justify-content: space-between;
   align-items: center;
   contain: content;
-  top: 0;
+  top: -2px;
   border-bottom: 2px solid #9bf7ea;
 
   .logo {
@@ -115,7 +109,7 @@ header {
 
     input {
       padding: 10px 20px 10px 40px;
-      background-color: rgb(240, 239, 239);
+      background-color: #f8f8f8;
       border-radius: 10px;
       width: 100%;
       outline: none;
@@ -724,6 +718,7 @@ html.dark-theme .latest-search-section {
 
   .lss-heading {
     background-color: #28292a;
+    border-color: #4c4d4e;
   }
   .lss-heading h2 {
     color: white;
@@ -783,7 +778,7 @@ html.dark-theme .latest-search-section {
     justify-content: space-between;
     padding: 5px 15px;
     align-items: center;
-    border-bottom: 1px solid rgb(241, 239, 239);
+    border-bottom: 1px solid #f8f8f8;
 
     h2 {
       color: rgb(0, 0, 0);
@@ -805,6 +800,11 @@ html.dark-theme .latest-search-section {
       padding: 5px;
       position: relative;
 
+       a {
+        text-decoration: none;
+        color: black;
+      }
+
       .lss-item-sale {
         position: relative;
         height: 200px;
@@ -821,12 +821,15 @@ html.dark-theme .latest-search-section {
           position: absolute;
           top: 7px;
           right: 7px;
-          font-size: 14px;
-          font-weight: 400;
           background-color: #caf3eef1;
           color: #28454e;
-          padding: 4px 6px;
+          padding: 2px 4px;
           border-radius: 5px;
+
+          .discount {
+            font-size: 14px;
+            font-weight: 400;
+          }
         }
       }
       h3 {
@@ -839,23 +842,22 @@ html.dark-theme .latest-search-section {
         padding-right: 10px;
       }
       p {
-        font-size: 14px;
-        color: #505050;
-
-        span {
-          text-decoration: none;
-          color: black;
-        }
+        color: #000000;
+      }
+      .discount-price {
+        color: black;
+        font-weight: 600;
+        line-height: 1;
       }
     }
     .lss-item:hover {
       background-color: #eef7f5;
       transform: scale(1.02);
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.041);
-      .lsss-item-sale img {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.055);
+      .lss-item-sale img {
         transform: scale(1.05);
       }
-      .lss-discount {
+      .lss-item-sale .lss-discount {
         transform: translateY(-5px);
       }
     }
@@ -1438,6 +1440,84 @@ html.dark-theme .pd-promotions-wrapper ul li {
     text-decoration: underline;
   }
 }
+
+.orders-main{
+  margin-bottom: 0;
+}
+html.dark-theme .orders-container{
+  background: #28292a;
+
+  .orders-heading{
+    color: white;
+    border-bottom:  1px solid #4c4d4e;
+  }
+  .no-order{
+    i{
+      background: #3f4041; 
+    }
+    p{
+      color: white;
+    }
+  }
+}
+.orders-container {
+  width: 95%;  
+  margin: auto;
+  min-height: 86vh;
+  background-color: #fff;
+  overflow:hidden;
+  display: grid;
+
+  .orders-heading{
+    padding: 10px 15px;
+    font-size: 17px;
+    font-weight: 600;
+    height: fit-content;
+    border-bottom:  1px solid #f8f8f8;
+  }
+  .no-order{
+    /* display: none; */
+    place-self: center;
+    text-align: center;
+    height: 63vh;
+
+    i{
+      font-size:60px;
+      padding: 10px 0 0;
+      width: 120px;
+      border-radius:50%;
+      background: #f8f8f8;
+      height: 120px;
+      text-align: center;
+      place-content:center;
+      color: #9bf7ea;
+
+    }
+    p{
+      font-size: 14px;
+      margin: 14px 0;
+    }
+    p:first-of-type{
+      font-weight: 600;
+      font-size: 16px;
+    }
+    button{
+      border-radius: 5px;
+      padding: 9px 0;
+      border: none;
+      background-color: #9bf7ea;
+      margin-top: 18px;
+    }
+    button:hover{
+      background-color: #84e6d7;
+    }
+    button a{
+      text-decoration: none;
+      padding: 11px 10px;
+      color: #000;
+    }
+  }
+}
 /* --- End of Product Details Styles --- */
 /* .container-2{
     padding: 0 15px;
@@ -1846,6 +1926,9 @@ html.dark-theme .settings-sidebar {
     color: #000;
   }
   
+}
+.plf-logout{
+  display: none !important;
 }
 .settings-sidebar {
   contain: content;

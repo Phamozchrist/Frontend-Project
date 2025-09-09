@@ -78,15 +78,7 @@
         }
     }
 
-    html.dark-theme .bottom-navbar{
-        background-color: #28292a;
-
-        ul li a {
-            color: white;
-
-        }
-       
-    }
+   
     .bottom-navbar{
         display: block;
         position: fixed;
@@ -96,8 +88,9 @@
         height: 80px;
         width: 100%;
         place-content: center;
-        bottom: 0;
+        bottom: -2px;
         border-top-right-radius: 5px;
+        
         
         ul{
             display: flex;
@@ -115,12 +108,15 @@
                 border-radius: 4px;
                 color: black;
                 font-size: 13px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-self: center;
             }
-        }
-        ul li a:hover{
-            color: #9bf7ea !important;
-        }
-        
+            a:hover{
+                color: #9bf7ea !important;
+            }
+        }    
     }
     .bottom-navbar ul li a::before {
         content: "";
@@ -131,11 +127,20 @@
         border-bottom-right-radius: 4px;
         background-color: #9bf7ea;
         top: -37px;
-        left: -37px;
+        /* left: -37px; */
         transition: all 0.1s ease;
     }
     .bottom-navbar ul li a:hover::before {
         height: 12px !important;
+    }
+    html.dark-theme .bottom-navbar{
+        background-color: #28292a;
+
+        ul li a {
+            color: white;
+
+        }
+       
     }
     main {
         margin: 80px 0px 130px 0px;
@@ -540,6 +545,23 @@
         margin-left: 300px;
         width: calc(100% - 330px);
     }   
+    html.dark-theme .settings-sidebar .settings-profile{
+
+        div p:first-of-type{
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        div p:last-of-type{
+            font-size: 13px;
+            color: #c7c6c6;
+        }
+    }
+    html.dark-theme .settings-sidebar{
+       .plf-logout li a{
+                color: #fff;
+        }
+    }
     .settings-sidebar {
         contain: content;
         background-color: #fff;
@@ -576,6 +598,7 @@
             padding: 10px;
             border-bottom: 2px solid #f8f8f8;
         }
+       
         .settings-profile{
             padding: 20px 30px;
             display: flex;
@@ -605,6 +628,13 @@
             div p:last-of-type{
                 font-size: 13px;
                 color: #404040;
+            }
+        }
+        .plf-logout{
+            display: block !important;
+            margin: 70% 0 20%;
+            li a{
+            color: black;
             }
         }
     }

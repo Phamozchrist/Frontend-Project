@@ -79,13 +79,7 @@ if (!isset($_SESSION['admin'])) {
                                             <a href="edit_admin.php?edit=<?=$row['id'];?>" class="btn btn-info">Edit</a>
                                             <a href="action.php?delete_admin=<?=$row['id'];?>" class="btn btn-danger">Delete</a>
                     
-                                        </td>
-                                        <?php if(mysqli_num_rows($result) == 0): ?>
-                                        <td>No Category</td>
-                                        <?php endif; ?>
-                                            
-
-                                        
+                                        </td>        
                                     </tr>
                                     <?php } ?>
                                 </tbody>

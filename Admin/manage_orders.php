@@ -14,7 +14,7 @@ if (!isset($_SESSION['admin'])) {
     <link rel="stylesheet" href="Fonts/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
-    <title>Dashboard - Manage Users</title>
+    <title>Dashboard - Manage Orders</title>
 </head>
 <body class="sb-nav-fixed">
     <div class="container-fluid">
@@ -27,10 +27,10 @@ if (!isset($_SESSION['admin'])) {
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">User</h1>
+                        <h1 class="mt-4">Orders</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Manage User</li>
+                            <li class="breadcrumb-item active">Manage Orders</li>
                         </ol>
                     </div>
                     <?php
@@ -44,47 +44,42 @@ if (!isset($_SESSION['admin'])) {
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
-                            Manage User
+                            Manage Orders
                         </div>
                         <div class="card-body">
                             <table id="datatablesSimple" class="datatable-table">
                                 <thead>
                                     <tr>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Username</th>
-                                        <th>Email</th>
-                                        <th>Orders</th>
+                                        <th>S/n</th>
+                                        <th>User Id</th>
+                                        <th>item</th>
+                                        <th>Date</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                         // Fetch categories from the database
-                                        $query = "SELECT u.*, 
-                                            (SELECT COUNT(*) FROM orders o WHERE o.user_id = u.id) AS total_orders 
-                                            FROM user u";
-                                        $result = mysqli_query($connect, $query);
+                                        $query = $connect->prepare("SELECT * FROM orders");
+                                        $query->execute();
+                                        $result= $query->get_result();
+                                        if(mysqli_num_rows($result) > 0): 
                                         while ($row = mysqli_fetch_assoc($result)) {
                                     ?>
                                     <tr>
-                                        <td><?=$row['firstname'];?></td>
-                                        <td><?=$row['lastname'];?></td>
-                                        <td><?=$row['username'];?></td>
-                                        <td><?=$row['email'];?></td>
-                                        <td><?=$row['total_orders'];?></td>
+                                        <td><?=$row['id'];?></td>
+                                        <td><?=$row['user_id'];?></td>
+                                        <td><?=$row['order_item'];?></td>
+                                        <td><?=date("Y/m/d", srtotime($row['created_on']));?></td>
                                         <td>
-                                            <a href="action.php?delete_user=<?=$row['id'];?>" class="btn btn-danger">Delete</a>
+                                            <a href="action.php?delete_order=<?=$row['id'];?>" class="btn btn-danger">Delete</a>
                                            
                                         </td>
-                                        <?php if(mysqli_num_rows($result) == 0): ?>
-                                        <td>No Category</td>
-                                        <?php endif; ?>
-                                            
-
-                                        
                                     </tr>
                                     <?php } ?>
+                                    <?php else: ?>
+                                    <tr><td colspan="5" class="text-center active">No orders yet</td></tr>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>

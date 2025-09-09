@@ -80,7 +80,7 @@ if (!isset($_SESSION['admin'])) {
                                                 <a href="action.php?delete_product=<?=$product['id'];?>" class="btn btn-danger">Delete</a>
                                             </td>
                                             <?php if(mysqli_num_rows($result) == 0): ?>
-                                                <td>No Product Found</td>
+                                                <td colspan="5" class="text-center active">No Product Found</td>
                                             <?php endif; ?>
                                         </tr>
                                         <?php } ?>

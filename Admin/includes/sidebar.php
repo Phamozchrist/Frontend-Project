@@ -51,7 +51,7 @@
                         <a class="nav-link" href="manage_category.php">Manage Category</a>
                         </nav>
                     </div>
-                      <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3" aria-expanded="false" aria-controls="collapseLayouts23">
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3" aria-expanded="false" aria-controls="collapseLayouts23">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
                         Orders
                         <div class="sb-sidenav-collapse-arrow"><i class="fa-solid fa-angle-down"></i></div>
@@ -61,7 +61,7 @@
                             <a class="nav-link" href="manage_orders.php">Manage Orders</a>
                         </nav>
                     </div>
-                      <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4" aria-expanded="false" aria-controls="collapseLayouts4">
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts4" aria-expanded="false" aria-controls="collapseLayouts4">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
                         P2P
                         <div class="sb-sidenav-collapse-arrow"><i class="fa-solid fa-angle-down"></i></div>

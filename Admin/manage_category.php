@@ -74,7 +74,7 @@ if (!isset($_SESSION['admin'])) {
                                             <?php } ?>
                                         </td>
                                         <?php if(mysqli_num_rows($result) == 0): ?>
-                                        <td>No Category</td>
+                                        <td colspan="5" class="text-center active>No Category</td>
                                         <?php endif; ?>
                                             
 

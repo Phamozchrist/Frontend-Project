@@ -168,7 +168,12 @@ if (isset($_SESSION['user_id'])) {
                             $category = mysqli_fetch_assoc($query)
                         ?>
                         <h2><?=$category['category_name']; ?></h2> 
-                        <p><a href="top-deals.php?category=<?=$category['id']; ?>?<?=$category['category_name']; ?>">See all  <i class="fa-solid fa-angle-right"></i></a></p>
+                        <p>
+                            <a href="top-deals.php?category=<?=$category['id'];?>?<?=$category['category_name'];?>">
+                                See all  
+                                <i class="fa-solid fa-angle-right"></i>
+                            </a>
+                        </p>
                     </div>
                     <div class="tds-item-container">
                         <?php
@@ -209,44 +214,75 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                 </div>
             </div>
-            <div class= "latest-search-section">
+            <?php
+            // 1️⃣ Get latest search word
+            $stmt = $connect->prepare(
+                "SELECT word FROM lastsearch ORDER BY id DESC LIMIT 1"
+            );
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $lastSearch = $result->fetch_assoc();
+            $searchWord = $lastSearch ? $lastSearch['word'] : '';
+            ?>
+            <div class="latest-search-section">
                 <div class="lss-container">
                     <div class="lss-heading">
-                        <h2>Latest Search: Toy</h2>
-                        <p><a href="Search.php">See all  <i class="fa-solid fa-angle-right"></i></a></p>
+                        <h2>Latest Search: "<?= htmlspecialchars($searchWord) ?>"</h2>
+                        <?php if ($searchWord): ?>
+                            <p>
+                                <a href="search.php?search=<?= urlencode($searchWord) ?>">
+                                    See all <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                            </p>
+                        <?php endif; ?>
                     </div>
+
                     <div class="lss-item-container">
-                        
-                        <div class="lss-item">
-                            <div class="lss-item-sale">
-                                <small class="lss-discount">-20%</small>
-                                <img src="uploads/flash-sale-1.png" alt="">
-                            </div>
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste, in eius ducimus sed</h3>
-                            <p>12,000  <span>₦12,000</span></p>
-                        </div>
-                        <div class="lss-item">
-                            <div class="lss-item-sale">
-                                <small class="lss-discount">-20%</small>
-                                <img src="uploads/flash-sale-1.png" alt="">
-                            </div>
-                            <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat iste, in eius ducimus sed</h3>
-                            <p>₦120,000 <span>₦12,000</span></p>
-                        </div>
-                        
+                    <?php
+                        if ($searchWord):
+                            // 2️⃣ Fetch matching products
+                            $stmt = $connect->prepare(
+                                "SELECT p.*, c.category_name 
+                                FROM products p 
+                                INNER JOIN categories c ON c.id = p.product_category 
+                                WHERE (
+                                p.product_name LIKE ?
+                                OR p.product_details LIKE ? 
+                            )
+                                AND c.category_name != 'Flash Sales'
+                                AND c.category_name != 'Top Deals'  
+                                ORDER BY p.id DESC"
+                            );
+                            $likeSearch = "%" . $searchWord . "%";
+                            $stmt->bind_param("ss", $likeSearch, $likeSearch);
+                            $stmt->execute();
+                            $productResult = $stmt->get_result();
+                        ?>
+                        <?php 
+                            if (mysqli_num_rows($productResult)> 0):
+                            while ($product = mysqli_fetch_assoc($productResult)): 
+                        ?>
+                                    <div class="lss-item">
+                                        <a href="product-details.php?product=<?= $product['id']; ?>">
+                                            <div class="lss-item-sale">
+                                                <?php if(isset($product['product_discount'])) { ?>
+                                                <small class="lss-discount">-<small class='discount'><?=$product['product_discount'];?></small>%</small>
+                                                <?php } ?>
+                                                <img src="../admin/uploads/<?=$product['product_image'];?>" alt="">
+                                            </div>
+                                            <h3><?= ucfirst($product['product_name']); ?></h3>
+                                            <p class="discount-price"></p>
+                                            <p class="actual-price"><?= $product['product_price']; ?></p>
+                                        </a>
+                                    </div>
+                                <?php endwhile; ?>
+                            <?php endif;?>
+                        <?php endif;?>
                     </div>
                 </div>
             </div>
+
         </main>
-        <!-- <div class="container-2">
-            <div class="slider-container">
-                <div class="slider-track">
-                    <div class="slide"><img src="../images/banner-img.png" alt=""></div>
-                    <div class="slide"><img src="../images/banner-img.png" alt=""></div>
-                    <div class="slide"><img src="../images/banner-img.png" alt=""></div>
-                </div>
-            </div>
-        </div> -->
     </section>
 
 
@@ -255,16 +291,16 @@ if (isset($_SESSION['user_id'])) {
         document.addEventListener("DOMContentLoaded", function () {
             const countdownEl = document.querySelector(".fss-countdown");
             const container = document.querySelector(".flash-sale-section");
-
+            
             function updateCountdown() {
                 let now = new Date();
                 let start = new Date();
                 let end = new Date();
-
+                
                 // Sale runs 12:00 – 13:00 every day
                 start.setHours(9, 0, 0, 0);
                 end.setHours(18, 0, 0, 0);
-
+                
                 if (now >= start && now < end) {
                     // Sale is active
                     let secondsLeft = Math.floor((end - now) / 1000);
@@ -277,11 +313,10 @@ if (isset($_SESSION['user_id'])) {
                     container.style.display = "none";
                 }
             }
-
+            
             updateCountdown(); // run immediately
             setInterval(updateCountdown, 1000); // update every second
         });
     </script>
-
 </body>
 </html>

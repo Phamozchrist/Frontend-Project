@@ -28,4 +28,7 @@
             </ul>
         </li>
     </ul>
+    <div class="profile-links-footer  plf-logout">
+        <li><i class="fa-solid fa-arrow-right-from-bracket"></i><a href="../user/logout.php">Logout</a></li>
+    </div>
 </aside>
