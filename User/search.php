@@ -79,16 +79,16 @@ $result1 = $query->get_result();
             $stmt->execute();
             $result = $stmt->get_result();
         ?>
-        <?php include "includes/navbar.php"; ?>
+        <?php include_once "includes/navbar.php"; ?>
         <!-- Top Navigition bar -->
 
-        <?php include "includes/rv-top-navbar.php"; ?>
+        <?php include_once "includes/rv-top-navbar.php"; ?>
         <!-- Rv Top Navigition bar -->
 
-        <?php include "includes/sidebar.php"; ?>
+        <?php include_once "includes/sidebar.php"; ?>
         <!-- Side Navigation bar -->
 
-        <?php include "includes/bottom-navbar.php"; ?>
+        <?php include_once "includes/bottom-navbar.php"; ?>
         <!-- Bottom Navigation bar -->
 
         <main class="search-settings">
@@ -112,7 +112,7 @@ $result1 = $query->get_result();
                         <div class="item-container">
                             <?php if (mysqli_num_rows($result) > 0): ?>
                             <?php while ($product = mysqli_fetch_assoc($result)): ?>
-                            <div class="item">
+                            <div class="item" data-id="<?= $product['id']; ?>">
                                 <a href="product-details.php?product=<?= $product['id']; ?>?<?=$product['product_name']; ?>">
                                     <div class="item-sale">
                                         <?php if(isset($product['product_discount'])): ?>

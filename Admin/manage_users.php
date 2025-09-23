@@ -11,17 +11,17 @@ if (!isset($_SESSION['admin'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="Fonts/css/all.min.css">
+    <link rel="stylesheet" href="fonts/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <title>Dashboard - Manage Users</title>
 </head>
 <body class="sb-nav-fixed">
     <div class="container-fluid">
-            <?php include 'includes/navbar.php'; ?>
+            <?php include_once 'includes/navbar.php'; ?>
             <!-- Top navigation bar -->
 
-            <?php include 'includes/sidebar.php'; ?>
+            <?php include_once 'includes/sidebar.php'; ?>
             <!-- Sidebar navigation bar -->
             <div id="layoutSidenav">
             <div id="layoutSidenav_content">
@@ -62,18 +62,18 @@ if (!isset($_SESSION['admin'])) {
                                     <?php
                                         // Fetch users from the database
                                         $query = "SELECT u.*, 
-                                            (SELECT COUNT(*) FROM orders o WHERE o.user_id = u.id) AS total_orders 
+                                            (SELECT COUNT(*) FROM orders  o WHERE o.user_id = u.id) AS total_orders 
                                             FROM user u";
                                         $result = mysqli_query($connect, $query);
                                         if(mysqli_num_rows($result)> 0) :
                                         while ($row = mysqli_fetch_assoc($result)):
                                     ?>
                                     <tr>
-                                        <td><?=$row['firstname'];?></td>
-                                        <td><?=$row['lastname'];?></td>
-                                        <td><?=$row['username'];?></td>
-                                        <td><?=$row['email'];?></td>
-                                        <td><?=$row['total_orders'];?></td>
+                                        <td class="text-truncate" style="max-width: 250px;"><?=$row['firstname'];?></td>
+                                        <td class="text-truncate" style="max-width: 250px;"><?=$row['lastname'];?></td>
+                                        <td class="text-truncate" style="max-width: 250px;"><?=$row['username'];?></td>
+                                        <td class="text-truncate" style="max-width: 250px;"><?=$row['email'];?></td>
+                                        <td class="text-truncate" style="max-width: 250px;"><?=$row['total_orders'];?></td>
                                         <td>
                                             <a href="action.php?delete_user=<?=$row['id'];?>" class="btn btn-danger">Delete</a>
                                            
@@ -93,7 +93,7 @@ if (!isset($_SESSION['admin'])) {
                         </div>
                     </div>
                 </main>
-                <?php include 'includes/footer.php'; ?>
+                <?php include_once 'includes/footer.php'; ?>
                 <!-- Footer -->
             </div>
         </div>

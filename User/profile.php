@@ -44,14 +44,14 @@ if (!isset($_SESSION['user'])) {
     </script>
 </head>
 <body>
-    <?php include "includes/navbar.php"; ?>
-    <?php include "includes/sidebar.php"; ?>
+    <?php include_once "includes/navbar.php"; ?>
+    <?php include_once "includes/sidebar.php"; ?>
     <!-- Side Navigation bar -->
 
-    <?php include "includes/rv-top-navbar.php"; ?>
+    <?php include_once "includes/rv-top-navbar.php"; ?>
     <!-- Rv Top Navigition bar -->
 
-    <?php include "includes/bottom-navbar.php"; ?>
+    <?php include_once "includes/bottom-navbar.php"; ?>
     <!-- Bottom Navigation bar -->
 
     <main class="profile-main">
@@ -74,14 +74,16 @@ if (!isset($_SESSION['user'])) {
                     </label>
                 </div>
             </div>
-            <div class="profile-info">
-                <h2><?=$user['firstname']?> <?=$user['lastname']?> </h2> 
+            <div class="profile-info-2">
+                <h2>
+                    <span><?=$user['firstname']?> <?=$user['lastname']?> </span>
+                </h2> 
                 <span class="online"><small></small> active</span>
                 <span class="online">user</span>
-                <button name="edit_profile" class="edit-btn">
-                    <a href="edit_profile.php"><i class="fa-solid fa-pen"></i> Edit Profile</a>
-                </button>
             </div>
+            <button name="edit_profile" class="edit-btn">
+                <a href="edit_profile.php"><i class="fa-solid fa-pen"></i> Edit Profile</a>
+            </button>
         </div>
         <!-- About Section -->
         <div class="profile-about-section">
@@ -111,7 +113,7 @@ if (!isset($_SESSION['user'])) {
                     <?php if(mysqli_num_rows($user_posts) > 0): ?>
                         <?php while($post = mysqli_fetch_assoc($user_posts)): ?>
                         <tr>
-                            <td><?= htmlspecialchars($post['title']); ?></td>
+                            <td><p><?= htmlspecialchars($post['title']); ?></p></td>
                             <td>
                                 <?php if($post['image']): ?>
                                     <img src="../admin/uploads/<?= htmlspecialchars($post['image']); ?>" alt="<?= htmlspecialchars($post['title']); ?>" width="70" style="border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">

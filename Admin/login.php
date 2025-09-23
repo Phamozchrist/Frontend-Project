@@ -1,4 +1,4 @@
-<?php include 'includes/login_script.php';?>
+<?php include_once 'includes/login_script.php';?>
 <!DOCTYPE html>
 <html lang="en" loading="lazy">
 <head>
@@ -12,7 +12,7 @@
     <title>Prefix - Admin Login</title>
 </head>
 <body class="login-container">
-    <!-- <?php include 'includes/loader.php';?> -->
+    <!-- <?php include_once 'includes/loader.php';?> -->
     <div id="particles-js"></div>
     <div id="login-modal">
         <div class="login-logo-container">

@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/style.css">
-    <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="Fonts/css/all.min.css">
+    <link rel="shortcut icon" href="images/pc logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="fonts/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <title>Prefix</title>
 </head>
 <body>
     <section class="f-body">
         <!-- Navbar starts here -->
-       <?php include "includes/navbar.php";?>
+        <?php include_once "includes/navbar.php";?>
         <!-- Navbar ends here -->
 
         <!-- Loader starts here -->
-        <?php include 'includes/loader.php';?>
+        <?php include_once 'includes/loader.php';?>
         <!-- Loader ends here -->
         <!-- Progess bar starts here -->
         <div id="progress-circle">
@@ -30,7 +30,7 @@
         </div>
         <!-- Progress bar ends here -->
         <!-- Onscroll Header starts here -->
-        <?php include 'includes/onscrollnavbar.php'; ?>
+        <?php include_once 'includes/onscrollnavbar.php'; ?>
         <!-- Onscroll Header ends here -->
         <section class="main-wrapper">
             <!-- Section 1 start here -->
@@ -46,16 +46,16 @@
                         
                         <p class="read-more-btn"><a href="#">READ MORE</a></p>
                         <div class="play-button">
-                            <img src="../images/play-icon.png" alt="" class="play-anime">
-                            <img src="../images/dark-mode-play-icon.png" alt="" class="play-dark-icon">
+                            <img src="images/play-icon.png" alt="play icon" class="play-anime">
+                            <img src="images/dark-mode-play-icon.png" alt="dark mode pl" class="play-dark-icon">
                         </div>
                     </div>
                     <div class="container-2">
                         <div class="slider-container" data-aos="fade-right">
                             <div class="slider-track">
-                                <div class="slide"><img src="../images/banner-img.png" alt=""></div>
-                                <div class="slide"><img src="../images/banner-img.png" alt=""></div>
-                                <div class="slide"><img src="../images/banner-img.png" alt=""></div>
+                                <div class="slide"><img src="images/banner-img.png" alt=""></div>
+                                <div class="slide"><img src="images/banner-img.png" alt=""></div>
+                                <div class="slide"><img src="images/banner-img.png" alt=""></div>
                             </div>
                         </div>
                     </div>
@@ -102,21 +102,21 @@
                     <div class="ads-con">
                         <div class="ads-1">
                             <h1>AUTOMATIVE</h1>
-                            <img src="../images/icon-1.png" alt="">
+                            <img src="images/icon-1.png" alt="">
                         </div>
                         <div class="ads-1">
                             <h1>FASHION</h1>
-                            <img src="../images/icon-2.png" alt="">
+                            <img src="images/icon-2.png" alt="">
                         </div>
                     </div>
                     <div class="ads-con">
                         <div class="ads-1">
                             <h1>AUTOMATIVE</h1>
-                            <img src="../images/icon-3.png" alt="">
+                            <img src="images/icon-3.png" alt="">
                         </div>
                         <div class="ads-1">
                             <h1>FASHION</h1>
-                            <img src="../images/icon-4.png" alt="">
+                            <img src="images/icon-4.png" alt="">
                         </div>
                     </div>
                 </div>
@@ -157,7 +157,7 @@
                         </div>
                         <div class="slide-1">
                             <div>
-                                <img src="../images/blog-img.png" alt="Slide1">
+                                <img src="images/blog-img.png" alt="Slide1">
                                 <div>
                                 <a href="#">Chat Now</a>
                                 <a href="#">Call Now</a> 
@@ -165,7 +165,7 @@
                                 <span>01</span>
                             </div>
                             <div>
-                                <img src="../images/blog-img1.png" alt="Slide2">
+                                <img src="images/blog-img1.png" alt="Slide2">
                                 <div>
                                     <a href="#">Chat Now</a>
                                     <a href="#">Call Now</a>
@@ -173,7 +173,7 @@
                                 <span>02</span>
                             </div>
                             <div>
-                                <img src="../images/blog-img2.png" alt="Slide3">
+                                <img src="images/blog-img2.png" alt="Slide3">
                                 <div>
                                     <a href="#">Chat Now</a>
                                     <a href="#">Call Now</a>
@@ -203,7 +203,7 @@
                     
                 </div>
                 <div class="about-img">
-                    <img src="../images/about-img.png" alt="">
+                    <img src="images/about-img.png" alt="image">
                 </div>
             </section>
             <!-- AboutUs ends here -->
@@ -279,7 +279,7 @@
                             </p>
                             <div class="cus-cus">
                                 <div class="cus-img">
-                                    <img src="../images/customer-img.png" alt="">
+                                    <img src="images/customer-img.png" alt="imaage">
                                 </div>
                                 <div class="cus-flex">
                                     <h3>CONTENT</h3>
@@ -293,7 +293,7 @@
                             </p>
                             <div class="cus-cus">
                                 <div class="cus-img">
-                                    <img src="../images/customer-img.png" alt="">
+                                    <img src="images/customer-img.png" alt="image">
                                 </div>
                                 <div class="cus-flex">
                                     <h3>CONTENT</h3>
@@ -334,7 +334,7 @@
             </section>
             <!-- Contact Us ends here -->
             <!-- Footer starts here -->
-             <?php include 'includes/footer.php'; ?>
+             <?php include_once 'includes/footer.php'; ?>
             <!-- Footer ends here -->
              </section>
     </section>

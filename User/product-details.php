@@ -66,16 +66,16 @@ if (isset($_GET['product']) && !empty($_GET['product'])) {
 </head>
 <body>
     <section class="categories-section">
-        <?php include "includes/navbar.php"; ?>
+        <?php include_once "includes/navbar.php"; ?>
         <!-- Top Navigition bar -->
 
-        <?php include "includes/rv-top-navbar.php"; ?>
+        <?php include_once "includes/rv-top-navbar.php"; ?>
         <!-- Rv Top Navigition bar -->
 
-        <?php include "includes/sidebar.php"; ?>
+        <?php include_once "includes/sidebar.php"; ?>
         <!-- Side Navigation bar -->
 
-        <?php include "includes/bottom-navbar.php"; ?>
+        <?php include_once "includes/bottom-navbar.php"; ?>
         <!-- Bottom Navigation bar -->
 
         <main>
@@ -91,7 +91,7 @@ if (isset($_GET['product']) && !empty($_GET['product'])) {
                 <?php endif ?>
                 <span><?= htmlspecialchars($product['product_name']); ?></span>
             </p>
-            <div class="product-details-container">
+            <div class="product-details-container item" data-id="<?= $product['id']; ?>">
                 <div class="product-image">
                     <img src="../admin/uploads/<?= htmlspecialchars($product['product_image']); ?>" alt="<?= htmlspecialchars($product['product_name']); ?>">
                 </div>
@@ -102,7 +102,7 @@ if (isset($_GET['product']) && !empty($_GET['product'])) {
                     <div class="fss-container">
                         <div class="fss-heading">
                             <h2><i class="fa-solid fa-tag"></i><?=ucfirst($product['category_name']);?></h2>
-                            <p>Time: <span class="fss-countdown">12:00 PM - 1:00 PM</span></p>
+                            <p>Time: <span class="fss-countdown"></span></p>
                         </div>
                         <div class="fss-price">
                             <span class="discount-price"></span>
@@ -160,6 +160,7 @@ if (isset($_GET['product']) && !empty($_GET['product'])) {
             const container = document.querySelector(".fss-container");
 
             function updateCountdown() {
+                if (!countdownEl || !container) return; // Prevent error if not Flash Sales
                 let now = new Date();
                 let start = new Date();
                 let end = new Date();

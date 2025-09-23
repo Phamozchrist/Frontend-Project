@@ -1,10 +1,13 @@
 <?php
-require '../includes/config.php';
 session_start();
+require '../includes/config.php';
+require '../vendor/autoload.php';
+require_once 'includes/email_templates.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
 $firstname = $lastname = $username = $email = $password = $confirmPassword = $msg  = $terms = '';
 $firstnameErr = $lastnameErr = $usernameErr = $emailErr = $passwordErr = $confirmPasswordErr = $termsErr= '';
-// Function to check if a field has an error
-
 
 // validate input
 function testInput($data) {
@@ -22,6 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = testInput($_POST['password']);
     $confirmPassword = testInput($_POST['confirm_password']);
     $terms = isset($_POST['terms']) ? true : false;
+    $verification_code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+    $verification_code_expires = date('Y-m-d H:i:s', strtotime('+15 minutes')); 
 
     
     // Validate Firstname
@@ -66,15 +71,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Validate Password
-    if (empty($password)) {
+   if (empty($password)) {
         $passwordErr = '<i class="fa-regular fa-circle-xmark"></i> Password is required';
     } else if(!preg_match('/^(?=.*[A-Za-z])(?=.*[\d])(?=.*[!@#$%?])[A-Za-z\d!@#$%?]*$/',$password)){
         $passwordErr = '<i class="fa-regular fa-circle-xmark"></i> Password must include an uppercase, number, symbol e.g P@ssw0rd';
-    } elseif (strlen($password < 8)) {
+    } elseif (strlen($password) < 8) {
         $passwordErr = '<i class="fa-regular fa-circle-xmark"></i> Password must be at least 8 characters';
-    }else {
+    } else {
         $passwordErr = '';
     }
+
     // Validate Confirm Password
     if (empty($confirmPassword)) {
         $confirmPasswordErr = '<i class="fa-regular fa-circle-xmark"></i> Password not confirmed';
@@ -95,6 +101,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $msg = '<p class="msg-error"><i class="fa-regular fa-circle-xmark"></i> Please fill in all fields;</p>'; 
     }
 
+    $name = $firstname . " " . $lastname; 
+    $_SESSION['verify_email'] = $email;
+    $_SESSION['verify_name'] = $name;
+
     // Display Success Message
     $error = $firstnameErr . $lastnameErr . $emailErr . $passwordErr . $usernameErr . $confirmPasswordErr . $termsErr;
     if (empty($error)) {
@@ -106,28 +116,72 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (mysqli_num_rows($result) > 0) {
             while ($row = $result->fetch_assoc()) {
                 if ($row['username']  === $username)  $usernameErr = ' <i class="fa-regular fa-circle-xmark"></i> Username already taken';
-                if ($row['email']     === $email)     $emailErr = '<i class="fa-regular fa-circle-xmark"></i> Email already registered';
-                if(!empty($usernameErr) || !empty($emailErr)) {
-                    $msg = 'i class="fa-regular fa-circle-xmark"></i> User already exists.';
+                if ($row['email'] === $email)     $emailErr = '<i class="fa-regular fa-circle-xmark"></i> Email already registered';
+                if ($row['username']  === $username && $row['email'] === $email){
+                    $msg = '<i class="fa-regular fa-circle-xmark"></i> Username/Email has already been registered, proceed to log in.';
                 }
             }
-        }
-        if (empty($error)) {
+        }else{
             $passwordHash = password_hash($password, PASSWORD_BCRYPT);
-            $insertStmt = $connect->prepare("INSERT INTO user (firstname, lastname, username, email, password) VALUES (?,?,?,?,?)");
-            $insertStmt->bind_param('sssss',$firstname, $lastname, $username, $email, $passwordHash);
+            $insertStmt = $connect->prepare(
+                "INSERT INTO user 
+                (firstname, lastname, username, email, password, verification_code, verification_code_expires) 
+                VALUES (?,?,?,?,?,?,?)"
+            );
+            $insertStmt->bind_param(
+                'sssssss', 
+                $firstname, $lastname, $username, $email, $passwordHash, $verification_code, $verification_code_expires
+            );
             
             if ($insertStmt->execute()) {
-                $_SESSION['success'] = '<p class="msg-success"><i class="fa-regular fa-checked"></i> Registration successful! You can now log in.</p>';
-                header("Location: login.php");
-
+                $emailContent = generateVerificationEmail($verification_code, "Email Verification", "Thank you for registering with Prefix");
+                $mail = new PHPMailer(true);
+                try {
+                    // Server settings
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.gmail.com';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'stevofame15@gmail.com';
+                    $mail->Password = 'jmebpvrceoxryham';
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                    $mail->Port = 587;
+                    
+                    // Recipients
+                    $mail->setFrom('stevofame15@gmail.com', 'Prefix');
+                    $mail->addAddress($email, $name);
+                    
+                    // Content
+                    $mail->isHTML(true);
+                    $mail->Subject = 'Email Verification - Verify your Email';
+                    $mail->Body    = $emailContent['html'];
+                    $mail->AltBody = $emailContent['plain']; // plain-text fallback
+                    
+                    $mail->send();
+                } catch (Exception $e) {
+                    $msg = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                }
+                header("Location: verification.php?email=" . urlencode($email));
+                exit();
             }else {
-                $msg = '<i class="fa-regular fa-circle-xmark"></i> Error: ' . mysqli_error($insertStmt);
+                 if ($connect->errno == 1062) {
+                    if (strpos($connect->error, 'email') !== false) {
+                        $emailErr = "Email already registered.";
+                    } elseif (strpos($connect->error, 'username') !== false) {
+                        $usernameErr = "Username already taken.";
+                    } else {
+                        $msg = "Duplicate entry detected.";
+                    }
+                } else {
+                    $msg = "Database error: " . $connect->error;
+                }
+            }
+            if (isset($insertStmt)) {
+                $insertStmt->close();
             }
         }
+        $stmt->close();
     }else{
         $msg = '<i class="fa-regular fa-circle-xmark"></i> Please fix all errors below;';
     }
-
 }
-?>
+

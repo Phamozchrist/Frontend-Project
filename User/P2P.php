@@ -49,16 +49,16 @@ $posts = mysqli_query($connect, "SELECT p.*, u.username FROM p2p_posts p INNER J
 </head>
 <body>
     <section class="p2p-section">
-        <?php include "includes/navbar.php"; ?>
+        <?php include_once "includes/navbar.php"; ?>
         <!-- Top Navigition bar -->
 
-        <?php include "includes/rv-top-navbar.php"; ?>
+        <?php include_once "includes/rv-top-navbar.php"; ?>
         <!-- Rv Top Navigition bar -->
 
-        <?php include "includes/sidebar.php"; ?>
+        <?php include_once "includes/sidebar.php"; ?>
         <!-- Side Navigation bar -->
 
-        <?php include "includes/bottom-navbar.php"; ?>
+        <?php include_once "includes/bottom-navbar.php"; ?>
         <!-- Bottom Navigation bar -->
         <main>
             <div class="p2p-container">
@@ -90,7 +90,7 @@ $posts = mysqli_query($connect, "SELECT p.*, u.username FROM p2p_posts p INNER J
                                 while($post = mysqli_fetch_assoc($user_posts)): 
                             ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($post['title']); ?></td>
+                                    <td><p><?= htmlspecialchars($post['title']); ?></p></td>
                                     <td>
                                         <?php if($post['image']): ?>
                                             <img src="../admin/uploads/<?= htmlspecialchars($post['image']); ?>" alt="<?= htmlspecialchars($post['title']); ?>" width="70" style="border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
@@ -133,8 +133,8 @@ $posts = mysqli_query($connect, "SELECT p.*, u.username FROM p2p_posts p INNER J
                                 while($post = mysqli_fetch_assoc($posts)): 
                             ?>
                                 <tr>
-                                    <td><?= htmlspecialchars(ucfirst($post['username'])); ?></td>
-                                    <td><?= htmlspecialchars($post['title']); ?></td>
+                                    <td><p><?= htmlspecialchars(ucfirst($post['username'])); ?></p></td>
+                                    <td><p><?= htmlspecialchars($post['title']); ?></p></td>
                                     <td>
                                         <?php if($post['image']): ?>
                                             <img src="../admin/uploads/<?= htmlspecialchars($post['image']); ?>" alt="<?= htmlspecialchars($post['title']); ?>" width="70" style="border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">

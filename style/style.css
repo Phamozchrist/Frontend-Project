@@ -2119,6 +2119,9 @@ html.dark-theme .create-account-modal-content{
     outline: none;
     font-size: 15px;
 }
+html.dark-theme .create-account-modal-content form div input {
+    color: white;
+}
 .create-account-modal-content form button {
     background-color: #28454e;
     color: white;

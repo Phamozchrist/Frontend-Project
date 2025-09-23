@@ -11,19 +11,17 @@ if (!isset($_SESSION['admin'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="Fonts/css/all.min.css">
+    <link rel="stylesheet" href="fonts/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <title>Dashboard - Manage P2P Post</title>
 </head>
 <body class="sb-nav-fixed">
     <div class="container-fluid">
-            <?php include 'includes/navbar.php'; ?>
-            <!-- Top navigation bar -->
+        <?php include_once 'includes/navbar.php'; ?>
+        <?php include_once 'includes/sidebar.php'; ?>
 
-            <?php include 'includes/sidebar.php'; ?>
-            <!-- Sidebar navigation bar -->
-            <div id="layoutSidenav">
+        <div id="layoutSidenav">
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
@@ -33,22 +31,21 @@ if (!isset($_SESSION['admin'])) {
                             <li class="breadcrumb-item active">Manage P2P Post</li>
                         </ol>
                     </div>
+
                     <?php
-                        $msg = '';
-                        if (isset($_SESSION['msg'])) {
-                            $msg = $_SESSION['msg'];
-                            unset($_SESSION['msg']);
-                        }
-                        echo $msg
+                        $msg = $_SESSION['msg'] ?? '';
+                        unset($_SESSION['msg']);
+                        echo $msg;
                     ?>
+
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table me-1"></i>
                             Manage P2P Post
                         </div>
                         <div class="card-body">
-                            <table id="datatablesSimple" class="datatable-table">
-                                <thead>
+                            <table class="table table-bordered table-hover">
+                                <thead class="table-light">
                                     <tr>
                                         <th>Username</th>
                                         <th>Product Name</th>
@@ -61,28 +58,32 @@ if (!isset($_SESSION['admin'])) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                        // Fetch categories from the database
-                                        $query = $connect->prepare(
-                                            "SELECT p.*, u.username
+                                        $query = $connect->prepare("
+                                            SELECT p.*, u.username
                                             FROM p2p_posts p
                                             INNER JOIN user u ON p.user_id = u.id
-                                            ORDER BY p.id DESC"
-                                        );
+                                            ORDER BY p.id DESC
+                                        ");
                                         $query->execute();
                                         $result = $query->get_result();
-                                        if(mysqli_num_rows($result) > 0):
-                                        while ($post = mysqli_fetch_assoc($result)):
+
+                                        if ($result->num_rows > 0):
+                                            while ($post = $result->fetch_assoc()):
+                                                $image = !empty($post['image']) ? "../admin/uploads/" . htmlspecialchars($post['image']) : "../images/default-product.png";
                                     ?>
                                     <tr>
-                                        <td><?=$post['username'];?></td>
-                                        <td><?=$post['title'];?></td>
-                                        <td><?=$post['description'];?></td>
-                                        <td><img src="../admin/uploads/<?= htmlspecialchars($post['image']); ?>" alt="<?= htmlspecialchars($post['title']); ?>" width="100"></td>
-                                        <td>$<?=$post['price'];?></td>
-                                        <td><?=$post['phone_number'];?></td>
+                                        <td class="text-truncate" style="max-width:200px;"><?= htmlspecialchars($post['username']); ?></td>
+                                        <td class="text-truncate" style="max-width:200px;"><?= htmlspecialchars($post['title']); ?></td>
+                                        <td class="text-truncate" style="max-width:200px;"><?= htmlspecialchars($post['description']); ?></td>
+                                        <td><img src="<?= $image; ?>" alt="<?= htmlspecialchars($post['title']); ?>" width="100"></td>
+                                        <td>$<?= number_format((float)$post['price'], 2); ?></td>
+                                        <td><?= htmlspecialchars($post['phone_number']); ?></td>
                                         <td>
-                                            <a href="action.php?delete_post=<?=$post['id'];?>" class="btn btn-danger">Delete</a>
-                                           
+                                            <a href="action.php?delete_post=<?= $post['id']; ?>" 
+                                               class="btn btn-danger btn-sm"
+                                               onclick="return confirm('Are you sure you want to delete this post?');">
+                                               Delete
+                                            </a>
                                         </td>                                
                                     </tr>
                                     <?php endwhile; else: ?>
@@ -95,11 +96,9 @@ if (!isset($_SESSION['admin'])) {
                         </div>
                     </div>
                 </main>
-                <?php include 'includes/footer.php'; ?>
-                <!-- Footer -->
+                <?php include_once 'includes/footer.php'; ?>
             </div>
         </div>
-       
     </div>
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>

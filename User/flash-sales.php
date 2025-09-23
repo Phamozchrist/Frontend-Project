@@ -61,16 +61,16 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
 </head>
 <body>
     <section class="categories-section">
-        <?php include "includes/navbar.php"; ?>
+        <?php include_once "includes/navbar.php"; ?>
         <!-- Top Navigition bar -->
 
-        <?php include "includes/rv-top-navbar.php"; ?>
+        <?php include_once "includes/rv-top-navbar.php"; ?>
         <!-- Rv Top Navigition bar -->
 
-        <?php include "includes/sidebar.php"; ?>
+        <?php include_once "includes/sidebar.php"; ?>
         <!-- Side Navigation bar -->
 
-        <?php include "includes/bottom-navbar.php"; ?>
+        <?php include_once "includes/bottom-navbar.php"; ?>
         <!-- Bottom Navigation bar -->
 
         <main>
@@ -91,7 +91,7 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
                    <div class="fss-item-container">
                         <?php if(mysqli_num_rows($product_query) > 0): ?>
                             <?php while($product = mysqli_fetch_assoc($product_query)): ?>
-                                <div class="fss-item">
+                                <div class="fss-item item" data-id="<?= $product['id']; ?>">
                                     <a href="product-details.php?product=<?= $product['id']; ?>&<?=$product['product_name']; ?>">
                                         <div class="fss-item-sale">
                                             <?php

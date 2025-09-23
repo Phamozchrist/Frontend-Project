@@ -11,17 +11,17 @@ if (!isset($_SESSION['admin'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="Fonts/css/all.min.css">
+    <link rel="stylesheet" href="fonts/css/all.min.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <title>Dashboard with various responsiveness</title>
 </head>
 <body class="sb-nav-fixed">
     <div class="container-fluid">
-        <?php include 'includes/navbar.php'; ?>
+        <?php include_once 'includes/navbar.php'; ?>
         <!-- Top navigation bar -->
 
-        <?php include 'includes/sidebar.php'; ?>
+        <?php include_once 'includes/sidebar.php'; ?>
         <!-- Sidebar navigation bar -->
 
         <div id="layoutSidenav">
@@ -81,7 +81,7 @@ if (!isset($_SESSION['admin'])) {
                                 </div>
                             </div>
                             <div class="card-body">
-                            <table id="datatablesSimple" class="datatable-table">
+                                <table id="datatablesSimple" class="datatable-table table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>Image</th>
@@ -93,27 +93,51 @@ if (!isset($_SESSION['admin'])) {
                                     </thead>
                                     <tbody>
                                         <?php
-                                            // Fetch posts from the database
-                                            $stmt = "SELECT p.*, c.category_name FROM products p INNER JOIN categories c ON c.id = p.product_category ORDER BY p.id DESC LIMIT 5";
-                                            $result = mysqli_query($connect, $stmt);
-                                            while ($product = mysqli_fetch_assoc($result)) {
+                                        $stmt = $connect->prepare("
+                                            SELECT p.id, p.product_name, p.product_details, p.product_image, p.created_on, c.category_name
+                                            FROM products p 
+                                            INNER JOIN categories c ON c.id = p.product_category 
+                                            ORDER BY p.id DESC 
+                                            LIMIT 5
+                                        ");
+                                        $stmt->execute();
+                                        $result = $stmt->get_result();
 
+                                        if ($result->num_rows > 0) {
+                                            while ($product = $result->fetch_assoc()) {
+                                                $productName   = htmlspecialchars(ucfirst($product['product_name']));
+                                                $productDetails = htmlspecialchars(ucfirst($product['product_details']));
+                                                $categoryName  = htmlspecialchars(ucfirst($product['category_name']));
+                                                $dateCreated   = date('Y/m/d', strtotime($product['created_on']));
+                                                $imagePath     = !empty($product['product_image']) 
+                                                                    ? "uploads/" . $product['product_image'] 
+                                                                    : "uploads/default-product.png";
+                                                ?>
+                                                <tr>
+                                                    <td>
+                                                        <img src="<?= $imagePath; ?>" 
+                                                            alt="Product Image" 
+                                                            width="120" 
+                                                            class="img-thumbnail">
+                                                    </td>
+                                                    <td><?= $productName; ?></td>
+                                                    <td class="text-truncate" style="max-width: 250px;"><?= $productDetails; ?></td>
+                                                    <td><?= $categoryName; ?></td>
+                                                    <td><?= $dateCreated; ?></td>
+                                                </tr>
+                                                <?php
+                                            }
+                                        } else {
+                                            echo "<tr><td colspan='5' class='text-center'>No products found</td></tr>";
+                                        }
                                         ?>
-                                       <tr>
-                                           <td><img src="uploads/<?=$product['product_image'];?>" alt="" width="150px"></td>
-                                            <td><?=ucfirst($product['product_name']);?></td>
-                                            <td><?=ucfirst($product['product_details']);?></td>
-                                            <td><?=ucfirst($product['category_name']);?></td>
-                                            <td><?=date('Y/m/d', strtotime($product['created_on']));?></td>
-                                        </tr>
-                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </main>
-                <?php include 'includes/footer.php'; ?>
+                <?php include_once 'includes/footer.php'; ?>
                 <!-- Footer -->
             </div>
         </div>        

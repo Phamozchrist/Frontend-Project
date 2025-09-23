@@ -57,17 +57,17 @@
                     <p class="msg-error"><?=$msg?></p>
                 <?php } ?>
                 <div>
-                    <label for="email">Firstname*</label>
+                    <label for="firstname">Firstname*</label>
                     <input type="text" name="firstname" id="firstname"  value="<?= htmlspecialchars($firstname);?>" class="<?= empty($firstnameErr) ? '' : 'is-invalid';?>">
                     <p class="firstname-err"><?=$firstnameErr;?></p>
                 </div>
                 <div>
-                    <label for="email">Lastname*</label>
+                    <label for="lastname">Lastname*</label>
                     <input type="text" name="lastname" id="lastname" value="<?= htmlspecialchars($lastname);?>" class="<?= empty($lastnameErr) ? '' : 'is-invalid';?>">  
                     <p class="lastname-err"><?=$lastnameErr;?></p>
                 </div>
                 <div>
-                    <label for="email">Username*</label>
+                    <label for="username">Username*</label>
                     <input type="text" name="username" id="username" value="<?= htmlspecialchars($username);?>" class="<?= empty($usernameErr) ? '' : 'is-invalid';?>">  
                     <p class="username-err"><?=$usernameErr;?></p>
                     <p>Username may only contain alphanumeric characters or single hyphens, and cannot begin or end with a hyphen.</p>

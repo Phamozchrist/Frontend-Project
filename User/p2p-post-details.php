@@ -58,16 +58,16 @@ if (isset($_GET['post']) && !empty($_GET['post'])) {
 </head>
 <body>
     <section class="categories-section">
-        <?php include "includes/navbar.php"; ?>
+        <?php include_once "includes/navbar.php"; ?>
         <!-- Top Navigition bar -->
 
-        <?php include "includes/sidebar.php"; ?>
+        <?php include_once "includes/sidebar.php"; ?>
         <!-- Side Navigation bar -->
 
-        <?php include "includes/rv-top-navbar.php"; ?>
+        <?php include_once "includes/rv-top-navbar.php"; ?>
         <!-- Rv Top Navigition bar -->
 
-        <?php include "includes/bottom-navbar.php"; ?>
+        <?php include_once "includes/bottom-navbar.php"; ?>
         <!-- Bottom Navigation bar -->
 
         <main>

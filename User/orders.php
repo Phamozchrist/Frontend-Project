@@ -7,22 +7,22 @@ if (!isset($_SESSION['user'])) {
         header("Location: ../login.php");
         exit();
     }
-};
-// Get Category ID from URL
-if (isset($_GET['category']) && !empty($_GET['category'])) {
-    $category_id = intval($_GET['category']); // Use intval for security
-    $stmt = "SELECT * FROM categories WHERE id = $category_id";
-    $result = mysqli_query($connect, $stmt);
-    if (mysqli_num_rows($result) > 0) {
-        $category = mysqli_fetch_assoc($result);
-    } else {
-        header("Location: index.php");
-        exit();
-    }
-    // Fetch products for this category
-    $product_sql = "SELECT * FROM products WHERE product_category = $category_id ORDER BY id DESC";
-    $product_query = mysqli_query($connect, $product_sql);
 }
+
+$oruserID = $_SESSION['user'];
+
+// Fetch orders for this user
+$orstmt = $connect->prepare(
+    "SELECT o.*, p.*, oi.*
+    FROM orders o
+    INNER JOIN order_items oi ON o.id = oi.order_id
+    INNER JOIN products p ON oi.product_id = p.id
+    WHERE o.user_id = ?
+    ORDER BY o.id DESC
+");
+$orstmt->bind_param('i', $oruserID);
+$orstmt->execute();
+$result = $orstmt->get_result();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,48 +58,44 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
             });
         })();
     </script>
-    <style>
-        
-    </style>
 </head>
 <body>
     <section class="orders-section">
-        <?php include "includes/navbar.php"; ?>
-        <!-- Top Navigition bar -->
-
-        <?php include "includes/rv-top-navbar.php"; ?>
-        <!-- Rv Top Navigition bar -->
-
-        <?php include "includes/sidebar.php"; ?>
-        <!-- Side Navigation bar -->
-
-        <?php include "includes/bottom-navbar.php"; ?>
-        <!-- Bottom Navigation bar -->
+        <?php include_once "includes/navbar.php"; ?>
+        <?php include_once "includes/rv-top-navbar.php"; ?>
+        <?php include_once "includes/sidebar.php"; ?>
+        <?php include_once "includes/bottom-navbar.php"; ?>
 
         <main class="orders-main">
             <div class="orders-container">
-                <p class="orders-heading">Orders</p>
-                <?php 
-                    $oruserID = $_SESSION['user'];
-                    $orstmt = $connect->prepare("SELECT o.*, p.* FROM orders o INNER JOIN products p ON o.user_id = p.id ORDER BY p.id DESC  WHERE o.id = ?");
-                    $orstmt->bind_param('i',$oruserID);
-                    $orstmt->execute();
-                    $result = $orstmt->get_result();
-                    if($result->num_rows > 0):
-                ?>
-                <div class="ordered-item"></div>
-                <?php else:?>
-                <div class="no-order">
-                    <i class="fa-solid fa-dolly"></i>
-                    <p>You have placed no orders yet!</p>
-                    <p>All order will be placed here for you to access anytime </p>
-                    <button><a href="index.php">Continue Shopping </a></button>
-                </div>
+                <p class="orders-heading">My Orders</p>
+
+                <?php if ($result->num_rows > 0): ?>
+                    <div class="ordered-items">
+                        <?php while ($row = $result->fetch_assoc()):?>
+                            <div class="ordered-item">
+                                <img src="../admin/uploads/<?= htmlspecialchars($row['product_image']); ?>" alt="<?= htmlspecialchars($row['product_name']); ?>" class="order-product-img">
+                                
+                                <div class="order-info">
+                                    <p class="order-name"><?= htmlspecialchars($row['product_name']); ?></p>
+                                    <p class="order-qty">Qty: <?= $row['qty']; ?></p>
+                                    <p class="order-status <?=$row['status']; ?>"><?=$row['status']; ?></p>
+                                    <p class="order-date">Placed on: <?= date("M j, Y g:i A", strtotime($row['created_at'])); ?></p>
+                                </div>
+                            </div>
+                        <?php endwhile; ?>
+                    </div>
+                <?php else: ?>
+                    <div class="no-order">
+                        <i class="fa-solid fa-dolly"></i>
+                        <p>You have placed no orders yet!</p>
+                        <p>All your orders will appear here once you place them.</p>
+                        <button><a href="index.php">Continue Shopping</a></button>
+                    </div>
                 <?php endif; ?>
             </div>
         </main>
     </section>
-
     <script src="../javascript/user.script.js"></script>
 </body>
 </html>

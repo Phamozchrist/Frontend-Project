@@ -14,11 +14,10 @@
     <div class="cart-container">
         <div class="cart navbar-cart-icon">
             <a href="cart.php"><i class="fa-solid fa-shopping-cart"></i></a>
-            <span class=".cart-count-badge"></span>
+            <span class="cart-count-badge"></span>
         </div>
         <div class="user-dp">
             <a href="profile.php"><img src="../admin/uploads/<?= $user['profile_pics'];?>" alt="Dp"></a>
         </div>
     </div>
-
 </header>

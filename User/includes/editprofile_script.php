@@ -7,20 +7,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_uinfo'])) {
     $username = trim($_POST['username'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $address = trim($_POST['address'] ?? '');
+    $phone_number = trim($_POST['phone_number'] ?? '');
+    $city = trim($_POST['city'] ?? '');
     $user_id = intval($_SESSION['user']); 
     $profile_image = isset($_FILES['profile_pics']['name']) ? $_FILES['profile_pics']['name'] : '';
     $profile_image_tmp = isset($_FILES['profile_pics']['tmp_name']) ? $_FILES['profile_pics']['tmp_name'] : '';
     $profile_image_size = isset($_FILES['profile_pics']['size']) ? $_FILES['profile_pics']['size'] : '';
-    $profile_image_error = isset($_FILES['profile_pics']['error']) ? $_FILES['profile_pics']['error'] :'';
-    $ext = strtolower(pathinfo($profile_image, PATHINFO_EXTENSION));
+    $profile_image_err = isset($_FILES['profile_pics']['error']) ? $_FILES['profile_pics']['error'] :'';
+    $profile_ext = strtolower(pathinfo($profile_image, PATHINFO_EXTENSION));
     $cover_image = isset($_FILES['cover_pics']['name']) ? $_FILES['cover_pics']['name'] : '';
     $cover_image_tmp = isset($_FILES['cover_pics']['tmp_name']) ? $_FILES['cover_pics']['tmp_name'] : '';
     $cover_image_size = isset($_FILES['cover_pics']['size']) ? $_FILES['cover_pics']['size'] : '';
-    $cover_image_error = isset($_FILES['cover_pics']['error']) ? $_FILES['cover_pics']['error'] : '';
+    $cover_image_err = isset($_FILES['cover_pics']['error']) ? $_FILES['cover_pics']['error'] : '';
     $cover_ext = strtolower(pathinfo($cover_image, PATHINFO_EXTENSION));
     $allowed_ext = ['jpg', 'jpeg', 'png'];
-    
-    
+
+    $valid_states = [
+        "Abia","Adamawa","Akwa Ibom","Anambra","Bauchi","Bayelsa","Benue",
+        "Borno","Cross River","Delta","Ebonyi","Edo","Ekiti","Enugu",
+        "FCT - Abuja","Gombe","Imo","Jigawa","Kaduna","Kano","Katsina",
+        "Kebbi","Kogi","Kwara","Lagos","Nasarawa","Niger","Ogun","Ondo",
+        "Osun","Oyo","Plateau","Rivers","Sokoto","Taraba","Yobe","Zamfara"
+    ];
+
     // ====== 1. VALIDATE INPUT ======
     if (!preg_match('/^[a-zA-Z]+$/', $firstname)) {
         $msg = '<div class="msg-error"><i class="fa-regular fa-circle-xmark"></i>Firstname can only contain letters </div>';
@@ -48,6 +57,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_uinfo'])) {
         $msg = '<div class="msg-error"><i class="fa-regular fa-circle-xmark"></i>Address cannot be empty </div>';
     }
 
+    if (empty($city) || !in_array($city, $valid_states)) {
+        $msg = '<div class="msg-error"><i class="fa-regular fa-circle-xmark"></i>Invalid city/state selected.</div>';
+    }
+    if (empty($phone_number) || !preg_match('/^\d{11}$/', $phone_number)) {
+        $msg = '<div class="msg-error"><i class="fa-regular fa-circle-xmark"></i>Phone number must be 11 digits (e.g., 08123456789) </div>';
+    }
+
     // ====== 2. FETCH OLD USER INFO ======
     $stmt = $connect->prepare("SELECT * FROM user WHERE id = ?");
     $stmt->bind_param("i", $user_id);
@@ -55,79 +71,67 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_uinfo'])) {
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
 
-    if (empty($firstname) || empty($lastname) || empty($username) || empty($email) || empty($address)) {
+    if (empty($firstname) || empty($lastname) || empty($username) || empty($email) || empty($address) || empty($phone_number) || empty($city)) {
         $msg = '<div class="msg-error"><i class="fa-regular fa-circle-xmark"></i>All fields are required </div>';
     }
-    if ($firstname == $user['firstname'] && $lastname == $user['lastname'] && $username == $user['username'] && $email == $user['email'] && $address == $user['address'] && $profile_image == $user['profile_pics'] && $cover_image == $user['cover_pics']) {
+    if ($firstname == $user['firstname'] && $lastname == $user['lastname'] && $username == $user['username'] && $email == $user['email'] && $address == $user['address'] && $profile_image == $user['profile_pics'] && $cover_image == $user['cover_pics'] && $phone_number == $user['phone_number'] && $city == $user['city']) {
         $msg = '<div class="msg-error"><i class="fa-regular fa-circle-xmark"></i>No changes made to user info </div>';
     }else{
         // Check if profile image or cover image is being uploaded
-        if (!empty($profile_image)) {
-            if (!in_array($ext, $allowed_ext)) {
-                $msg = "<div class='alert alert-danger'>Invalid file type. Only JPG, JPEG, and PNG are allowed</div>";
-            }elseif ($profile_image_error !== 0) {
-                $msg = "<div class='alert alert-danger'>Error uploading file</div>";
-            }else{
-                $target_dir = "../admin/uploads/";
-                $filename = rand(1000, 9999) . ".". $ext;
-                $profile_image = $filename;
-                $target_file = $target_dir . basename($profile_image);
-                move_uploaded_file($profile_image_tmp, $target_file);
-            }
-            $stmt = $connect->prepare(
-                "UPDATE user 
-                SET firstname = ?, lastname = ?, username = ?, email = ?, address = ?, profile_pics = ?, cover_pics = ?
-                WHERE id = ?"
-            );
-            $stmt->bind_param("sssssssi", $firstname, $lastname, $username, $email, $address, $profile_image, $cover_image, $user_id);
-        }elseif (!empty($cover_image)) {
-            if (!in_array($cover_ext, $allowed_ext)) {
-                $msg = "<div class='alert alert-danger'>Invalid file type. Only JPG, JPEG, and PNG are allowed</div>";
-            } elseif ($cover_image_error !== 0) {
-                $msg = "<div class='alert alert-danger'>Error uploading file</div>";
-            } else {
-                $target_dir = "../admin/uploads/";
-                $filename = rand(1000, 9999) . "." . $cover_ext;
-                $cover_image = $filename;
-                $target_file = $target_dir . basename($cover_image);
-                move_uploaded_file($cover_image_tmp, $target_file);
-            }
-            $stmt = $connect->prepare(
-                "UPDATE user 
-                SET firstname = ?, lastname = ?, username = ?, email = ?, address = ?, profile_pics = ?, cover_pics = ?
-                WHERE id = ?"
-            );
-            $stmt->bind_param("sssssssi", $firstname, $lastname, $username, $email, $address, $profile_image, $cover_image, $user_id);
-        } elseif (!empty($profile_image) && !empty($cover_image)) {
-            if (!in_array($ext, $allowed_ext) && !in_array($cover_ext, $allowed_ext)) {
-                $msg = "<div class='alert alert-danger'>Invalid file type. Only JPG, JPEG, and PNG are allowed</div>";
-            } elseif ($profile_image_error !== 0 && $cover_image_error !== 0) {
-                $msg = "<div class='alert alert-danger'>Error uploading file</div>";
-            } else {
-                $target_dir = "../admin/uploads/";
-                $profile_filename = rand(1000, 9999) . "." . $ext;
-                $cover_filename = rand(1000, 9999) . "." . $cover_ext;
-                move_uploaded_file($profile_image_tmp, $target_dir . basename($profile_filename));
-                move_uploaded_file($cover_image_tmp, $target_dir . basename($cover_filename));
-            }
-            $stmt = $connect->prepare(
-                "UPDATE user 
-                SET firstname = ?, lastname = ?, username = ?, email = ?, address = ?, profile_pics = ?, cover_pics = ?
-                WHERE id = ?"
-            );
-            $stmt->bind_param("sssssssi", $firstname, $lastname, $username, $email, $address, $profile_image, $cover_image, $user_id);
-        } else {
+        $target_dir = "../admin/uploads/";
+        $newProfileImage = $user['profile_pics']; // keep old by default
+        $newCoverImage   = $user['cover_pics'];   // keep old by default
 
-            $stmt = $connect->prepare(
-                "UPDATE user 
-                SET firstname = ?, lastname = ?, username = ?, email = ?, address = ?
-                WHERE id = ?"
-            );
-            $stmt->bind_param("sssssi", $firstname, $lastname, $username, $email, $address, $user_id);
+        // Profile image
+        if (!empty($profile_image)) {
+            if (!in_array($profile_ext, $allowed_ext)) {
+                $msg = "<div class='msg-error'>Invalid profile image type</div>";
+            } elseif ($profile_image_err === 0) {
+                // Delete old file (if not default and exists)
+                if (!empty($user['profile_pics']) && $user['profile_pics'] !== 'default-profile.png') {
+                    $oldPath = $target_dir . $user['profile_pics'];
+                    if (file_exists($oldPath)) {
+                        unlink($oldPath);
+                    }
+                }
+
+                // Save new file
+                $profile_filename = rand(1000, 9999) . "." . $profile_ext;
+                move_uploaded_file($profile_image_tmp, $target_dir . $profile_filename);
+                $newProfileImage = $profile_filename;
+            }
         }
-        
+
+        // Cover image
+        if (!empty($cover_image)) {
+            if (!in_array($cover_ext, $allowed_ext)) {
+                $msg = "<div class='msg-error'>Invalid cover image type</div>";
+            } elseif ($cover_image_err === 0) {
+                // Delete old file (if not default and exists)
+                if (!empty($user['cover_pics']) && $user['cover_pics'] !== 'default-profile.png') {
+                    $oldPath = $target_dir . $user['cover_pics'];
+                    if (file_exists($oldPath)) {
+                        unlink($oldPath);
+                    }
+                }
+
+                // Save new file
+                $cover_filename = rand(1000, 9999) . "." . $cover_ext;
+                move_uploaded_file($cover_image_tmp, $target_dir . $cover_filename);
+                $newCoverImage = $cover_filename;
+            }
+        }
+
+        // Run update query
+        $stmt = $connect->prepare(
+            "UPDATE user 
+            SET firstname = ?, lastname = ?, username = ?, email = ?, address = ?, profile_pics = ?, cover_pics = ?, phone_number = ?, city = ?
+            WHERE id = ?"
+        );
+        $stmt->bind_param("sssssssdsi", $firstname, $lastname, $username, $email, $address, $newProfileImage, $newCoverImage, $phone_number, $city, $user_id);
+
         if ($stmt->execute()) {
-            $msg = '<div class="msg-success"><i class="fa-regular fa-circle-xmark"></i>User Info updated successfully</div>';
+            $msg = '<div class="msg-success"><i class="fa-regular fa-circle-check"></i> User info updated successfully</div>';
         } else {
             $msg = '<div class="msg-error">Error updating user: ' . $stmt->error . '</div>';
         }

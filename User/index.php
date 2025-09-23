@@ -47,15 +47,15 @@ if (isset($_SESSION['user_id'])) {
 </head>
 <body>
     <section class="home-section">
-        <?php include "includes/navbar.php"; ?>
+        <?php include_once "includes/navbar.php"; ?>
         <!-- Top Navigition bar -->
-        <?php include "includes/rv-top-navbar.php"; ?>
+        <?php include_once "includes/rv-top-navbar.php"; ?>
         <!-- Rv Top Navigition bar -->
 
-        <?php include "includes/sidebar.php"; ?>
+        <?php include_once "includes/sidebar.php"; ?>
         <!-- Side Navigation bar -->
 
-        <?php include "includes/bottom-navbar.php"; ?>
+        <?php include_once "includes/bottom-navbar.php"; ?>
         <!-- Bottom Navigation bar -->
 
         <main>   
@@ -188,7 +188,7 @@ if (isset($_SESSION['user_id'])) {
                         ?>
                        
             
-                        <div class="tds-item">
+                        <div class="tds-item item" data-id="<?= $product['id']; ?>">
                             <a href="product-details.php?product=<?= $product['id']; ?>?<?= urlencode($product['product_name']); ?>">
                                 <div class="tds-item-sale">
                                     <?php if(isset($product['product_discount'])) { ?>
@@ -216,27 +216,28 @@ if (isset($_SESSION['user_id'])) {
             </div>
             <?php
             // 1️⃣ Get latest search word
+            $user_id = $_SESSION['user'];
             $stmt = $connect->prepare(
-                "SELECT word FROM lastsearch ORDER BY id DESC LIMIT 1"
+                "SELECT word FROM lastsearch  WHERE user_id = ? ORDER BY id DESC LIMIT 1"
             );
+            $stmt->bind_param("i", $user_id);
             $stmt->execute();
             $result = $stmt->get_result();
             $lastSearch = $result->fetch_assoc();
             $searchWord = $lastSearch ? $lastSearch['word'] : '';
+            if ($searchWord):
             ?>
             <div class="latest-search-section">
                 <div class="lss-container">
                     <div class="lss-heading">
                         <h2>Latest Search: "<?= htmlspecialchars($searchWord) ?>"</h2>
-                        <?php if ($searchWord): ?>
                             <p>
                                 <a href="search.php?search=<?= urlencode($searchWord) ?>">
                                     See all <i class="fa-solid fa-angle-right"></i>
                                 </a>
                             </p>
-                        <?php endif; ?>
-                    </div>
-
+                        </div>
+                        
                     <div class="lss-item-container">
                     <?php
                         if ($searchWord):
@@ -251,35 +252,36 @@ if (isset($_SESSION['user_id'])) {
                             )
                                 AND c.category_name != 'Flash Sales'
                                 AND c.category_name != 'Top Deals'  
-                                ORDER BY p.id DESC"
+                                ORDER BY p.id DESC LIMIT 4"
                             );
                             $likeSearch = "%" . $searchWord . "%";
                             $stmt->bind_param("ss", $likeSearch, $likeSearch);
                             $stmt->execute();
                             $productResult = $stmt->get_result();
-                        ?>
+                    ?>
                         <?php 
                             if (mysqli_num_rows($productResult)> 0):
                             while ($product = mysqli_fetch_assoc($productResult)): 
                         ?>
-                                    <div class="lss-item">
-                                        <a href="product-details.php?product=<?= $product['id']; ?>">
-                                            <div class="lss-item-sale">
-                                                <?php if(isset($product['product_discount'])) { ?>
-                                                <small class="lss-discount">-<small class='discount'><?=$product['product_discount'];?></small>%</small>
-                                                <?php } ?>
-                                                <img src="../admin/uploads/<?=$product['product_image'];?>" alt="">
-                                            </div>
-                                            <h3><?= ucfirst($product['product_name']); ?></h3>
-                                            <p class="discount-price"></p>
-                                            <p class="actual-price"><?= $product['product_price']; ?></p>
-                                        </a>
-                                    </div>
-                                <?php endwhile; ?>
-                            <?php endif;?>
+                        <div class="lss-item">
+                            <a href="product-details.php?product=<?= $product['id']; ?>">
+                                <div class="lss-item-sale">
+                                    <?php if(isset($product['product_discount'])) { ?>
+                                        <small class="lss-discount">-<small class='discount'><?=$product['product_discount'];?></small>%</small>
+                                    <?php } ?>
+                                    <img src="../admin/uploads/<?=$product['product_image'];?>" alt="">
+                                </div>
+                                <h3><?= ucfirst($product['product_name']); ?></h3>
+                                <p class="discount-price"></p>
+                                <p class="actual-price"><?= $product['product_price']; ?></p>
+                            </a>
+                        </div>
+                        <?php endwhile; ?>
+                        <?php endif;?>
                         <?php endif;?>
                     </div>
                 </div>
+                <?php endif; ?>
             </div>
 
         </main>

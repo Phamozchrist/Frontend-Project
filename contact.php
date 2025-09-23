@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style/style.css" />
     <link rel="shortcut icon" href="images/pc logo.png" type="image/x-icon" />
-    <link rel="stylesheet" href="Fonts/css/all.min.css" />
+    <link rel="stylesheet" href="fonts/css/all.min.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
@@ -14,10 +14,10 @@
   </head>
   <body>
     <!-- Navbar starts here -->
-    <?php include 'includes/navbar.php'; ?>
+    <?php include_once 'includes/navbar.php'; ?>
     <!-- Navbar ends here -->
     <!-- Loader starts here -->
-    <?php include 'includes/loader.php';?>
+    <?php include_once 'includes/loader.php';?>
     <!-- Loader ends here -->
     <!-- Progess bar starts here -->
     <div id="progress-circle">
@@ -48,7 +48,7 @@
     </div>
     <!-- Progress bar ends here -->
     <!-- Onscroll Header starts here -->
-    <?php include 'includes/onscrollnavbar.php'; ?>
+    <?php include_once 'includes/onscrollnavbar.php'; ?>
     <!-- Onscroll Header ends here -->
     <section class="main-wrapper">
       <div class="video-container">
@@ -93,7 +93,7 @@
       </section>
       <!-- Contact Us ends here -->
       <!-- Footer starts here -->
-      <?php include 'includes/footer.php'; ?>
+      <?php include_once 'includes/footer.php'; ?>
       <!-- Footer ends here -->
     </section>
 

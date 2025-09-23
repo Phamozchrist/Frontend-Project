@@ -78,43 +78,41 @@ if (isset($_POST['edit_category'])) {
 }
 
 // Add Product
-if(isset($_POST['add_product'])){
+if (isset($_POST['add_product'])) {
     $product_name = test_input($_POST['product_name']);
-    $product_price = test_input($_POST['product_price']);
-    $product_discount = test_input($_POST['product_discount']);
+    $product_price = floatval($_POST['product_price']);
+    $product_discount = !empty($_POST['product_discount']) ? floatval($_POST['product_discount']) : 0;
     $product_details = $_POST['product_details'];
-    $category = test_input($_POST['category']);
-    // Post Image
+    $category = intval($_POST['category']);
+
+    // Image
     $product_image = $_FILES['product_image']['name'];
     $product_image_tmp = $_FILES['product_image']['tmp_name'];
-    $product_image_size = $_FILES['product_image']['size'];
     $product_image_error = $_FILES['product_image']['error'];
     $ext = strtolower(pathinfo($product_image, PATHINFO_EXTENSION));
-    $allowed_ext = array('jpg', 'jpeg', 'png');
+    $allowed_ext = ['jpg', 'jpeg', 'png'];
 
-    if (empty($product_name) || empty($product_discount) || empty($product_details) || empty($category) || empty($product_image) || empty($product_price)) {
-        $msg = "<div class='alert alert-danger'>All fields are required</div>";
+    if (empty($product_name) || empty($product_price) || empty($product_details) || empty($category) || empty($product_image)) {
+        $msg = "<div class='alert alert-danger'>All required fields must be filled</div>";
     } elseif (!in_array($ext, $allowed_ext)) {
-        $msg = "<div class='alert alert-danger'>Invalid file type. Only JPG, JPEG, and PNG are allowed</div>";
+        $msg = "<div class='alert alert-danger'>Invalid file type. Only JPG, JPEG, PNG allowed</div>";
     } elseif ($product_image_error !== 0) {
         $msg = "<div class='alert alert-danger'>Error uploading file</div>";
-    } else{
-        // Move the uploaded file to the desired directory
+    } else {
         $target_dir = "uploads/";
-        $filename = rand(1000, 9999) . ".". $ext;
-        $product_image = $filename;
-        $target_file = $target_dir . basename($product_image);
+        $filename = uniqid("prod_", true) . "." . $ext;
+        $target_file = $target_dir . $filename;
+
         if (move_uploaded_file($product_image_tmp, $target_file)) {
-            // Insert product details into the database
-            $stmt = $connect ->prepare("INSERT INTO products (product_name, product_price, product_discount, product_details, product_image, product_category) VALUES ( ?,?,?,?,?,?)");
-            $stmt->bind_param("sdssss", $product_name, $product_price, $product_discount, $product_details, $product_image, $category,);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            // Check if the product was added successfully
-            if ($result) {
+            $stmt = $connect->prepare("INSERT INTO products 
+                (product_name, product_price, product_discount, product_details, product_image, product_category) 
+                VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("sddssi", $product_name, $product_price, $product_discount, $product_details, $filename, $category);
+            
+            if ($stmt->execute()) {
                 $msg = "<div class='alert alert-success'>Product added successfully</div>";
             } else {
-                $msg = "<div class='alert alert-danger'>Error adding product: " . mysqli_error($connect) . "</div>";
+                $msg = "<div class='alert alert-danger'>Error adding product: " . $stmt->error . "</div>";
             }
         } else {
             $msg = "<div class='alert alert-danger'>Error moving uploaded file</div>";
@@ -123,62 +121,82 @@ if(isset($_POST['add_product'])){
 }
 
 
+
 // Edit Product
 if (isset($_POST['edit_product'])) {
-    $product_name = test_input($_POST['product_name']);
-    $product_price = test_input($_POST['product_price']);
-    $product_discount = test_input($_POST['product_discount']);
-    $product_details = $_POST['product_details'];
-    $category = test_input($_POST['category']);
-    $product_id = (int)$_GET['edit'];
-    // Post Image
-    $product_image = $_FILES['product_image']['name'];
+    $product_name     = test_input($_POST['product_name']);
+    $product_price    = (float)test_input($_POST['product_price']);
+    $product_discount = (int)test_input($_POST['product_discount']);
+    $product_details  = $_POST['product_details'];
+    $category         = test_input($_POST['category']);
+    $product_id       = (int)$_GET['edit'];
+
+    // Image
+    $product_image     = $_FILES['product_image']['name'];
     $product_image_tmp = $_FILES['product_image']['tmp_name'];
-    $product_image_size = $_FILES['product_image']['size'];
-    $product_image_error = $_FILES['product_image']['error'];
-    $ext = strtolower(pathinfo($product_image, PATHINFO_EXTENSION));
-    $allowed_ext = array('jpg', 'jpeg', 'png');
+    $product_image_err = $_FILES['product_image']['error'];
+    $ext               = strtolower(pathinfo($product_image, PATHINFO_EXTENSION));
+    $allowed_ext       = ['jpg', 'jpeg', 'png'];
 
-    // Select Post and compare with the current post
-    $stmt = "SELECT * FROM products WHERE id=$product_id";
-    $result = mysqli_query($connect, $stmt);
-    $product = mysqli_fetch_assoc($result);
+    // Fetch current product
+    $stmt   = $connect->prepare("SELECT * FROM products WHERE id = ?");
+    $stmt->bind_param("i", $product_id);
+    $stmt->execute();
+    $result  = $stmt->get_result();
+    $product = $result->fetch_assoc();
+    $stmt->close();
 
-    if (empty($product_name) || empty($product_price) || empty($product_discount) || empty($product_details) || empty($category)) {
+    // Validation
+    if ($product_name === '' || $product_price === '' || $product_discount === '' || $product_details === '' || $category === '') {
         $msg = "<div class='alert alert-danger'>All fields are required</div>";
-    }elseif ($product_name == $product['product_name'] && $product_price == $product['product_price'] && $product_discount == $product['product_discount'] && $product_details == $product['product_details'] && $category == $product['product_category'] && empty($product_image)) {
+    } elseif (
+        $product_name == $product['product_name'] &&
+        $product_price == $product['product_price'] &&
+        $product_discount == $product['product_discount'] &&
+        $product_details == $product['product_details'] &&
+        $category == $product['product_category'] &&
+        empty($product_image)
+    ) {
         $msg = "<div class='alert alert-info'>No changes made to the product</div>";
-    }else{
-        // Move the uploaded file to the desired directory
+    } else {
+        // If new image uploaded
         if (!empty($product_image)) {
             if (!in_array($ext, $allowed_ext)) {
                 $msg = "<div class='alert alert-danger'>Invalid file type. Only JPG, JPEG, and PNG are allowed</div>";
-            }elseif ($product_image_error !== 0) {
+            } elseif ($product_image_err !== 0) {
                 $msg = "<div class='alert alert-danger'>Error uploading file</div>";
-            }else{
+            } else {
                 $target_dir = "uploads/";
-                $filename = rand(1000, 9999) . ".". $ext;
+                if (!empty($product['product_image']) && file_exists($target_dir . $product['product_image'])) {
+                    unlink($target_dir . $product['product_image']);
+                }
+                $filename = rand(1000, 9999) . "." . $ext;
+                move_uploaded_file($product_image_tmp, $target_dir . $filename);
                 $product_image = $filename;
-                $target_file = $target_dir . basename($product_image);
-                move_uploaded_file($product_image_tmp, $target_file);      
+
+                $stmt = $connect->prepare("UPDATE products 
+                    SET product_name=?, product_price=?, product_discount=?, product_details=?, product_image=?, product_category=? 
+                    WHERE id=?");
+                $stmt->bind_param("sddsssi", $product_name, $product_price, $product_discount, $product_details, $product_image, $category, $product_id);
             }
-               
-                // Update product details in the database
-                $stmt = $connect->prepare("UPDATE products SET product_name=?, product_price=?, product_discount=?, product_details=?, product_image=?, product_category=? WHERE id=?");
-                $stmt->bind_param("sdssssi", $product_name, $product_price, $product_discount, $product_details, $product_image, $category, $product_id);
         } else {
-            // Update product details in the database without changing the image
-            $stmt = $connect->prepare("UPDATE products SET product_name=?, product_price=?, product_discount=?, product_details=?, product_category=? WHERE id=?");
-            $stmt->bind_param("sdsssi", $product_name, $product_price, $product_discount, $product_details, $category, $product_id);
+            // Update without changing image
+            $stmt = $connect->prepare("UPDATE products 
+                SET product_name=?, product_price=?, product_discount=?, product_details=?, product_category=? 
+                WHERE id=?");
+            $stmt->bind_param("sddssi", $product_name, $product_price, $product_discount, $product_details, $category, $product_id);
         }
-        $result = $stmt->execute();
-        if ($result) {
+
+        if ($stmt->execute()) {
             $msg = "<div class='alert alert-success'>Product updated successfully</div>";
         } else {
-            $msg = "<div class='alert alert-danger'>Error updating post: " . mysqli_error($connect) . "</div>";
+            $msg = "<div class='alert alert-danger'>Error updating product: " . $stmt->error . "</div>";
         }
+        $stmt->close();
     }
 }
+
+
 
 // Add Admin
 if (isset($_POST['add_admin'])) {

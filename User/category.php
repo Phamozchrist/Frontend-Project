@@ -31,7 +31,7 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style/user.style.css">
-<link rel="stylesheet" href="../style/rv.user.style.css">
+    <link rel="stylesheet" href="../style/rv.user.style.css">
     <link rel="stylesheet" href="../fonts/css/all.min.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <title>Prefix - Categories - <?=ucfirst($category['category_name']);?></title>
@@ -62,10 +62,10 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
 </head>
 <body>
     <section class="categories-section">
-        <?php include "includes/navbar.php"; ?>
-        <?php include "includes/sidebar.php"; ?>
-        <?php include "includes/bottom-navbar.php"; ?>
-        <?php include "includes/rv-top-navbar.php"; ?>
+        <?php include_once "includes/navbar.php"; ?>
+        <?php include_once "includes/sidebar.php"; ?>
+        <?php include_once "includes/bottom-navbar.php"; ?>
+        <?php include_once "includes/rv-top-navbar.php"; ?>
         <!-- Rv Top Navigition bar -->
         <main>   
             <p class="r-nav">
@@ -84,7 +84,7 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
                     <div class="tds-item-container">
                         <?php if(mysqli_num_rows($product_query) > 0): ?>
                             <?php while($product = mysqli_fetch_assoc($product_query)): ?>
-                                <div class="tds-item">
+                                <div class="tds-item item" data-id="<?= $product['id']; ?>">
                                     <a href="product-details.php?product=<?= $product['id']; ?>?<?=$product['product_name']; ?>">
                                         <div class="tds-item-sale">
                                             <?php

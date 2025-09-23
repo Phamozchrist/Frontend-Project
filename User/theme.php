@@ -47,18 +47,18 @@ if (!isset($_SESSION['user'])) {
 </head>
 <body>
     <section class="settings-section theme-section">
-        <?php include "includes/navbar.php"; ?>
+        <?php include_once "includes/navbar.php"; ?>
         <!-- Top Navigition bar -->
 
-        <?php include "includes/rv-top-navbar.php"; ?>
+        <?php include_once "includes/rv-top-navbar.php"; ?>
         <!-- Rv Top Navigition bar -->
          
-        <?php include "includes/sidebar.php"; ?>
+        <?php include_once "includes/sidebar.php"; ?>
         <!-- Side Navigation bar -->
 
-        <?php include "includes/settings-sidebar.php"; ?>
+        <?php include_once "includes/settings-sidebar.php"; ?>
 
-        <?php include "includes/bottom-navbar.php"; ?>
+        <?php include_once "includes/bottom-navbar.php"; ?>
         <!-- Bottom Navigation bar -->
 
         <main class="main-settings">
@@ -68,7 +68,7 @@ if (!isset($_SESSION['user'])) {
                 <div class="theme-options">
                     <label for="theme">Select Theme</label>
                     <select name="theme" id="theme">
-                        <option value="light-theme">Light</option>
+                        <option value="light-theme" selected>Light</option>
                         <option value="dark-theme">Dark</option>
                         <option value="system-default-theme">System Default</option>
                     </select>

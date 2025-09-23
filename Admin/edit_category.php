@@ -23,17 +23,17 @@ if (isset($_GET['edit']) && !empty($_GET['edit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="Fonts/css/all.min.css">
+    <link rel="stylesheet" href="fonts/css/all.min.css">
     <link rel="shortcut icon" href="../images/pc logo.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <title>Dashboard - Edit Category</title>
 </head>
 <body class="sb-nav-fixed">
     <div class="container-fluid">
-        <?php include 'includes/navbar.php'; ?>
+        <?php include_once 'includes/navbar.php'; ?>
         <!-- Top navigation bar -->
 
-        <?php include 'includes/sidebar.php'; ?>
+        <?php include_once 'includes/sidebar.php'; ?>
         <!-- Sidebar navigation bar -->
         <div id="layoutSidenav">
             <div id="layoutSidenav_content">
@@ -65,7 +65,7 @@ if (isset($_GET['edit']) && !empty($_GET['edit'])) {
                         </div>
                     </div>
                 </main>
-                <?php include 'includes/footer.php'; ?>
+                <?php include_once 'includes/footer.php'; ?>
                 <!-- Footer -->
             </div>
         </div>

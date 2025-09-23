@@ -47,16 +47,16 @@ if (!isset($_SESSION['user'])) {
 </head>
 <body>
     <section class="categories-section">
-        <?php include "includes/navbar.php"; ?>
+        <?php include_once "includes/navbar.php"; ?>
         <!-- Top Navigition bar -->
 
-        <?php include "includes/rv-top-navbar.php"; ?>
+        <?php include_once "includes/rv-top-navbar.php"; ?>
         <!-- Rv Top Navigition bar -->
          
-        <?php include "includes/sidebar.php"; ?>
+        <?php include_once "includes/sidebar.php"; ?>
         <!-- Side Navigation bar -->
 
-        <?php include "includes/bottom-navbar.php"; ?>
+        <?php include_once "includes/bottom-navbar.php"; ?>
         <!-- Bottom Navigation bar -->
 
         <main>
@@ -82,7 +82,7 @@ if (!isset($_SESSION['user'])) {
                     </div>
                     <div class="item-container">
                         <?php while($product = mysqli_fetch_assoc($product_query)): ?>
-                        <div class="item">
+                        <div class="item" data-id="<?= $product['id']; ?>">
                             <a href="product-details.php?product=<?= $product['id']; ?>?<?=$product['product_name']; ?>">
                                 <div class="item-sale">
                                     <?php if(isset($product['product_discount'])): ?>
@@ -116,88 +116,5 @@ if (!isset($_SESSION['user'])) {
     </section>
 
     <script src="../javascript/user.script.js"></script>
-    <script>
-                // --- Add to Cart Logic for Categories Page ---
-        document.addEventListener("DOMContentLoaded", function () {
-        function getCart() {
-            return JSON.parse(localStorage.getItem("cart") || "{}");
-        }
-        function setCart(cart) {
-            localStorage.setItem("cart", JSON.stringify(cart));
-            updateCartBadge();
-        }
-        function updateCartBadge() {
-            let badge = document.querySelector(".cart-count-badge");
-            if (!badge) return;
-            let cart = getCart();
-            let totalCount = Object.values(cart).reduce((sum, item) => sum + item.qty, 0);
-            badge.textContent = totalCount > 0 ? totalCount : "";
-        }
-
-        // On page load, update cart badge
-        updateCartBadge();
-
-        document.querySelectorAll(".item").forEach(function (item) {
-            const addBtn = item.querySelector(".addToCart");
-            const incCart = item.querySelector(".inc-cart-count");
-            const minusBtn = incCart.querySelector("button:first-child");
-            const plusBtn = incCart.querySelector("button:last-child");
-            const countSpan = incCart.querySelector("span");
-
-            // Get product info
-            const prodName = item.querySelector("h3").textContent.trim();
-            const prodImg = item.querySelector("img").getAttribute("src");
-            const prodPrice = item.querySelector(".actual-price").textContent.trim();
-
-            // Load count from cart
-            let cart = getCart();
-            let qty = cart[prodName]?.qty || 0;
-            if (qty > 0) {
-            addBtn.style.display = "none";
-            incCart.style.display = "flex";
-            countSpan.textContent = qty;
-            } else {
-            addBtn.style.display = "block";
-            incCart.style.display = "none";
-            countSpan.textContent = "0";
-            }
-
-            addBtn.addEventListener("click", function () {
-            qty = 1;
-            addBtn.style.display = "none";
-            incCart.style.display = "flex";
-            countSpan.textContent = qty;
-            cart = getCart();
-            cart[prodName] = { qty, prodImg, prodPrice };
-            setCart(cart);
-            });
-
-            plusBtn.addEventListener("click", function () {
-            qty++;
-            countSpan.textContent = qty;
-            cart = getCart();
-            cart[prodName] = { qty, prodImg, prodPrice };
-            setCart(cart);
-            });
-
-            minusBtn.addEventListener("click", function () {
-            if (qty > 1) {
-                qty--;
-                countSpan.textContent = qty;
-                cart = getCart();
-                cart[prodName] = { qty, prodImg, prodPrice };
-                setCart(cart);
-            } else {
-                qty = 0;
-                addBtn.style.display = "block";
-                incCart.style.display = "none";
-                cart = getCart();
-                delete cart[prodName];
-                setCart(cart);
-            }
-            });
-        });
-        });
-    </script>
 </body>
 </html>

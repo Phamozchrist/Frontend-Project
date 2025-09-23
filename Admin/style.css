@@ -384,6 +384,7 @@ button,
 [type=reset],
 [type=submit] {
   -webkit-appearance: button;
+  appearance: button;
 }
 button:not(:disabled),
 [type=button]:not(:disabled),
@@ -441,6 +442,7 @@ legend + * {
 
 [type=search] {
   outline-offset: -2px;
+  appearance: textfield;
   -webkit-appearance: textfield;
 }
 
@@ -462,6 +464,7 @@ legend + * {
 
 ::file-selector-button {
   font: inherit;
+  appearance: button;
   -webkit-appearance: button;
 }
 
@@ -10869,6 +10872,7 @@ body {
   z-index: 1038;
   transform: translateX(-225px);
 }
+/* Sidebar + Content Layout */
 #layoutSidenav #layoutSidenav_content {
   position: relative;
   display: flex;
@@ -10877,12 +10881,20 @@ body {
   min-width: 0;
   flex-grow: 1;
   min-height: calc(100vh - 56px);
-  margin-left: -225px;
+  margin-left: 225px; /* Sidebar visible by default */
+  transition: margin-left 0.3s ease-in-out;
 }
 
+/* When toggled: sidebar hidden */
 .sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav {
-  transform: translateX(0);
+  transform: translateX(-225px);
 }
+
+.sb-sidenav-toggled #layoutSidenav #layoutSidenav_content {
+  margin-left: 0;
+}
+
+/* Overlay effect for mobile */
 .sb-sidenav-toggled #layoutSidenav #layoutSidenav_content:before {
   content: "";
   display: block;
@@ -10896,6 +10908,7 @@ body {
   opacity: 0.5;
   transition: opacity 0.3s ease-in-out;
 }
+
 
 @media (min-width: 992px) {
   #layoutSidenav #layoutSidenav_nav {

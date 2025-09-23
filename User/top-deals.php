@@ -62,11 +62,11 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
 </head>
 <body>
     <section class="categories-section">
-        <?php include "includes/navbar.php"; ?>
-        <?php include "includes/sidebar.php"; ?>
-        <?php include "includes/rv-top-navbar.php"; ?>
+        <?php include_once "includes/navbar.php"; ?>
+        <?php include_once "includes/sidebar.php"; ?>
+        <?php include_once "includes/rv-top-navbar.php"; ?>
         <!-- Rv Top Navigition bar -->
-        <?php include "includes/bottom-navbar.php"; ?>
+        <?php include_once "includes/bottom-navbar.php"; ?>
         <!-- Bottom Navigation bar -->
         <main>   
             <p class="r-nav">
@@ -84,7 +84,7 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
                     <div class="tds-item-container">
                         <?php if(mysqli_num_rows($product_query) > 0): ?>
                             <?php while($product = mysqli_fetch_assoc($product_query)): ?>
-                                <div class="tds-item">
+                                <div class="tds-item item" data-id="<?= $product['id']; ?>">
                                     <a href="product-details.php?product=<?= $product['id']; ?>?<?=$product['product_name']; ?>">
                                         <div class="tds-item-sale">
                                             <?php
@@ -99,10 +99,10 @@ if (isset($_GET['category']) && !empty($_GET['category'])) {
                                         <p class="actual-price"><?=$product['product_price'];?></p>
                                     </a>
                                     <div class="addToCart-container">
-                                        <button id="addToCart">Add to cart</button>
+                                        <button class="addToCart">Add to cart</button>
                                         <div class="inc-cart-count">
                                             <button><i class="fa-solid fa-minus"></i></button>
-                                            <span>1</span>
+                                            <span>0</span>
                                             <button><i class="fa-solid fa-plus"></i></button>
                                         </div>
                                     </div>
